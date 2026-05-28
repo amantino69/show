@@ -1,0 +1,1258 @@
+[
+  {
+    "file": "arche_onboarding_v2.xlsx",
+    "sheets": [
+      {
+        "headers": [],
+        "header_row": null,
+        "sections": [],
+        "form_fields": [
+          {
+            "label": "Segmento",
+            "value": "Artista / Modelo / Influenciador",
+            "row": 8
+          },
+          {
+            "label": "Nicho específico",
+            "value": "Ex: música sertaneja, moda plus size, lifestyle fitness...",
+            "row": 9
+          },
+          {
+            "label": "Instagram",
+            "value": "@",
+            "row": 11
+          },
+          {
+            "label": "TikTok",
+            "value": "@",
+            "row": 12
+          },
+          {
+            "label": "YouTube",
+            "value": "Link",
+            "row": 13
+          },
+          {
+            "label": "LinkedIn",
+            "value": "Link",
+            "row": 14
+          },
+          {
+            "label": "Tipo de serviço contratado",
+            "value": "Consultoria / Assessoria",
+            "row": 19
+          },
+          {
+            "label": "Já teve assessoria ou consultoria antes?",
+            "value": "Sim / Não — Se sim, o que funcionou e o que não funcionou?",
+            "row": 27
+          },
+          {
+            "label": "Frequência atual de postagem",
+            "value": "Ex: 3x por semana, diário, sem frequência definida",
+            "row": 34
+          },
+          {
+            "label": "Tipo de conteúdo mais publicado",
+            "value": "Ex: bastidores, trabalhos, lifestyle, opinião...",
+            "row": 35
+          },
+          {
+            "label": "Tem identidade visual definida?",
+            "value": "Sim / Não — Se sim, quem criou?",
+            "row": 36
+          },
+          {
+            "label": "Tem linha editorial definida?",
+            "value": "Sim / Não",
+            "row": 37
+          },
+          {
+            "label": "Usa alguma ferramenta de agendamento?",
+            "value": "Sim / Não — Qual?",
+            "row": 38
+          },
+          {
+            "label": "Tem fotógrafo/videomaker fixo?",
+            "value": "Sim / Não — Quem?",
+            "row": 39
+          },
+          {
+            "label": "Qual público quer atingir?",
+            "value": "Descreva a persona: idade, perfil, valores...",
+            "row": 49
+          },
+          {
+            "label": "Estilo visual que gosta",
+            "value": "Ex: clean, colorido, dark, editorial, natural...",
+            "row": 57
+          },
+          {
+            "label": "Tom de comunicação admirado",
+            "value": "Ex: descontraído, sofisticado, provocador, inspiracional...",
+            "row": 58
+          },
+          {
+            "label": "Parcerias / publis já existentes",
+            "value": "Marcas, contratos ativos...",
+            "row": 63
+          },
+          {
+            "label": "Tipos de parceria que tem interesse",
+            "value": "Ex: moda, beleza, turismo, alimentação...",
+            "row": 65
+          },
+          {
+            "label": "Como monetiza hoje?",
+            "value": "Ex: publi, shows, eventos, cachê, venda de conteúdo...",
+            "row": 67
+          },
+          {
+            "label": "Tem agente ou manager?",
+            "value": "Sim / Não — Quem?",
+            "row": 69
+          },
+          {
+            "label": "Tem CNPJ / MEI?",
+            "value": "Sim / Não",
+            "row": 70
+          },
+          {
+            "label": "Disponibilidade para reuniões semanais",
+            "value": "Ex: segunda à tarde, sexta de manhã...",
+            "row": 82
+          },
+          {
+            "label": "Ferramentas que já usa",
+            "value": "Ex: Notion, Trello, Google Drive, CapCut...",
+            "row": 84
+          },
+          {
+            "label": "Tem equipe própria de apoio?",
+            "value": "Sim / Não — Quem? (social media, assessor, etc.)",
+            "row": 85
+          },
+          {
+            "label": "Tem orçamento para investimento em conteúdo?",
+            "value": "Ex: fotógrafo, edição, ads...",
+            "row": 86
+          },
+          {
+            "label": "Tem disponibilidade para criar conteúdo?",
+            "value": "Sim / Não — Quantos dias por semana?",
+            "row": 87
+          },
+          {
+            "label": "Prefere reuniões por?",
+            "value": "Google Meet / Zoom / WhatsApp / Presencial",
+            "row": 88
+          }
+        ],
+        "form_field_count": 28,
+        "data_row_count": 0,
+        "data_sample": [],
+        "total_nonempty_rows": 79,
+        "name": "Formulário Onboarding",
+        "max_row": null
+      },
+      {
+        "headers": [
+          "✓",
+          "TAREFA",
+          "RESPONSÁVEL",
+          "PRAZO",
+          "STATUS",
+          "OBSERVAÇÃO"
+        ],
+        "header_row": 5,
+        "sections": [],
+        "form_fields": [],
+        "form_field_count": 0,
+        "data_row_count": 36,
+        "data_sample": [
+          {
+            "row": 7,
+            "values": [
+              "☐",
+              "Lead registrado no CRM com todos os dados",
+              "Júlia Maria",
+              "",
+              "",
+              ""
+            ]
+          },
+          {
+            "row": 8,
+            "values": [
+              "☐",
+              "1ª conversa realizada e diagnóstico documentado",
+              "Júlia Maria",
+              "",
+              "",
+              ""
+            ]
+          },
+          {
+            "row": 9,
+            "values": [
+              "☐",
+              "Reunião de diagnóstico marcada (ou descartada)",
+              "Júlia Maria",
+              "",
+              "",
+              ""
+            ]
+          },
+          {
+            "row": 10,
+            "values": [
+              "☐",
+              "Proposta enviada (valor, escopo, prazo)",
+              "Júlia Maria",
+              "",
+              "",
+              ""
+            ]
+          },
+          {
+            "row": 11,
+            "values": [
+              "☐",
+              "Contrato enviado para assinatura",
+              "Júlia Maria",
+              "",
+              "",
+              ""
+            ]
+          }
+        ],
+        "total_nonempty_rows": 45,
+        "name": "Checklist Onboarding",
+        "max_row": null
+      },
+      {
+        "headers": [],
+        "header_row": null,
+        "sections": [],
+        "form_fields": [
+          {
+            "label": "CANAL",
+            "value": "SEGUIDORES / ALCANCE",
+            "row": 5
+          }
+        ],
+        "form_field_count": 1,
+        "data_row_count": 0,
+        "data_sample": [],
+        "total_nonempty_rows": 16,
+        "name": "Presença Digital",
+        "max_row": null
+      },
+      {
+        "headers": [],
+        "header_row": null,
+        "sections": [],
+        "form_fields": [
+          {
+            "label": "DATA",
+            "value": "TIPO DE REUNIÃO",
+            "row": 5
+          }
+        ],
+        "form_field_count": 1,
+        "data_row_count": 0,
+        "data_sample": [],
+        "total_nonempty_rows": 3,
+        "name": "Histórico de Reuniões",
+        "max_row": null
+      }
+    ]
+  },
+  {
+    "file": "arche_organizacional_v2.xlsx",
+    "sheets": [
+      {
+        "headers": [
+          "#",
+          "NOME / PERFIL",
+          "INSTAGRAM / TIK TOK",
+          "SEGMENTO",
+          "TIPO DE SERVIÇO",
+          "ORIGEM DO LEAD",
+          "DATA 1º CONTATO",
+          "DATA DIAGNÓSTICO",
+          "STATUS DO LEAD",
+          "FECHOU?",
+          "VALOR (R$)",
+          "MOTIVO NÃO FECHOU",
+          "PRÓXIMA AÇÃO"
+        ],
+        "header_row": 6,
+        "sections": [],
+        "form_fields": [],
+        "form_field_count": 0,
+        "data_row_count": 0,
+        "data_sample": [],
+        "total_nonempty_rows": 53,
+        "name": "CRM - Pipeline",
+        "max_row": null
+      },
+      {
+        "headers": [
+          "#",
+          "CLIENTE / PERFIL",
+          "SEGMENTO",
+          "TIPO DE SERVIÇO",
+          "INÍCIO DO PROJETO",
+          "MÊS ATUAL",
+          "FASE ATUAL",
+          "STATUS PAGTO.",
+          "VENCIMENTO PAGTO.",
+          "VALOR MENSAL (R$)",
+          "RESP. ESTRATÉGICO",
+          "RESP. OPERACIONAL",
+          "OBSERVAÇÕES / PRÓX. REUNIÃO"
+        ],
+        "header_row": 6,
+        "sections": [],
+        "form_fields": [],
+        "form_field_count": 0,
+        "data_row_count": 0,
+        "data_sample": [],
+        "total_nonempty_rows": 53,
+        "name": "Clientes Ativos",
+        "max_row": null
+      },
+      {
+        "headers": [
+          "CLIENTE",
+          "SERVIÇO",
+          "VALOR (R$)",
+          "VENCIMENTO",
+          "STATUS PAGTO.",
+          "COMPROVANTE / OBS."
+        ],
+        "header_row": 6,
+        "sections": [],
+        "form_fields": [],
+        "form_field_count": 0,
+        "data_row_count": 0,
+        "data_sample": [],
+        "total_nonempty_rows": 3,
+        "name": "Financeiro",
+        "max_row": null
+      },
+      {
+        "headers": [
+          "2",
+          "1ª conversa: diagnóstico do cliente, histórico,\npresença digital, dores e metas",
+          "Júlia Maria",
+          "Diagnóstico documentado · Reunião marcada ou não",
+          "Ambos"
+        ],
+        "header_row": 7,
+        "sections": [],
+        "form_fields": [
+          {
+            "label": "ETG.",
+            "value": "DESCRIÇÃO DA ETAPA",
+            "row": 5
+          }
+        ],
+        "form_field_count": 1,
+        "data_row_count": 9,
+        "data_sample": [
+          {
+            "row": 8,
+            "values": [
+              "3",
+              "Fechamento: envio de contrato + acompanhamento\nde pagamento",
+              "Júlia Maria",
+              "Contrato assinado · Pagamento confirmado",
+              "Ambos"
+            ]
+          },
+          {
+            "row": 9,
+            "values": [
+              "4",
+              "Se não fechou: registrar motivo no CRM",
+              "Júlia Maria",
+              "Campo 'Motivo não fechou' preenchido",
+              "Ambos"
+            ]
+          },
+          {
+            "row": 10,
+            "values": [
+              "5",
+              "Pagamento confirmado: criar grupo oficial\nde trabalho com Júlia Maria e Julia Viana",
+              "Júlia Maria",
+              "Grupo criado · Cliente adicionado",
+              "Ambos"
+            ]
+          },
+          {
+            "row": 11,
+            "values": [
+              "6",
+              "Levantar: histórico, presença digital, metas,\nreferências, parcerias existentes e dores centrais\nPreencher planilha/Trello de onboarding",
+              "Julia Viana",
+              "Onboarding preenchido na íntegra",
+              "Ambos"
+            ]
+          },
+          {
+            "row": 12,
+            "values": [
+              "7",
+              "Marcar 1ª reunião oficial de imersão",
+              "Júlia Maria",
+              "Data confirmada com o cliente",
+              "Ambos"
+            ]
+          }
+        ],
+        "total_nonempty_rows": 14,
+        "name": "Fluxo Operacional",
+        "max_row": null
+      },
+      {
+        "headers": [],
+        "header_row": null,
+        "sections": [],
+        "form_fields": [
+          {
+            "label": "MEMBRO",
+            "value": "PAPEL",
+            "row": 4
+          },
+          {
+            "label": "Júlia Maria",
+            "value": "Liderança Estratégica",
+            "row": 5
+          },
+          {
+            "label": "Julia Viana",
+            "value": "Liderança Operacional",
+            "row": 6
+          },
+          {
+            "label": "Rogler",
+            "value": "Design & Material Final",
+            "row": 7
+          }
+        ],
+        "form_field_count": 4,
+        "data_row_count": 0,
+        "data_sample": [],
+        "total_nonempty_rows": 5,
+        "name": "Equipe",
+        "max_row": null
+      },
+      {
+        "headers": [],
+        "header_row": null,
+        "sections": [],
+        "form_fields": [
+          {
+            "label": "CRITÉRIO",
+            "value": "CONSULTORIA",
+            "row": 4
+          },
+          {
+            "label": "Para quem é?",
+            "value": "Artistas, modelos e influenciadores que\nainda NÃO têm marca pessoal estruturada",
+            "row": 5
+          },
+          {
+            "label": "Ponto de partida",
+            "value": "Do zero: identidade, posicionamento,\nvoz, visual e estratégia",
+            "row": 6
+          },
+          {
+            "label": "Escopo principal",
+            "value": "Branding → Posicionamento → Calendário\nEditorial → Acompanhamento semanal",
+            "row": 8
+          },
+          {
+            "label": "Relatório estratégico",
+            "value": "Sim — produzido pela Júlia Maria\na cada reunião",
+            "row": 9
+          },
+          {
+            "label": "Calendário editorial",
+            "value": "Criado e gerenciado pela equipe",
+            "row": 10
+          },
+          {
+            "label": "Duração típica",
+            "value": "Mínimo 3 meses (processo de construção)",
+            "row": 11
+          },
+          {
+            "label": "Quem cuida do operacional",
+            "value": "Julia Viana",
+            "row": 12
+          },
+          {
+            "label": "Quem lidera a estratégia",
+            "value": "Júlia Maria",
+            "row": 13
+          },
+          {
+            "label": "Material gráfico (Rogler)",
+            "value": "Sim — identidade visual e peças",
+            "row": 14
+          }
+        ],
+        "form_field_count": 10,
+        "data_row_count": 0,
+        "data_sample": [],
+        "total_nonempty_rows": 12,
+        "name": "Consultoria x Assessoria",
+        "max_row": null
+      }
+    ]
+  },
+  {
+    "file": "VIEZES - Onboarding P7.xlsx",
+    "sheets": [
+      {
+        "headers": [
+          "ETAPA ATUAL",
+          "PROGRESSO GERAL",
+          "TAREFAS CONCLUÍDAS",
+          "PENDÊNCIAS"
+        ],
+        "header_row": 6,
+        "sections": [],
+        "form_fields": [],
+        "form_field_count": 0,
+        "data_row_count": 18,
+        "data_sample": [
+          {
+            "row": 7,
+            "values": [
+              "",
+              "Em andamento",
+              "",
+              "0.3555555556",
+              "",
+              "16",
+              "",
+              "19",
+              ""
+            ]
+          },
+          {
+            "row": 8,
+            "values": [
+              "",
+              "Atualizado pelo Checklist",
+              "",
+              "Atualizado pelo Checklist",
+              "",
+              "Atualizado pelo Checklist",
+              "",
+              "Atualizado pelo Checklist",
+              ""
+            ]
+          },
+          {
+            "row": 11,
+            "values": [
+              "",
+              "MÓDULO",
+              "",
+              "RESPONSÁVEL",
+              "",
+              "STATUS",
+              "",
+              "% COMPLETO",
+              "",
+              "OBS."
+            ]
+          },
+          {
+            "row": 12,
+            "values": [
+              "",
+              "Perfil & Posicionamento",
+              "",
+              "Julia Viana",
+              "",
+              "Em andamento",
+              "",
+              "",
+              "",
+              ""
+            ]
+          },
+          {
+            "row": 13,
+            "values": [
+              "",
+              "Contrato & Docs",
+              "",
+              "Julia Viana",
+              "",
+              "Concluido",
+              "",
+              "",
+              "",
+              ""
+            ]
+          }
+        ],
+        "total_nonempty_rows": 25,
+        "name": "Dashboard",
+        "max_row": null
+      },
+      {
+        "headers": [
+          "#",
+          "STATUS",
+          "TAREFA",
+          "RESPONSÁVEL",
+          "PRAZO",
+          "CONCLUÍDO EM",
+          "OBS."
+        ],
+        "header_row": 4,
+        "sections": [],
+        "form_fields": [],
+        "form_field_count": 0,
+        "data_row_count": 38,
+        "data_sample": [
+          {
+            "row": 6,
+            "values": [
+              "",
+              "1",
+              "Concluido",
+              "Lead qualificado e aprovado por Julia Viana",
+              "Julia Viana",
+              "",
+              "",
+              ""
+            ]
+          },
+          {
+            "row": 7,
+            "values": [
+              "",
+              "2",
+              "Concluido",
+              "Reunião de descoberta realizada com Julia Maria",
+              "Julia Maria",
+              "",
+              "",
+              ""
+            ]
+          },
+          {
+            "row": 8,
+            "values": [
+              "",
+              "3",
+              "Concluido",
+              "Formato e condições de assessoria definidos",
+              "Julia Maria",
+              "",
+              "",
+              ""
+            ]
+          },
+          {
+            "row": 9,
+            "values": [
+              "",
+              "4",
+              "Concluido",
+              "Proposta enviada e aceita pelo assessorado",
+              "Julia Viana",
+              "",
+              "",
+              ""
+            ]
+          },
+          {
+            "row": 11,
+            "values": [
+              "",
+              "5",
+              "Pendente",
+              "Contrato gerado conforme condições acordadas",
+              "Julia Viana",
+              "",
+              "",
+              ""
+            ]
+          }
+        ],
+        "total_nonempty_rows": 49,
+        "name": "Checklist",
+        "max_row": null
+      },
+      {
+        "headers": [],
+        "header_row": null,
+        "sections": [],
+        "form_fields": [],
+        "form_field_count": 0,
+        "data_row_count": 0,
+        "data_sample": [],
+        "total_nonempty_rows": 33,
+        "name": "Perfil",
+        "max_row": null
+      },
+      {
+        "headers": [
+          "#",
+          "STATUS",
+          "DOCUMENTO",
+          "RECEBIDO?",
+          "DATA",
+          "OBS."
+        ],
+        "header_row": 18,
+        "sections": [],
+        "form_fields": [],
+        "form_field_count": 0,
+        "data_row_count": 9,
+        "data_sample": [
+          {
+            "row": 19,
+            "values": [
+              "",
+              "1",
+              "Pendente",
+              "Contrato assinado (PDF)",
+              "",
+              "",
+              ""
+            ]
+          },
+          {
+            "row": 20,
+            "values": [
+              "",
+              "2",
+              "Pendente",
+              "RG ou CNH (frente e verso)",
+              "",
+              "",
+              ""
+            ]
+          },
+          {
+            "row": 21,
+            "values": [
+              "",
+              "3",
+              "Pendente",
+              "CPF",
+              "",
+              "",
+              ""
+            ]
+          },
+          {
+            "row": 22,
+            "values": [
+              "",
+              "4",
+              "Pendente",
+              "Comprovante de residência",
+              "",
+              "",
+              ""
+            ]
+          },
+          {
+            "row": 23,
+            "values": [
+              "",
+              "5",
+              "Pendente",
+              "Contrato social (se PJ)",
+              "",
+              "",
+              ""
+            ]
+          }
+        ],
+        "total_nonempty_rows": 26,
+        "name": "Contrato",
+        "max_row": null
+      },
+      {
+        "headers": [
+          "#",
+          "STATUS",
+          "MATERIAL",
+          "RESPONSÁVEL",
+          "DATA ENTREGA"
+        ],
+        "header_row": 38,
+        "sections": [],
+        "form_fields": [],
+        "form_field_count": 0,
+        "data_row_count": 7,
+        "data_sample": [
+          {
+            "row": 39,
+            "values": [
+              "",
+              "1",
+              "Pendente",
+              "Mídia kit completo (PDF)",
+              "Rogler",
+              ""
+            ]
+          },
+          {
+            "row": 40,
+            "values": [
+              "",
+              "2",
+              "Pendente",
+              "Fotos profissionais para mídia kit",
+              "Assessorado",
+              ""
+            ]
+          },
+          {
+            "row": 41,
+            "values": [
+              "",
+              "3",
+              "Pendente",
+              "Logo ou marca pessoal",
+              "Assessorado",
+              ""
+            ]
+          },
+          {
+            "row": 42,
+            "values": [
+              "",
+              "4",
+              "Pendente",
+              "Kit de stories / templates",
+              "Rogler",
+              ""
+            ]
+          },
+          {
+            "row": 43,
+            "values": [
+              "",
+              "5",
+              "Pendente",
+              "Apresentação de marca (pitch deck)",
+              "Julia Viana",
+              ""
+            ]
+          }
+        ],
+        "total_nonempty_rows": 32,
+        "name": "MidiaKit",
+        "max_row": null
+      },
+      {
+        "headers": [
+          "MARCA",
+          "SEGMENTO",
+          "MOTIVO / AFINIDADE",
+          "CONTATO CONHECIDO?",
+          "STATUS",
+          "PRIORIDADE",
+          "VALOR ESTIMADO (R$)",
+          "OBS."
+        ],
+        "header_row": 5,
+        "sections": [],
+        "form_fields": [],
+        "form_field_count": 0,
+        "data_row_count": 2,
+        "data_sample": [
+          {
+            "row": 18,
+            "values": [
+              "",
+              "MARCA",
+              "SEGMENTO",
+              "ANO/PERÍODO",
+              "FORMATO",
+              "VALOR RECEBIDO (R$)",
+              "GEROU RENOVAÇÃO?",
+              "CONTATO NA MARCA",
+              "OBS."
+            ]
+          },
+          {
+            "row": 36,
+            "values": [
+              "",
+              "PERÍODO",
+              "META",
+              "INDICADOR",
+              "META NUMÉRICA",
+              "ATUAL",
+              "PRAZO",
+              "STATUS",
+              "OBS."
+            ]
+          }
+        ],
+        "total_nonempty_rows": 29,
+        "name": "Marcas",
+        "max_row": null
+      },
+      {
+        "headers": [
+          "FERRAMENTA/PLATAFORMA",
+          "USUÁRIO / E-MAIL",
+          "SENHA/ACESSO",
+          "COMPARTILHADO COM",
+          "STATUS",
+          "DATA",
+          "OBS."
+        ],
+        "header_row": 5,
+        "sections": [],
+        "form_fields": [],
+        "form_field_count": 0,
+        "data_row_count": 1,
+        "data_sample": [
+          {
+            "row": 19,
+            "values": [
+              "",
+              "DIA DA SEMANA",
+              "DISPONÍVEL?",
+              "HORÁRIO INÍCIO",
+              "HORÁRIO FIM",
+              "GRAVAÇÕES?",
+              "EVENTOS/VIAGENS",
+              "OBSERVAÇÃO",
+              ""
+            ]
+          }
+        ],
+        "total_nonempty_rows": 25,
+        "name": "Acessos",
+        "max_row": null
+      },
+      {
+        "headers": [
+          "#",
+          "META",
+          "INDICADOR",
+          "VALOR ALVO",
+          "PRAZO",
+          "RESPONSÁVEL",
+          "STATUS",
+          "OBS."
+        ],
+        "header_row": 24,
+        "sections": [],
+        "form_fields": [],
+        "form_field_count": 0,
+        "data_row_count": 0,
+        "data_sample": [],
+        "total_nonempty_rows": 30,
+        "name": "Reuniao",
+        "max_row": null
+      }
+    ]
+  },
+  {
+    "file": "Viezes Assessoria - Painel Operacional.xlsx",
+    "sheets": [
+      {
+        "headers": [],
+        "header_row": null,
+        "sections": [],
+        "form_fields": [],
+        "form_field_count": 0,
+        "data_row_count": 0,
+        "data_sample": [],
+        "total_nonempty_rows": 14,
+        "name": "Dashboard",
+        "max_row": null
+      },
+      {
+        "headers": [
+          "STATUS",
+          "TAREFA",
+          "RESPONSÁVEL",
+          "PRAZO",
+          "CONCLUÍDO EM",
+          "OBS."
+        ],
+        "header_row": 6,
+        "sections": [],
+        "form_fields": [],
+        "form_field_count": 0,
+        "data_row_count": 25,
+        "data_sample": [
+          {
+            "row": 8,
+            "values": [
+              "",
+              "—",
+              "Lead registrado no CRM (nome, origem, data, responsável)",
+              "Julia Viana",
+              "No ato",
+              "",
+              ""
+            ]
+          },
+          {
+            "row": 9,
+            "values": [
+              "",
+              "—",
+              "Canal de entrada identificado (indicação / prospecção / direto)",
+              "Julia Viana",
+              "No ato",
+              "",
+              ""
+            ]
+          },
+          {
+            "row": 11,
+            "values": [
+              "",
+              "—",
+              "Perfil e necessidade avaliados por Julia Viana",
+              "Julia Viana",
+              "D+1",
+              "",
+              ""
+            ]
+          },
+          {
+            "row": 12,
+            "values": [
+              "",
+              "—",
+              "Reunião com Julia Maria agendada (se qualificado)",
+              "Julia Viana",
+              "D+2",
+              "",
+              ""
+            ]
+          },
+          {
+            "row": 14,
+            "values": [
+              "",
+              "—",
+              "Reunião de descoberta realizada por Julia Maria",
+              "Julia Maria",
+              "D+5",
+              "",
+              ""
+            ]
+          }
+        ],
+        "total_nonempty_rows": 37,
+        "name": "Onboarding",
+        "max_row": null
+      },
+      {
+        "headers": [
+          "NOME",
+          "NICHO",
+          "COMO CHEGOU",
+          "STATUS",
+          "QUALIFICADO?",
+          "RESPONSÁVEL",
+          "DATA ENTRADA",
+          "OBSERVAÇÕES"
+        ],
+        "header_row": 3,
+        "sections": [],
+        "form_fields": [],
+        "form_field_count": 0,
+        "data_row_count": 0,
+        "data_sample": [],
+        "total_nonempty_rows": 2,
+        "name": "CRM — Leads",
+        "max_row": null
+      },
+      {
+        "headers": [
+          "ASSESSORADO",
+          "MARCA",
+          "CONTATO NA MARCA",
+          "NICHO/SEGMENTO",
+          "ORIGEM",
+          "STATUS",
+          "COMISSÃO %",
+          "VALOR (R$)",
+          "PRÓX. PASSO"
+        ],
+        "header_row": 3,
+        "sections": [],
+        "form_fields": [],
+        "form_field_count": 0,
+        "data_row_count": 1,
+        "data_sample": [
+          {
+            "row": 65,
+            "values": [
+              "",
+              "TOTAL FECHADO NO PIPELINE:",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "0"
+            ]
+          }
+        ],
+        "total_nonempty_rows": 3,
+        "name": "Pipeline — Marcas",
+        "max_row": null
+      },
+      {
+        "headers": [
+          "DIA",
+          "TAREFA",
+          "RESPONSÁVEL",
+          "STATUS",
+          "OBSERVAÇÃO"
+        ],
+        "header_row": 3,
+        "sections": [],
+        "form_fields": [],
+        "form_field_count": 0,
+        "data_row_count": 15,
+        "data_sample": [
+          {
+            "row": 5,
+            "values": [
+              "",
+              "",
+              "Revisar pipeline de marcas por assessorado",
+              "Julia Viana",
+              "—",
+              ""
+            ]
+          },
+          {
+            "row": 6,
+            "values": [
+              "",
+              "",
+              "Verificar oportunidades em aberto",
+              "Julia Viana",
+              "—",
+              ""
+            ]
+          },
+          {
+            "row": 7,
+            "values": [
+              "",
+              "",
+              "Atualizar status no CRM",
+              "Julia Viana + Julia Maria",
+              "—",
+              ""
+            ]
+          },
+          {
+            "row": 10,
+            "values": [
+              "",
+              "",
+              "Prospecção de novas marcas",
+              "Julia Maria",
+              "—",
+              "Usar mídia kit"
+            ]
+          },
+          {
+            "row": 11,
+            "values": [
+              "",
+              "",
+              "Follow-up com marcas sem resposta (3–5 dias)",
+              "Julia Maria",
+              "—",
+              "Firme e cordial"
+            ]
+          }
+        ],
+        "total_nonempty_rows": 21,
+        "name": "Rotina Semanal",
+        "max_row": null
+      },
+      {
+        "headers": [
+          "ASSESSORADO",
+          "MARCA",
+          "STATUS FINAL",
+          "ORIGEM",
+          "COMISSÃO %",
+          "VALOR FECHADO (R$)",
+          "OBSERVAÇÃO"
+        ],
+        "header_row": 6,
+        "sections": [],
+        "form_fields": [],
+        "form_field_count": 0,
+        "data_row_count": 2,
+        "data_sample": [
+          {
+            "row": 38,
+            "values": [
+              "",
+              "TOTAL FECHADO NO MÊS:",
+              "",
+              "",
+              "",
+              "",
+              "0"
+            ]
+          },
+          {
+            "row": 40,
+            "values": [
+              "",
+              "COMISSÃO ASSESSORADO — 10%:",
+              "",
+              "",
+              "",
+              "",
+              "0"
+            ]
+          }
+        ],
+        "total_nonempty_rows": 13,
+        "name": "Fechamento Mensal",
+        "max_row": null
+      },
+      {
+        "headers": [],
+        "header_row": null,
+        "sections": [],
+        "form_fields": [],
+        "form_field_count": 0,
+        "data_row_count": 0,
+        "data_sample": [],
+        "total_nonempty_rows": 3,
+        "name": "Faturamento",
+        "max_row": null
+      }
+    ]
+  }
+]

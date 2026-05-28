@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+
+{% block title %}Sistema de Alertas - Show Manager{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-bell"></i> Sistema de Alertas Nativos
+                    </h3>
+                </div>
+                <div class="card-body">
+                    
+                    <!-- Botões de controle -->
+                    <div class="row mb-4">
+                        <div class="col-md-12">
+                            <div class="btn-group" role="group">
+                                <a href="{{ url_for('alerts.start_daemon') }}" class="btn btn-success">
+                                    <i class="fas fa-play"></i> Iniciar Daemon
+                                </a>
+                                <a href="{{ url_for('alerts.stop_daemon') }}" class="btn btn-warning">
+                                    <i class="fas fa-stop"></i> Parar Daemon
+                                </a>
+                                <a href="{{ url_for('alerts.test_notification') }}" class="btn btn-info">
+                                    <i class="fas fa-test-tube"></i> Testar Notificação
+                                </a>
+                            </div>
+                            <div class="alert alert-info mt-3">
+                                <strong>Como funciona:</strong> O daemon verifica a cada 30 segundos se há alertas programados para serem enviados. 
+                                As notificações aparecem como alertas nativos do sistema operacional.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Próximos Alertas -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4><i class="fas fa-clock"></i> Próximos Alertas</h4>
+                            {% if upcoming_alerts %}
+                                <div class="list-group">
+                                    {% for alert in upcoming_alerts %}
+                                        <div class="list-group-item">
+                                            <div class="d-flex justify-content-between align-items-start">
+                                                <div>
+                                                    <h6 class="mb-1">
+                                                        {% if alert.alert_type == 'urgent' %}
+                                                            <span class="badge badge-danger">URGENTE</span>
+                                                        {% else %}
+                                                            <span class="badge badge-info">LEMBRETE</span>
+                                                        {% endif %}
+                                                        {{ alert.event_title }}
+                                                    </h6>
+                                                    <p class="mb-1">
+                                                        <strong>Artista:</strong> {{ alert.artist_name }}<br>
+                                                        <strong>Local:</strong> {{ alert.event_location }}<br>
+                                                        <strong>Evento:</strong> {{ alert.event_date[:10] | format_date }}<br>
+                                                        <strong>Alerta:</strong> {{ alert.alert_time[:16] | format_datetime }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="alert alert-secondary">
+                                    <i class="fas fa-info-circle"></i> Nenhum alerta programado
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Notificações Pendentes -->
+                        <div class="col-md-6">
+                            <h4><i class="fas fa-bell"></i> Notificações Pendentes</h4>
+                            {% if notifications %}
+                                <div class="list-group">
+                                    {% for notif in notifications %}
+                                        <div class="list-group-item">
+                                            <div class="d-flex justify-content-between align-items-start">
+                                                <div>
+                                                    <h6 class="mb-1">
+                                                        {% if notif.priority == 'high' %}
+                                                            <span class="badge badge-danger">ALTA</span>
+                                                        {% elif notif.priority == 'medium' %}
+                                                            <span class="badge badge-warning">MÉDIA</span>
+                                                        {% else %}
+                                                            <span class="badge badge-secondary">BAIXA</span>
+                                                        {% endif %}
+                                                        {{ notif.title }}
+                                                    </h6>
+                                                    <p class="mb-1">{{ notif.message }}</p>
+                                                    <small>
+                                                        <strong>Evento:</strong> {{ notif.event.title }}<br>
+                                                        <strong>Programado para:</strong> {{ notif.scheduled_time.strftime('%d/%m/%Y às %H:%M') }}
+                                                    </small>
+                                                </div>
+                                                <form method="post" action="{{ url_for('alerts.delete_notification', notification_id=notif.id) }}"
+                                                      onsubmit="return confirm('Excluir esta notificação?');">
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger">Excluir</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="alert alert-secondary">
+                                    <i class="fas fa-info-circle"></i> Nenhuma notificação pendente
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Instruções de uso -->
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5><i class="fas fa-question-circle"></i> Como usar o sistema de alertas</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h6>📱 Para receber alertas no computador:</h6>
+                                            <ol>
+                                                <li>Clique em "Iniciar Daemon" acima</li>
+                                                <li>Mantenha o navegador/app aberto</li>
+                                                <li>Aceite permissões de notificação se solicitado</li>
+                                                <li>Os alertas aparecerão automaticamente</li>
+                                            </ol>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h6>⚙️ Alertas automáticos:</h6>
+                                            <ul>
+                                                <li><strong>1 dia antes</strong> do evento</li>
+                                                <li><strong>2 horas antes</strong> do evento</li>
+                                                <li><strong>30 minutos antes</strong> do evento (urgente)</li>
+                                            </ul>
+                                            <p>Os alertas são criados automaticamente ao adicionar novos eventos.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript para auto-refresh -->
+<script>
+// Atualizar alertas a cada 60 segundos
+setInterval(function() {
+    fetch('/alerts/api/upcoming?days=14')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log('Alertas atualizados:', data.alerts.length);
+            }
+        })
+        .catch(error => console.error('Erro ao atualizar alertas:', error));
+}, 60000);
+
+// Solicitar permissão para notificações
+if ('Notification' in window && Notification.permission === 'default') {
+    Notification.requestPermission().then(permission => {
+        if (permission === 'granted') {
+            console.log('Permissão para notificações concedida');
+        }
+    });
+}
+</script>
+{% endblock %}

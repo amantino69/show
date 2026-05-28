@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block page_title %}Agenda{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2><i class="fas fa-calendar me-2"></i>Agenda</h2>
+            <a href="{{ url_for('events.new_event') }}" class="btn btn-primary">
+                <i class="fas fa-plus me-2"></i>Novo Evento
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div id="calendar"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para detalhes do evento -->
+<div class="modal fade" id="eventModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="eventModalTitle">Detalhes do Evento</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="eventModalBody">
+                <!-- Conteúdo será carregado via JavaScript -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary" id="editEventBtn">Editar</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        locale: 'pt-br',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        initialView: 'dayGridMonth',
+        height: 'auto',
+        events: '{{ url_for("events.api_events") }}',
+        eventClick: function(info) {
+            showEventDetails(info.event);
+        },
+        eventDidMount: function(info) {
+            // Adicionar tooltip
+            info.el.setAttribute('title', info.event.extendedProps.description || '');
+        }
+    });
+    
+    calendar.render();
+    
+    function showEventDetails(event) {
+        const modal = new bootstrap.Modal(document.getElementById('eventModal'));
+        const modalTitle = document.getElementById('eventModalTitle');
+        const modalBody = document.getElementById('eventModalBody');
+        const editBtn = document.getElementById('editEventBtn');
+        
+        modalTitle.textContent = event.title;
+        
+        const startTime = new Date(event.start).toLocaleString('pt-BR');
+        const endTime = new Date(event.end).toLocaleString('pt-BR');
+        
+        modalBody.innerHTML = `
+            <div class="row">
+                <div class="col-md-6">
+                    <strong>Artista:</strong><br>
+                    <span class="badge" style="background-color: ${event.backgroundColor};">${event.extendedProps.artist}</span>
+                </div>
+                <div class="col-md-6">
+                    <strong>Status:</strong><br>
+                    <span class="badge bg-${ event.extendedProps.status === 'agendado' ? 'success' : 'warning' }">
+                        ${event.extendedProps.status}
+                    </span>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-6">
+                    <strong>Início:</strong><br>
+                    ${startTime}
+                </div>
+                <div class="col-md-6">
+                    <strong>Fim:</strong><br>
+                    ${endTime}
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-12">
+                    <strong>Local:</strong><br>
+                    ${event.extendedProps.location || 'Não informado'}
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-12">
+                    <strong>Descrição:</strong><br>
+                    ${event.extendedProps.description || 'Sem descrição'}
+                </div>
+            </div>
+        `;
+        
+        editBtn.onclick = function() {
+            window.location.href = `/events/${event.id}/edit`;
+        };
+        
+        modal.show();
+    }
+});
+</script>
+{% endblock %}

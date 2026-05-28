@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% block page_title %}Financeiro{% endblock %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12 d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <div>
+            <h2><i class="fas fa-coins me-2"></i>Financeiro</h2>
+            <p class="text-muted mb-0">Mensalidades e fechamentos de marcas</p>
+        </div>
+        <a href="{{ url_for('finance.clients') }}" class="btn btn-outline-primary">
+            <i class="fas fa-users me-1"></i> Clientes ativos
+        </a>
+    </div>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h6 class="text-muted">Bruto no mês</h6>
+                <h4>R$ {{ '%.2f'|format(total_bruto) }}</h4>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h6 class="text-muted">Comissões</h6>
+                <h4>R$ {{ '%.2f'|format(total_comissao) }}</h4>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h6 class="text-muted">Fechamentos pagos</h6>
+                <h4>{{ fechamentos_count }}</h4>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h6 class="text-muted">Marcas fechadas (pipeline)</h6>
+                <h4>{{ closed_deals }}</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-2 mb-3 align-items-end">
+    <div class="col-auto">
+        <form method="get">
+            <label class="form-label">Mês de referência</label>
+            <input type="month" name="month" class="form-control" value="{{ month }}" onchange="this.form.submit()">
+        </form>
+    </div>
+    <div class="col-auto">
+        <form method="post" action="{{ url_for('finance.sync_closed_deals') }}">
+            <input type="hidden" name="month" value="{{ month }}">
+            <button type="submit" class="btn btn-outline-success mt-4">
+                <i class="fas fa-sync me-1"></i> Importar fechamentos do pipeline
+            </button>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">Lançamentos — {{ month }}</div>
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Tipo</th>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                    <th>Comissão</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in records %}
+                <tr>
+                    <td>
+                        {% if r.record_type == 'mensalidade' %}
+                        <span class="badge bg-primary">Mensalidade</span>
+                        {% else %}
+                        <span class="badge bg-success">Fechamento</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ r.description }}</td>
+                    <td>R$ {{ '%.2f'|format(r.amount) }}</td>
+                    <td>
+                        {% if r.commission_amount %}
+                        {{ r.commission_rate }}% — R$ {{ '%.2f'|format(r.commission_amount) }}
+                        {% else %}—{% endif %}
+                    </td>
+                    <td>
+                        <span class="badge {% if r.payment_status == 'pago' %}bg-success{% elif r.payment_status == 'atrasado' %}bg-danger{% else %}bg-warning text-dark{% endif %}">
+                            {{ r.payment_status_label }}
+                        </span>
+                    </td>
+                    <td class="text-nowrap">
+                        {% if r.payment_status != 'pago' %}
+                        <form method="post" action="{{ url_for('finance.mark_paid', record_id=r.id) }}" class="d-inline">
+                            <button class="btn btn-sm btn-success">Marcar pago</button>
+                        </form>
+                        {% endif %}
+                        <form method="post" action="{{ url_for('finance.delete_record', record_id=r.id) }}" class="d-inline"
+                              onsubmit="return confirm('Excluir este lançamento?');">
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="6" class="text-center text-muted py-4">Nenhum lançamento neste mês.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

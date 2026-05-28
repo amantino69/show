@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block page_title %}Mídia Kit — {{ artist.stage_name }}{% endblock %}
+{% block content %}
+{% include "p7/_nav.html" %}
+
+<div class="card mb-4">
+    <div class="card-header">Tabela de preços</div>
+    <div class="card-body">
+        {% if current_user.is_manager %}
+        <form method="post" class="row g-2 mb-3 border-bottom pb-3">
+            <input type="hidden" name="action" value="add_rate">
+            <div class="col-md-2"><input name="platform" class="form-control form-control-sm" placeholder="Plataforma"></div>
+            <div class="col-md-2"><input name="format_name" class="form-control form-control-sm" placeholder="Formato"></div>
+            <div class="col-md-2"><input name="amount" class="form-control form-control-sm" placeholder="Valor R$"></div>
+            <div class="col-md-3"><input name="description" class="form-control form-control-sm" placeholder="Descrição"></div>
+            <div class="col-auto form-check"><input type="checkbox" name="is_combo" class="form-check-input" id="c1"><label for="c1" class="form-check-label">Combo</label></div>
+            <div class="col-auto"><button class="btn btn-primary btn-sm">Adicionar</button></div>
+        </form>
+        {% endif %}
+        <table class="table table-sm">
+            <thead><tr><th>Plataforma</th><th>Formato</th><th>Valor</th><th>Descrição</th><th></th></tr></thead>
+            <tbody>
+                {% for r in rates %}
+                <tr>
+                    <td>{{ r.platform or '—' }}</td>
+                    <td>{{ r.format_name or '—' }}</td>
+                    <td>{% if r.amount %}R$ {{ '%.2f'|format(r.amount) }}{% else %}—{% endif %}</td>
+                    <td>{{ r.description or '—' }}</td>
+                    <td>{% if current_user.is_manager %}
+                        <form method="post" action="{{ url_for('p7.delete_rate', artist_id=artist.id, line_id=r.id) }}" class="d-inline" onsubmit="return confirm('Remover?');">
+                            <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                        </form>
+                    {% endif %}</td>
+                </tr>
+                {% else %}
+                <tr><td colspan="5" class="text-muted">Nenhum item na tabela.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header">Materiais</div>
+    <div class="card-body p-0">
+        <table class="table mb-0">
+            {% for m in materials %}
+            <tr>
+                <td>{{ m.title }}</td>
+                <td>
+                    {% if current_user.is_manager %}
+                    <form method="post" class="d-inline-flex gap-1">
+                        <input type="hidden" name="action" value="update_material">
+                        <input type="hidden" name="doc_id" value="{{ m.id }}">
+                        <select name="status" class="form-select form-select-sm">
+                            {% for k, v in m.STATUS_LABELS.items() %}
+                            <option value="{{ k }}" {% if m.status == k %}selected{% endif %}>{{ v }}</option>
+                            {% endfor %}
+                        </select>
+                        <input name="responsible" class="form-control form-control-sm" placeholder="Resp." value="{{ m.responsible or '' }}">
+                        <button class="btn btn-sm btn-primary">Salvar</button>
+                    </form>
+                    {% else %}
+                    {{ m.status_label }}
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+{% if current_user.is_manager %}
+<div class="card">
+    <div class="card-header">Restrições de marca e conteúdo</div>
+    <div class="card-body">
+        <form method="post">
+            <input type="hidden" name="action" value="restrictions">
+            <textarea name="brand_restrictions" class="form-control" rows="3">{{ restrictions }}</textarea>
+            <button type="submit" class="btn btn-primary mt-2">Salvar restrições</button>
+        </form>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,372 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual do Usuário - Sistema de Gerenciamento de Artistas</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            padding-left: 10px;
+            border-left: 4px solid #3498db;
+        }
+        h3 {
+            color: #7f8c8d;
+        }
+        code {
+            background: #f1f2f6;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        pre {
+            background: #2f3640;
+            color: #f5f6fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        blockquote {
+            border-left: 4px solid #3498db;
+            margin: 20px 0;
+            padding: 10px 20px;
+            background: #ecf0f1;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background: #3498db;
+            color: white;
+        }
+        .emoji {
+            font-size: 1.2em;
+        }
+        .highlight {
+            background: #fff3cd;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+        }
+        .success {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+        }
+        .info {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+        }
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+        }
+        ul, ol {
+            padding-left: 30px;
+        }
+        li {
+            margin: 5px 0;
+        }
+        .header-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-info">
+            <h1>📱 Manual do Usuário</h1>
+            <p>Sistema de Gerenciamento de Artistas</p>
+            <p><small>Versão atualizada: Julho 2025</small></p>
+        </div>
+        <h1 id="manual-do-usuario-sistema-de-gerenciamento-de-artistas">📱 MANUAL DO USUÁRIO - Sistema de Gerenciamento de Artistas</h1>
+<h2 id="acesso-ao-sistema">🎯 ACESSO AO SISTEMA</h2>
+<h3 id="para-o-empresario">Para o Empresário:</h3>
+<ul>
+<li><strong>URL:</strong> http://localhost:5000 (ou URL do ngrok)</li>
+<li><strong>Usuário:</strong> empresario</li>
+<li><strong>Senha:</strong> 123456</li>
+<li><strong>Tipo:</strong> Empresário (acesso completo)</li>
+</ul>
+<h3 id="para-artistas">Para Artistas:</h3>
+<ol>
+<li>Clique em "Cadastre-se" na tela de login</li>
+<li>Preencha seus dados</li>
+<li>Selecione "Artista" como tipo de usuário</li>
+<li>Aguarde o empresário vincular sua conta</li>
+</ol>
+<h2 id="funcoes-do-empresario">🏢 FUNÇÕES DO EMPRESÁRIO</h2>
+<h3 id="1-cadastrar-artistas">1. CADASTRAR ARTISTAS</h3>
+<ul>
+<li>Acesse "Artistas" → "Novo Artista"</li>
+<li>Preencha: Nome, Nome Artístico, Email, Telefone, Gênero</li>
+<li>O sistema atribui uma cor automaticamente</li>
+<li>Use o mesmo email se o artista quiser fazer login</li>
+</ul>
+<h3 id="2-criar-eventos">2. CRIAR EVENTOS</h3>
+<ul>
+<li>Acesse "Eventos" → "Novo Evento"</li>
+<li>Selecione o artista</li>
+<li>Escolha o tipo: Show, Entrevista, Sessão de Fotos, etc.</li>
+<li>Defina data, hora e local</li>
+<li><strong>ALERTAS AUTOMÁTICOS:</strong> 2 dias, 1 dia e 3 horas antes</li>
+</ul>
+<h3 id="3-visualizar-agenda">3. VISUALIZAR AGENDA</h3>
+<ul>
+<li>Acesse "Agenda" para ver calendário completo</li>
+<li>Cada artista tem sua cor</li>
+<li>Clique nos eventos para ver detalhes</li>
+<li>Visão mensal, semanal ou diária</li>
+</ul>
+<h3 id="4-relatorios">4. RELATÓRIOS</h3>
+<ul>
+<li>Acesse "Relatórios" para estatísticas</li>
+<li>Gráficos de performance por artista</li>
+<li>Eventos por mês e por tipo</li>
+<li>Exportar dados em CSV</li>
+</ul>
+<h2 id="funcoes-dos-artistas">🎤 FUNÇÕES DOS ARTISTAS</h2>
+<h3 id="1-ver-agenda-pessoal">1. VER AGENDA PESSOAL</h3>
+<ul>
+<li>Acesse "Agenda" para ver APENAS seus eventos</li>
+<li>Mesmas funcionalidades do empresário</li>
+<li>Cores e alertas automáticos</li>
+</ul>
+<h3 id="2-criar-eventos-proprios">2. CRIAR EVENTOS PRÓPRIOS</h3>
+<ul>
+<li>Pode criar eventos para si mesmo</li>
+<li>Mesmo sistema de alertas</li>
+<li>Notificações por email</li>
+</ul>
+<h3 id="3-dashboard-pessoal">3. DASHBOARD PESSOAL</h3>
+<ul>
+<li>Vê apenas suas estatísticas</li>
+<li>Próximos eventos</li>
+<li>Eventos do dia</li>
+</ul>
+<h2 id="sistema-de-notificacoes">📧 SISTEMA DE NOTIFICAÇÕES</h2>
+<h3 id="emails-automaticos">EMAILS AUTOMÁTICOS:</h3>
+<ul>
+<li>✅ <strong>2 dias antes</strong> do evento</li>
+<li>✅ <strong>1 dia antes</strong> do evento</li>
+<li>✅ <strong>3 horas antes</strong> do evento</li>
+</ul>
+<h3 id="quem-recebe">QUEM RECEBE:</h3>
+<ul>
+<li><strong>Artista responsável</strong> pelo evento</li>
+<li><strong>Todos os empresários</strong> (managers)</li>
+</ul>
+<h3 id="conteudo-do-email">CONTEÚDO DO EMAIL:</h3>
+<ul>
+<li>Nome do evento</li>
+<li>Data e horário</li>
+<li>Local</li>
+<li>Descrição</li>
+<li>Nome do artista</li>
+</ul>
+<h2 id="configuracoes">🔧 CONFIGURAÇÕES</h2>
+<h2 id="integracao-google-calendar">📅 INTEGRAÇÃO GOOGLE CALENDAR</h2>
+<h3 id="configuracao-inicial-administrador">CONFIGURAÇÃO INICIAL (ADMINISTRADOR):</h3>
+<h4 id="1-google-cloud-console">1. GOOGLE CLOUD CONSOLE:</h4>
+<ol>
+<li><strong>Acesse:</strong> https://console.cloud.google.com/</li>
+<li><strong>Crie ou selecione</strong> um projeto</li>
+<li><strong>Habilite a API:</strong> APIs &amp; Services → Library → "Google Calendar API"</li>
+<li><strong>Crie credenciais:</strong> APIs &amp; Services → Credentials → Create Credentials → OAuth 2.0</li>
+<li><strong>Configure URLs:</strong> Adicione <code>http://localhost:5000/auth/google/callback</code></li>
+<li><strong>Baixe credenciais:</strong> Salve como <code>credentials.json</code> na pasta do projeto</li>
+</ol>
+<h4 id="2-usuarios-de-teste">2. USUÁRIOS DE TESTE:</h4>
+<ol>
+<li><strong>OAuth consent screen</strong> → Test users</li>
+<li><strong>Adicione emails</strong> dos empresários e artistas</li>
+<li><strong>Status:</strong> Manter em "Testing" para uso privado</li>
+</ol>
+<h4 id="3-primeiro-uso">3. PRIMEIRO USO:</h4>
+<ol>
+<li><strong>No Dashboard:</strong> Clique em "Conectar Google Calendar"</li>
+<li><strong>Autorize:</strong> Permita acesso ao Google Calendar</li>
+<li><strong>Status:</strong> Verá "Conectado" em verde</li>
+<li><strong>Teste:</strong> Crie um evento e verifique no calendar.google.com</li>
+</ol>
+<h3 id="como-funciona">COMO FUNCIONA:</h3>
+<h4 id="sincronizacao-automatica">SINCRONIZAÇÃO AUTOMÁTICA:</h4>
+<ul>
+<li>✅ <strong>Novos eventos</strong> → Criados automaticamente no Google Calendar</li>
+<li>✅ <strong>Edições</strong> → Atualizadas no Google Calendar</li>
+<li>✅ <strong>Exclusões</strong> → Removidas do Google Calendar</li>
+<li>✅ <strong>Cores por artista</strong> → Mantidas no Google Calendar</li>
+</ul>
+<h4 id="multiplas-agendas">MÚLTIPLAS AGENDAS:</h4>
+<ul>
+<li>📋 <strong>Empresário:</strong> Evento criado na agenda do empresário</li>
+<li>🎤 <strong>Artista:</strong> Evento criado na agenda do artista específico</li>
+<li>📧 <strong>Convites:</strong> Ambos recebem convite automático</li>
+</ul>
+<h4 id="notificacoes-google">NOTIFICAÇÕES GOOGLE:</h4>
+<ul>
+<li>⏰ <strong>2 dias antes</strong> → Email do Google</li>
+<li>⏰ <strong>1 dia antes</strong> → Email do Google  </li>
+<li>⏰ <strong>3 horas antes</strong> → Email do Google</li>
+<li>⏰ <strong>30 minutos</strong> → Popup no celular/computador</li>
+</ul>
+<h3 id="resolucao-de-problemas">RESOLUÇÃO DE PROBLEMAS:</h3>
+<h4 id="acesso-bloqueado-ou-app-nao-verificado">"ACESSO BLOQUEADO" OU "APP NÃO VERIFICADO":</h4>
+<ul>
+<li>✅ <strong>Normal em desenvolvimento</strong></li>
+<li>✅ <strong>Clique em "Avançado"</strong> → "Ir para [nome do app] (não seguro)"</li>
+<li>✅ <strong>Autorize mesmo assim</strong> - é seu próprio app</li>
+</ul>
+<h4 id="eventos-nao-aparecem-no-celular">EVENTOS NÃO APARECEM NO CELULAR:</h4>
+<ol>
+<li><strong>Força sincronização:</strong> Puxe para baixo no app Google Calendar</li>
+<li><strong>Verifique configurações:</strong> Calendar → Sincronização automática</li>
+<li><strong>Teste no browser:</strong> Acesse calendar.google.com</li>
+<li><strong>Aguarde:</strong> Pode demorar até 15 minutos</li>
+</ol>
+<h4 id="erro-credentials-not-found">ERRO "CREDENTIALS NOT FOUND":</h4>
+<ol>
+<li><strong>Verifique arquivo:</strong> <code>credentials.json</code> na pasta do projeto</li>
+<li><strong>Re-baixe credenciais</strong> do Google Cloud Console</li>
+<li><strong>Reinicie servidor:</strong> <code>python app.py</code></li>
+</ol>
+<h4 id="desconectarreconectar">DESCONECTAR/RECONECTAR:</h4>
+<ol>
+<li><strong>No Dashboard:</strong> Clique em "Desconectar"</li>
+<li><strong>Google Account:</strong> Remova permissão em myaccount.google.com/permissions</li>
+<li><strong>Reconecte:</strong> Clique novamente em "Conectar Google Calendar"</li>
+</ol>
+<h3 id="beneficios-da-integracao">BENEFÍCIOS DA INTEGRAÇÃO:</h3>
+<h4 id="para-empresarios">PARA EMPRESÁRIOS:</h4>
+<ul>
+<li>🗓️ <strong>Agenda unificada</strong> - Todos os artistas em uma agenda</li>
+<li>📱 <strong>Acesso mobile</strong> - Google Calendar app</li>
+<li>🔔 <strong>Alertas automáticos</strong> - Nunca esquecer eventos</li>
+<li>👥 <strong>Compartilhamento</strong> - Fácil de mostrar para terceiros</li>
+</ul>
+<h4 id="para-artistas_1">PARA ARTISTAS:</h4>
+<ul>
+<li>📅 <strong>Agenda pessoal</strong> - Apenas seus eventos</li>
+<li>🎨 <strong>Cor personalizada</strong> - Identificação visual</li>
+<li>📧 <strong>Convites automáticos</strong> - Confirmação de presença</li>
+<li>📲 <strong>Sincronização</strong> - Todos os dispositivos</li>
+</ul>
+<h3 id="dicas-importantes">DICAS IMPORTANTES:</h3>
+<h4 id="seguranca">SEGURANÇA:</h4>
+<ul>
+<li>🔒 <strong>Dados privados</strong> - Apenas você acessa sua agenda</li>
+<li>🛡️ <strong>OAuth 2.0</strong> - Padrão de segurança do Google</li>
+<li>❌ <strong>Sem senhas</strong> - Sistema não armazena senha do Google</li>
+</ul>
+<h4 id="limitacoes">LIMITAÇÕES:</h4>
+<ul>
+<li>👥 <strong>Usuários de teste</strong> - Máximo 100 usuários em desenvolvimento</li>
+<li>🔄 <strong>Sincronização</strong> - Apenas do sistema → Google (unidirecional)</li>
+<li>📝 <strong>Edições</strong> - Alterar no sistema, não direto no Google</li>
+</ul>
+<h3 id="alterar-senha">ALTERAR SENHA:</h3>
+<ol>
+<li>Faça logout</li>
+<li>Entre novamente</li>
+<li>Acesse configurações (em desenvolvimento)</li>
+</ol>
+<h2 id="cores-dos-artistas">🎨 CORES DOS ARTISTAS</h2>
+<p>O sistema atribui cores automaticamente:
+- 🔴 Vermelho
+- 🟢 Verde<br />
+- 🔵 Azul
+- 🟡 Amarelo
+- 🟣 Roxo
+- 🟠 Laranja</p>
+<h2 id="tipos-de-eventos">📊 TIPOS DE EVENTOS</h2>
+<h3 id="pre-configurados">PRÉ-CONFIGURADOS:</h3>
+<ul>
+<li><strong>Show</strong> - Apresentações musicais</li>
+<li><strong>Entrevista</strong> - Mídia e imprensa</li>
+<li><strong>Sessão de Fotos</strong> - Fotografia</li>
+<li><strong>Gravação</strong> - Estúdio</li>
+<li><strong>Reunião</strong> - Planejamento</li>
+<li><strong>Live/Stream</strong> - Online</li>
+<li><strong>Radio/TV</strong> - Mídia tradicional</li>
+<li><strong>Evento Promocional</strong> - Marketing</li>
+</ul>
+<h2 id="dicas-importantes_1">🚨 DICAS IMPORTANTES</h2>
+<h3 id="para-o-empresario_1">PARA O EMPRESÁRIO:</h3>
+<ol>
+<li><strong>Sempre altere a senha padrão</strong></li>
+<li><strong>Cadastre artistas com email correto</strong> (para notificações)</li>
+<li><strong>Use tipos de eventos</strong> para melhor organização</li>
+<li><strong>Verifique relatórios</strong> regularmente</li>
+</ol>
+<h3 id="para-artistas_2">PARA ARTISTAS:</h3>
+<ol>
+<li><strong>Use o mesmo email</strong> cadastrado pelo empresário</li>
+<li><strong>Confirme recebimento</strong> das notificações</li>
+<li><strong>Comunique mudanças</strong> ao empresário</li>
+<li><strong>Acesse regularmente</strong> para ver novos eventos</li>
+</ol>
+<h2 id="suporte">📞 SUPORTE</h2>
+<p>Em caso de problemas:
+1. Verifique se está logado corretamente
+2. Confirme o tipo de usuário (Empresário/Artista)
+3. Teste em navegador atualizado
+4. Entre em contato com o desenvolvedor</p>
+<h2 id="beneficios">🎉 BENEFÍCIOS</h2>
+<h3 id="para-empresarios_1">PARA EMPRESÁRIOS:</h3>
+<ul>
+<li>✅ Organização completa da agenda</li>
+<li>✅ Notificações automáticas</li>
+<li>✅ Relatórios profissionais</li>
+<li>✅ Cores para fácil identificação</li>
+<li>✅ Backup dos eventos</li>
+</ul>
+<h3 id="para-artistas_3">PARA ARTISTAS:</h3>
+<ul>
+<li>✅ Nunca esquecer compromissos</li>
+<li>✅ Agenda sempre atualizada</li>
+<li>✅ Alertas por email</li>
+<li>✅ Visão profissional</li>
+<li>✅ Integração com Google</li>
+</ul>
+        <hr>
+        <footer style="text-align: center; color: #7f8c8d; margin-top: 40px;">
+            <p>Sistema desenvolvido para gerenciamento profissional de artistas</p>
+            <p><small>© 2025 - Todos os direitos reservados</small></p>
+        </footer>
+    </div>
+</body>
+</html>

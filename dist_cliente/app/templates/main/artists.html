@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block page_title %}Artistas{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2><i class="fas fa-users me-2"></i>Artistas</h2>
+            <a href="{{ url_for('main.new_artist') }}" class="btn btn-primary">
+                <i class="fas fa-plus me-2"></i>Novo Artista
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    {% for artist in artists %}
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card h-100">
+            <div class="card-header" style="background-color: {{ artist.color }}; color: white;">
+                <h5 class="card-title mb-0">{{ artist.stage_name }}</h5>
+            </div>
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">{{ artist.name }}</h6>
+                
+                <div class="mb-2">
+                    <small class="text-muted">
+                        <i class="fas fa-music me-1"></i>{{ artist.genre or 'Gênero não informado' }}
+                    </small>
+                </div>
+                
+                <div class="mb-2">
+                    <small class="text-muted">
+                        <i class="fas fa-envelope me-1"></i>{{ artist.email }}
+                    </small>
+                </div>
+                
+                {% if artist.phone %}
+                <div class="mb-2">
+                    <small class="text-muted">
+                        <i class="fas fa-phone me-1"></i>{{ artist.phone }}
+                    </small>
+                </div>
+                {% endif %}
+                
+                {% if artist.description %}
+                <p class="card-text">
+                    <small>{{ artist.description[:100] }}{% if artist.description|length > 100 %}...{% endif %}</small>
+                </p>
+                {% endif %}
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-between">
+                    <a href="{{ url_for('main.artist_detail', artist_id=artist.id) }}" class="btn btn-sm btn-outline-primary">
+                        <i class="fas fa-eye me-1"></i>Ver Detalhes
+                    </a>
+                    <a href="{{ url_for('events.new_event') }}?artist_id={{ artist.id }}" class="btn btn-sm btn-success">
+                        <i class="fas fa-plus me-1"></i>Novo Evento
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% if not artists %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body text-center py-5">
+                <i class="fas fa-users fa-4x text-muted mb-3"></i>
+                <h4 class="text-muted">Nenhum artista cadastrado</h4>
+                <p class="text-muted">Comece cadastrando seu primeiro artista!</p>
+                <a href="{{ url_for('main.new_artist') }}" class="btn btn-primary">
+                    <i class="fas fa-plus me-2"></i>Cadastrar Primeiro Artista
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block page_title %}Meu portal — {{ artist.stage_name }}{% endblock %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+            <h2>Olá, {{ artist.stage_name }}!</h2>
+            <p class="text-muted">Seu espaço na <strong>viezes.co</strong> — onboarding, agenda e parcerias.</p>
+    </div>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h3 class="text-primary">{{ artist.onboarding_progress or 0 }}%</h3>
+                <p class="text-muted mb-0">Onboarding</p>
+                <small>{{ tasks_done }}/{{ tasks_total }} tarefas</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h3 class="text-warning">{{ open_deals }}</h3>
+                <p class="text-muted mb-0">Propostas em andamento</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <a href="{{ url_for('p7.hub', artist_id=artist.id) }}" class="btn btn-outline-primary">Abrir minha gestão</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6 mb-4">
+        <div class="card h-100">
+            <div class="card-header">Próximas tarefas de onboarding</div>
+            <ul class="list-group list-group-flush">
+                {% for t in pending_tasks %}
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>{{ t.title }}</span>
+                    <span class="badge bg-secondary">{{ t.status_label }}</span>
+                </li>
+                {% else %}
+                <li class="list-group-item text-muted">Nenhuma tarefa pendente.</li>
+                {% endfor %}
+            </ul>
+            <div class="card-footer">
+                <a href="{{ url_for('main.artist_onboarding', artist_id=artist.id) }}">Ver checklist completo</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 mb-4">
+        <div class="card h-100">
+            <div class="card-header">Próximos eventos</div>
+            <ul class="list-group list-group-flush">
+                {% for e in upcoming_events %}
+                <li class="list-group-item">
+                    <strong>{{ e.title }}</strong><br>
+                    <small>{{ e.start_datetime.strftime('%d/%m/%Y %H:%M') }}</small>
+                </li>
+                {% else %}
+                <li class="list-group-item text-muted">Nenhum evento nos próximos 14 dias.</li>
+                {% endfor %}
+            </ul>
+            <div class="card-footer">
+                <a href="{{ url_for('events.calendar') }}">Ver agenda</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-2">
+    <div class="col-md-4"><a href="{{ url_for('p7.rotina', artist_id=artist.id) }}" class="btn btn-outline-secondary w-100">Minha rotina</a></div>
+    <div class="col-md-4"><a href="{{ url_for('p7.presenca_digital', artist_id=artist.id) }}" class="btn btn-outline-secondary w-100">Presença digital</a></div>
+    <div class="col-md-4"><a href="{{ url_for('p7.marcas', artist_id=artist.id) }}" class="btn btn-outline-secondary w-100">Marcas & metas</a></div>
+</div>
+{% endblock %}

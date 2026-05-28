@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Viezes — Gestão de Carreiras{% endblock %}</title>
+    <link rel="icon" href="{{ url_for('static', filename='img/viezes-mark.svg') }}" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/viezes.css') }}" rel="stylesheet">
+    <style>
+        /* Overrides mínimos — tema principal em viezes.css */
+        .sidebar { min-height: 100vh; }
+        .mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1050;
+            width: 50px;
+            height: 50px;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .mobile-sidebar {
+            position: fixed;
+            top: 0;
+            left: -280px;
+            width: 280px;
+            height: 100vh;
+            z-index: 1040;
+            transition: left 0.3s ease;
+            overflow-y: auto;
+        }
+        .mobile-sidebar.open { left: 0; }
+        .mobile-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1030;
+            display: none;
+        }
+        .mobile-overlay.show { display: block; }
+        @media (max-width: 768px) {
+            .mobile-menu-toggle { display: block !important; }
+            .desktop-sidebar { display: none !important; }
+            .main-content {
+                padding-top: 80px !important;
+                padding-left: 15px !important;
+                padding-right: 15px !important;
+            }
+        }
+        @media (min-width: 769px) {
+            .mobile-sidebar, .mobile-overlay { display: none !important; }
+        }
+        .fc-event { border-radius: 6px !important; border: none !important; }
+        .sidebar-user {
+            text-align: center;
+            padding: 0 0.5rem 0.75rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            margin-bottom: 0.5rem;
+        }
+        .sidebar-user .role {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--vz-gold-light);
+        }
+        .sidebar-user .name {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.7);
+        }
+    </style>
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+    <!-- Menu Hambúrguer para Mobile -->
+    {% if current_user.is_authenticated %}
+    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- Overlay para fechar menu -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    
+    <!-- Sidebar Mobile -->
+    <div class="mobile-sidebar" id="mobileSidebar">
+        <div class="pt-2 pb-3">
+            {% include '_viezes_brand.html' %}
+            <div class="sidebar-user">
+                <div class="role">{% if current_user.is_manager %}Equipe Viezes{% else %}Assessorado{% endif %}</div>
+                <div class="name">{{ current_user.display_name or current_user.username }}</div>
+            </div>
+            {% include '_sidebar_nav.html' %}
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar Desktop -->
+            {% if current_user.is_authenticated %}
+            <div class="col-md-2 px-0 desktop-sidebar">
+                <div class="sidebar py-2">
+                    {% include '_viezes_brand.html' %}
+                    <div class="sidebar-user">
+                        <div class="role">{% if current_user.is_manager %}Equipe Viezes{% else %}Assessorado{% endif %}</div>
+                        <div class="name">{{ current_user.display_name or current_user.username }}</div>
+                    </div>
+                    {% include '_sidebar_nav.html' %}
+                </div>
+            </div>
+            {% endif %}
+            
+            <!-- Main Content -->
+            <div class="{% if current_user.is_authenticated %}col-md-10{% else %}col-12{% endif %} px-0">
+                <div class="main-content p-4">
+                    {% if current_user.is_authenticated %}
+                    <nav class="navbar navbar-expand-lg top-navbar mb-4">
+                        <div class="container-fluid">
+                            <span class="navbar-brand mb-0">
+                                {% block page_title %}Painel{% endblock %}
+                            </span>
+                            <div class="navbar-nav ms-auto align-items-center">
+                                <a href="https://www.instagram.com/viezes.co" target="_blank" rel="noopener"
+                                   class="nav-link d-none d-md-inline text-muted small me-3">
+                                    <i class="fab fa-instagram me-1"></i>@viezes.co
+                                </a>
+                                <span class="user-pill">
+                                    <i class="fas fa-circle-user me-1 text-secondary"></i>
+                                    {{ current_user.display_name or current_user.username }}
+                                </span>
+                            </div>
+                        </div>
+                    </nav>
+                    {% endif %}
+                    
+                    <!-- Flash Messages -->
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    
+                    <!-- Page Content -->
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        // Mobile Menu Toggle - Debug e funcionalidade melhorada
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM carregado - Inicializando menu mobile');
+            
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const mobileSidebar = document.getElementById('mobileSidebar');
+            const mobileOverlay = document.getElementById('mobileOverlay');
+            
+            console.log('Elementos encontrados:', {
+                toggle: !!mobileMenuToggle,
+                sidebar: !!mobileSidebar,
+                overlay: !!mobileOverlay
+            });
+            
+            if (mobileMenuToggle && mobileSidebar && mobileOverlay) {
+                // Função para abrir menu
+                function openMenu() {
+                    console.log('Abrindo menu mobile');
+                    mobileSidebar.classList.add('open');
+                    mobileOverlay.classList.add('show');
+                    document.body.style.overflow = 'hidden';
+                }
+                
+                // Função para fechar menu
+                function closeMenu() {
+                    console.log('Fechando menu mobile');
+                    mobileSidebar.classList.remove('open');
+                    mobileOverlay.classList.remove('show');
+                    document.body.style.overflow = 'auto';
+                }
+                
+                // Event listeners
+                mobileMenuToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Botão hambúrguer clicado');
+                    openMenu();
+                });
+                
+                // Evento touch para mobile
+                mobileMenuToggle.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    console.log('Touch no botão hambúrguer');
+                    openMenu();
+                });
+                
+                // Fechar menu pelo overlay
+                mobileOverlay.addEventListener('click', closeMenu);
+                mobileOverlay.addEventListener('touchstart', closeMenu);
+                
+                // Fechar menu pelos links (navegação)
+                const mobileNavLinks = mobileSidebar.querySelectorAll('.nav-link');
+                mobileNavLinks.forEach(link => {
+                    link.addEventListener('click', closeMenu);
+                    link.addEventListener('touchstart', closeMenu);
+                });
+                
+                console.log('Menu mobile inicializado com sucesso');
+            } else {
+                console.error('Erro: Elementos do menu mobile não encontrados');
+            }
+        });
+    </script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,17 @@
+SISTEMA DE GERENCIAMENTO DE ARTISTAS
+====================================
+
+INSTRUÇÕES DE INSTALAÇÃO:
+
+1. Execute: INSTALAR_SISTEMA.bat (como administrador)
+2. Aguarde a instalação completa
+3. Execute: INICIAR_SISTEMA.bat
+4. Acesse no navegador: http://localhost:5001
+
+DADOS DE ACESSO:
+Usuário: empresario
+Senha: 123456
+
+Para mais detalhes, consulte: MANUAL_CLIENTE.md
+
+IMPORTANTE: Mantenha a janela do terminal aberta enquanto usar o sistema!

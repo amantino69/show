@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+
+{% block title %}Posts para Redes Sociais{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h2">Posts para Redes Sociais</h1>
+        <a href="{{ url_for('marketing.new_social_post') }}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Novo Post
+        </a>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header bg-white">
+            <h5 class="mb-0">Filtrar Posts</h5>
+        </div>
+        <div class="card-body">
+            <form action="{{ url_for('marketing.social_posts') }}" method="GET" class="row g-3">
+                <div class="col-md-4">
+                    <label for="status" class="form-label">Status</label>
+                    <select name="status" id="status" class="form-select">
+                        <option value="all" {% if current_status == 'all' %}selected{% endif %}>Todos</option>
+                        {% for status in statuses %}
+                        <option value="{{ status }}" {% if current_status == status %}selected{% endif %}>
+                            {{ status|capitalize }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="platform" class="form-label">Plataforma</label>
+                    <select name="platform" id="platform" class="form-select">
+                        <option value="all" {% if current_platform == 'all' %}selected{% endif %}>Todas</option>
+                        {% for platform in platforms %}
+                        <option value="{{ platform }}" {% if current_platform == platform %}selected{% endif %}>
+                            {{ platform|capitalize }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4 align-self-end">
+                    <button type="submit" class="btn btn-secondary w-100">Filtrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-white">
+                    <ul class="nav nav-tabs card-header-tabs" id="postTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="list-tab" data-bs-toggle="tab" data-bs-target="#list-view" type="button" role="tab" aria-controls="list-view" aria-selected="true">
+                                <i class="fas fa-list"></i> Lista
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="calendar-tab" data-bs-toggle="tab" data-bs-target="#calendar-view" type="button" role="tab" aria-controls="calendar-view" aria-selected="false">
+                                <i class="fas fa-calendar-alt"></i> Calendário
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content" id="postTabsContent">
+                        <div class="tab-pane fade show active" id="list-view" role="tabpanel" aria-labelledby="list-tab">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Título</th>
+                                            <th>Plataforma</th>
+                                            <th>Artista</th>
+                                            <th>Agendado para</th>
+                                            <th>Status</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for post in posts %}
+                                        <tr>
+                                            <td>{{ post.title }}</td>
+                                            <td>
+                                                <span class="badge bg-secondary">{{ post.platform }}</span>
+                                            </td>
+                                            <td>{{ post.artist.stage_name }}</td>
+                                            <td>{{ post.scheduled_datetime.strftime('%d/%m/%Y %H:%M') }}</td>
+                                            <td>
+                                                {% if post.status == 'draft' %}
+                                                <span class="badge bg-secondary">Rascunho</span>
+                                                {% elif post.status == 'scheduled' %}
+                                                <span class="badge bg-primary">Agendado</span>
+                                                {% elif post.status == 'published' %}
+                                                <span class="badge bg-success">Publicado</span>
+                                                {% elif post.status == 'failed' %}
+                                                <span class="badge bg-danger">Falhou</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <a href="{{ url_for('marketing.edit_social_post', post_id=post.id) }}" class="btn btn-sm btn-outline-primary">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                    <button type="button" class="btn btn-sm btn-outline-danger" 
+                                                            data-bs-toggle="modal" data-bs-target="#deleteModal{{ post.id }}">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </div>
+                                                
+                                                <!-- Modal de exclusão -->
+                                                <div class="modal fade" id="deleteModal{{ post.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ post.id }}" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="deleteModalLabel{{ post.id }}">Confirmar Exclusão</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Tem certeza que deseja excluir o post "{{ post.title }}"?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                                <form action="{{ url_for('marketing.delete_social_post', post_id=post.id) }}" method="POST" class="d-inline">
+                                                                    <button type="submit" class="btn btn-danger">Excluir</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {% else %}
+                                        <tr>
+                                            <td colspan="6" class="text-center py-3">
+                                                <p class="text-muted mb-0">Nenhum post encontrado.</p>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="calendar-view" role="tabpanel" aria-labelledby="calendar-tab">
+                            <div id="social-posts-calendar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('social-posts-calendar');
+        
+        if (calendarEl) {
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                events: {
+                    url: "{{ url_for('marketing.api_calendar_posts') }}",
+                    method: 'GET'
+                },
+                eventClick: function(info) {
+                    window.location.href = "{{ url_for('marketing.edit_social_post', post_id='') }}" + info.event.id;
+                },
+                locale: 'pt-br',
+                height: 'auto',
+                themeSystem: 'bootstrap',
+            });
+            
+            calendar.render();
+        }
+    });
+</script>
+{% endblock %}

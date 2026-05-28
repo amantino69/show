@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block page_title %}{% if deal %}Editar proposta{% else %}Nova proposta{% endif %} — Marca{% endblock %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h2><i class="fas fa-handshake me-2"></i>{% if deal %}Editar proposta{% else %}Nova proposta de marca{% endif %}</h2>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <form method="post">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Assessorado *</label>
+                    <select name="artist_id" class="form-select" required>
+                        <option value="">Selecione...</option>
+                        {% for a in artists %}
+                        <option value="{{ a.id }}" {% if deal and deal.artist_id == a.id %}selected{% endif %}>
+                            {{ a.stage_name }} ({{ a.client_status_label }})
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Marca *</label>
+                    <input type="text" name="brand_name" class="form-control" required
+                           value="{{ deal.brand_name if deal else '' }}">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Contato na marca</label>
+                    <input type="text" name="contact_name" class="form-control"
+                           value="{{ deal.contact_name if deal and deal.contact_name else '' }}">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Segmento da marca</label>
+                    <input type="text" name="brand_segment" class="form-control" placeholder="Ex: Beleza, Moda"
+                           value="{{ deal.brand_segment if deal and deal.brand_segment else '' }}">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Status</label>
+                    <select name="status" class="form-select">
+                        {% for key, label in statuses.items() %}
+                        <option value="{{ key }}" {% if deal and deal.status == key %}selected{% elif not deal and key == 'prospeccao' %}selected{% endif %}>
+                            {{ label }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Valor (R$)</label>
+                    <input type="text" name="value" class="form-control" placeholder="0,00"
+                           value="{% if deal and deal.value %}{{ '%.2f'|format(deal.value) }}{% endif %}">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Origem da marca (comissão)</label>
+                    <select name="commission_origin" class="form-select">
+                        <option value="proprio" {% if not deal or deal.commission_origin == 'proprio' %}selected{% endif %}>
+                            Do assessorado — 10%
+                        </option>
+                        <option value="viezes" {% if deal and deal.commission_origin == 'viezes' %}selected{% endif %}>
+                            Trazida pela Viezes — 20%
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Follow-up</label>
+                    <input type="date" name="follow_up_date" class="form-control"
+                           value="{% if deal and deal.follow_up_date %}{{ deal.follow_up_date.strftime('%Y-%m-%d') }}{% endif %}">
+                </div>
+                <div class="col-md-12">
+                    <label class="form-label">Próxima ação</label>
+                    <input type="text" name="next_action" class="form-control"
+                           value="{{ deal.next_action if deal and deal.next_action else '' }}">
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Observações</label>
+                    <textarea name="notes" class="form-control" rows="2">{{ deal.notes if deal and deal.notes else '' }}</textarea>
+                </div>
+            </div>
+            <div class="mt-4 d-flex flex-wrap gap-2 align-items-center">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+                <a href="{{ url_for('crm.deals') }}" class="btn btn-secondary">Cancelar</a>
+                {% if deal %}
+                <form method="post" action="{{ url_for('crm.delete_deal', deal_id=deal.id) }}" class="ms-auto"
+                      onsubmit="return confirm('Excluir esta proposta do pipeline?');">
+                    <button type="submit" class="btn btn-outline-danger">
+                        <i class="fas fa-trash me-1"></i>Excluir proposta
+                    </button>
+                </form>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

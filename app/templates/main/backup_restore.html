@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block page_title %}Backup e Restore{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h2><i class="fas fa-database me-2"></i>Backup e restauração</h2>
+        <p class="text-muted mb-0">
+            Cópias ficam em <code>backup_restore/backups/</code>.
+            Antes de limpar dados de teste, um backup é criado automaticamente (se a opção estiver marcada).
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-save me-2"></i>Novo backup</h5>
+            </div>
+            <div class="card-body">
+                <p class="small text-muted">
+                    Gera uma cópia completa do banco e inicia o download no navegador.
+                </p>
+                <a href="{{ url_for('main.backup_db') }}" class="btn btn-primary">
+                    <i class="fas fa-download me-2"></i>Realizar backup agora
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-4">
+        <div class="card h-100 border-warning">
+            <div class="card-header bg-warning bg-opacity-25">
+                <h5 class="mb-0"><i class="fas fa-upload me-2"></i>Restaurar backup</h5>
+            </div>
+            <div class="card-body">
+                <form action="{{ url_for('main.restore_db') }}" method="post"
+                      onsubmit="return confirm('O banco atual será substituído pelo backup. Continuar?');">
+                    <div class="mb-3">
+                        <label for="backup_file" class="form-label">Arquivo de backup</label>
+                        <select class="form-select" id="backup_file" name="backup_file" required>
+                            <option value="">Escolha um arquivo…</option>
+                            {% for b in backup_files %}
+                            <option value="{{ b.name }}">
+                                {{ b.name }} ({{ b.size_mb }} MB — {{ b.mtime.strftime('%d/%m/%Y %H:%M') }})
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-warning">
+                        <i class="fas fa-upload me-2"></i>Restaurar banco
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if backup_files %}
+<div class="card">
+    <div class="card-header">Backups disponíveis</div>
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Arquivo</th>
+                    <th>Tamanho</th>
+                    <th>Data</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for b in backup_files %}
+                <tr>
+                    <td><code class="small">{{ b.name }}</code></td>
+                    <td>{{ b.size_mb }} MB</td>
+                    <td>{{ b.mtime.strftime('%d/%m/%Y %H:%M') }}</td>
+                    <td>
+                        <a href="{{ url_for('main.download_backup', filename=b.name) }}" class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-download me-1"></i>Baixar
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+<div class="alert alert-info">Nenhum backup salvo ainda. Use o botão acima para criar o primeiro.</div>
+{% endif %}
+{% endblock %}

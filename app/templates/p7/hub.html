@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block page_title %}Gestão — {{ artist.stage_name }}{% endblock %}
+{% block content %}
+{% include "p7/_nav.html" %}
+
+<div class="row g-3">
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h3 class="text-primary">{{ artist.onboarding_progress or 0 }}%</h3>
+                <p class="text-muted mb-0">Onboarding</p>
+                <small>{{ tasks_done }}/{{ tasks_total }} tarefas</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h3 class="text-success">{{ dream_count }}</h3>
+                <p class="text-muted mb-0">Marcas dos sonhos</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h3 class="text-warning">{{ deals_open }}</h3>
+                <p class="text-muted mb-0">Propostas abertas (CRM)</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3 mt-2">
+    {% if current_user.is_manager %}
+    <div class="col-md-6 col-lg-4">
+        <a href="{{ url_for('p7.contrato', artist_id=artist.id) }}" class="card text-decoration-none text-dark h-100">
+            <div class="card-body"><i class="fas fa-file-contract text-primary me-2"></i><strong>Contrato & Docs</strong></div>
+        </a>
+    </div>
+    {% endif %}
+    <div class="col-md-6 col-lg-4">
+        <a href="{{ url_for('p7.midia_kit', artist_id=artist.id) }}" class="card text-decoration-none text-dark h-100">
+            <div class="card-body"><i class="fas fa-images text-info me-2"></i><strong>Mídia Kit</strong></div>
+        </a>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <a href="{{ url_for('p7.marcas', artist_id=artist.id) }}" class="card text-decoration-none text-dark h-100">
+            <div class="card-body">
+                <i class="fas fa-star text-warning me-2"></i><strong>Marcas & Metas</strong>
+                {% if dream_placeholders > 0 and current_user.is_manager %}
+                <span class="badge bg-info ms-1">{{ dream_placeholders }} da planilha</span>
+                {% endif %}
+            </div>
+        </a>
+    </div>
+    {% if current_user.is_manager %}
+    <div class="col-md-6 col-lg-4">
+        <a href="{{ url_for('p7.acessos', artist_id=artist.id) }}" class="card text-decoration-none text-dark h-100">
+            <div class="card-body"><i class="fas fa-key text-secondary me-2"></i><strong>Acessos</strong></div>
+        </a>
+    </div>
+    {% endif %}
+    <div class="col-md-6 col-lg-4">
+        <a href="{{ url_for('p7.reuniao', artist_id=artist.id) }}" class="card text-decoration-none text-dark h-100">
+            <div class="card-body"><i class="fas fa-users text-success me-2"></i><strong>Reunião de alinhamento</strong></div>
+        </a>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <a href="{{ url_for('p7.rotina', artist_id=artist.id) }}" class="card text-decoration-none text-dark h-100">
+            <div class="card-body"><i class="fas fa-calendar-week me-2"></i><strong>Rotina semanal</strong></div>
+        </a>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <a href="{{ url_for('p7.presenca_digital', artist_id=artist.id) }}" class="card text-decoration-none text-dark h-100">
+            <div class="card-body"><i class="fas fa-hashtag text-danger me-2"></i><strong>Presença digital</strong></div>
+        </a>
+    </div>
+</div>
+{% endblock %}

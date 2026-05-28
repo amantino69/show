@@ -1,0 +1,64 @@
+<nav class="nav flex-column">
+    <a class="nav-link" href="{{ url_for('main.dashboard') }}">
+        <i class="fas fa-gauge-high me-2"></i> Dashboard
+    </a>
+
+    {% if current_user.is_manager %}
+    <div class="nav-section">Gestão</div>
+    <a class="nav-link" href="{{ url_for('crm.index') }}">
+        <i class="fas fa-address-book me-2"></i> CRM
+    </a>
+    <a class="nav-link" href="{{ url_for('main.artists') }}">
+        <i class="fas fa-user-group me-2"></i> Assessorados
+    </a>
+    <a class="nav-link" href="{{ url_for('catalog.index') }}">
+        <i class="fas fa-tags me-2"></i> Cadastros
+    </a>
+    <a class="nav-link" href="{{ url_for('crm.deals') }}">
+        <i class="fas fa-handshake me-2"></i> Pipeline Marcas
+    </a>
+    <a class="nav-link" href="{{ url_for('finance.index') }}">
+        <i class="fas fa-wallet me-2"></i> Financeiro
+    </a>
+    <a class="nav-link" href="{{ url_for('team.index') }}">
+        <i class="fas fa-people-group me-2"></i> Equipe
+    </a>
+    {% else %}
+    <a class="nav-link" href="{{ url_for('portal.index') }}">
+        <i class="fas fa-star me-2"></i> Meu portal
+    </a>
+    {% endif %}
+
+    <div class="nav-section">Operação</div>
+    <a class="nav-link" href="{{ url_for('events.events') }}">
+        <i class="fas fa-calendar-days me-2"></i> Eventos
+    </a>
+    <a class="nav-link" href="{{ url_for('events.calendar') }}">
+        <i class="fas fa-calendar me-2"></i> Agenda
+    </a>
+    <a class="nav-link" href="{{ url_for('alerts.index') }}">
+        <i class="fas fa-bell me-2"></i> Alertas
+    </a>
+    <a class="nav-link" href="{{ url_for('marketing.index') }}">
+        <i class="fas fa-bullhorn me-2"></i> Marketing
+    </a>
+
+    {% if current_user.is_manager %}
+    <div class="nav-section">Sistema</div>
+    <a class="nav-link" href="{{ url_for('reports.reports') }}">
+        <i class="fas fa-chart-line me-2"></i> Relatórios
+    </a>
+    <a class="nav-link" href="{{ url_for('main.backup_restore') }}">
+        <i class="fas fa-cloud-arrow-up me-2"></i> Backup
+    </a>
+    <a class="nav-link" href="{{ url_for('devtools.test_data_index') }}">
+        <i class="fas fa-broom me-2"></i> Dados de teste
+    </a>
+    {% endif %}
+
+    <hr class="border-secondary opacity-25 my-2 mx-2">
+
+    <a class="nav-link" href="{{ url_for('auth.logout') }}">
+        <i class="fas fa-arrow-right-from-bracket me-2"></i> Sair
+    </a>
+</nav>

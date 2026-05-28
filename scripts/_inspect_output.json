@@ -1,0 +1,1544 @@
+[
+  {
+    "file": "arche_onboarding_v2.xlsx",
+    "sheets": [
+      {
+        "name": "Formulário Onboarding",
+        "preview": [
+          [
+            "ARCHÉ VIEZES  ·  ONBOARDING DO CLIENTE"
+          ],
+          [
+            "Preencher após confirmação de pagamento — Etapa 6 do fluxo operacional"
+          ],
+          [
+            "  IDENTIFICAÇÃO & CONTATO"
+          ],
+          [
+            "Nome completo"
+          ],
+          [
+            "Nome artístico / Como quer ser chamado(a)"
+          ],
+          [
+            "Segmento",
+            "Artista / Modelo / Influenciador"
+          ],
+          [
+            "Nicho específico",
+            "Ex: música sertaneja, moda plus size, lifestyle fitness..."
+          ],
+          [
+            "Cidade e Estado"
+          ],
+          [
+            "Instagram",
+            "@"
+          ],
+          [
+            "TikTok",
+            "@"
+          ],
+          [
+            "YouTube",
+            "Link"
+          ],
+          [
+            "LinkedIn",
+            "Link"
+          ],
+          [
+            "Outros canais"
+          ],
+          [
+            "Site / Portfolio"
+          ],
+          [
+            "WhatsApp"
+          ],
+          [
+            "E-mail"
+          ],
+          [
+            "Tipo de serviço contratado",
+            "Consultoria / Assessoria"
+          ]
+        ]
+      },
+      {
+        "name": "Checklist Onboarding",
+        "preview": [
+          [
+            "ARCHÉ VIEZES  ·  CHECKLIST DE ONBOARDING"
+          ],
+          [
+            "Marcar cada etapa conforme avança — use a coluna STATUS para acompanhar"
+          ],
+          [
+            "✓",
+            "TAREFA",
+            "RESPONSÁVEL",
+            "PRAZO",
+            "STATUS",
+            "OBSERVAÇÃO"
+          ],
+          [
+            "  PRÉ-FECHAMENTO"
+          ],
+          [
+            "☐",
+            "Lead registrado no CRM com todos os dados",
+            "Júlia Maria"
+          ],
+          [
+            "☐",
+            "1ª conversa realizada e diagnóstico documentado",
+            "Júlia Maria"
+          ],
+          [
+            "☐",
+            "Reunião de diagnóstico marcada (ou descartada)",
+            "Júlia Maria"
+          ],
+          [
+            "☐",
+            "Proposta enviada (valor, escopo, prazo)",
+            "Júlia Maria"
+          ],
+          [
+            "☐",
+            "Contrato enviado para assinatura",
+            "Júlia Maria"
+          ],
+          [
+            "☐",
+            "Contrato assinado e recebido",
+            "Júlia Maria"
+          ],
+          [
+            "☐",
+            "Pagamento confirmado",
+            "Júlia Maria"
+          ],
+          [
+            "☐",
+            "Motivo de não fechamento registrado no CRM (se aplicável)",
+            "Júlia Maria"
+          ],
+          [
+            "  INÍCIO DO PROJETO"
+          ],
+          [
+            "☐",
+            "Grupo oficial de trabalho criado (Júlia Maria + Julia Viana + cliente)",
+            "Júlia Maria"
+          ],
+          [
+            "☐",
+            "Mensagem de boas-vindas enviada ao cliente",
+            "Júlia Maria"
+          ],
+          [
+            "☐",
+            "Formulário de onboarding enviado ao cliente",
+            "Julia Viana"
+          ],
+          [
+            "☐",
+            "Formulário de onboarding preenchido e retornado",
+            "Cliente"
+          ],
+          [
+            "☐",
+            "Histórico profissional levantado",
+            "Julia Viana"
+          ]
+        ]
+      },
+      {
+        "name": "Presença Digital",
+        "preview": [
+          [
+            "ARCHÉ VIEZES  ·  ANÁLISE DE PRESENÇA DIGITAL"
+          ],
+          [
+            "Mapeamento canal a canal — preencher na etapa 6 do onboarding"
+          ],
+          [
+            "CANAL",
+            "SEGUIDORES / ALCANCE",
+            "SITUAÇÃO ATUAL",
+            "POTENCIAL",
+            "PRIORIDADE",
+            "AÇÃO RECOMENDADA"
+          ],
+          [
+            "Instagram"
+          ],
+          [
+            "TikTok"
+          ],
+          [
+            "YouTube"
+          ],
+          [
+            "Reels / Short"
+          ],
+          [
+            "Podcast"
+          ],
+          [
+            "Newsletter / E-mail"
+          ],
+          [
+            "Site / Blog / Portfolio"
+          ],
+          [
+            "Pinterest"
+          ],
+          [
+            "Twitter / X"
+          ],
+          [
+            "Spotify (artista)"
+          ],
+          [
+            "Soundcloud"
+          ],
+          [
+            "Twitch"
+          ],
+          [
+            "LinkedIn"
+          ]
+        ]
+      },
+      {
+        "name": "Histórico de Reuniões",
+        "preview": [
+          [
+            "ARCHÉ VIEZES  ·  HISTÓRICO DE REUNIÕES"
+          ],
+          [
+            "Registro de todas as reuniões realizadas com o cliente"
+          ],
+          [
+            "DATA",
+            "TIPO DE REUNIÃO",
+            "PARTICIPANTES",
+            "RESUMO / PAUTA",
+            "AÇÕES DEFINIDAS",
+            "RESPONSÁVEL"
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "file": "arche_organizacional_v2.xlsx",
+    "sheets": [
+      {
+        "name": "CRM - Pipeline",
+        "preview": [
+          [
+            "ARCHÉ VIEZES  ·  CRM — PIPELINE DE LEADS"
+          ],
+          [
+            "Consultoria (criação de marca do zero) · Assessoria (gestão comercial de marca existente) · Artistas · Modelos · Influenciadores"
+          ],
+          [
+            "#",
+            "NOME / PERFIL",
+            "INSTAGRAM / TIK TOK",
+            "SEGMENTO",
+            "TIPO DE SERVIÇO",
+            "ORIGEM DO LEAD",
+            "DATA 1º CONTATO",
+            "DATA DIAGNÓSTICO",
+            "STATUS DO LEAD",
+            "FECHOU?",
+            "VALOR (R$)",
+            "MOTIVO NÃO FECHOU",
+            "PRÓXIMA AÇÃO"
+          ],
+          [
+            "1"
+          ],
+          [
+            "2"
+          ],
+          [
+            "3"
+          ],
+          [
+            "4"
+          ],
+          [
+            "5"
+          ],
+          [
+            "6"
+          ],
+          [
+            "7"
+          ],
+          [
+            "8"
+          ],
+          [
+            "9"
+          ],
+          [
+            "10"
+          ],
+          [
+            "11"
+          ],
+          [
+            "12"
+          ],
+          [
+            "13"
+          ],
+          [
+            "14"
+          ]
+        ]
+      },
+      {
+        "name": "Clientes Ativos",
+        "preview": [
+          [
+            "ARCHÉ VIEZES  ·  CLIENTES ATIVOS"
+          ],
+          [
+            "Acompanhamento de todos os clientes em andamento — Consultoria e Assessoria"
+          ],
+          [
+            "#",
+            "CLIENTE / PERFIL",
+            "SEGMENTO",
+            "TIPO DE SERVIÇO",
+            "INÍCIO DO PROJETO",
+            "MÊS ATUAL",
+            "FASE ATUAL",
+            "STATUS PAGTO.",
+            "VENCIMENTO PAGTO.",
+            "VALOR MENSAL (R$)",
+            "RESP. ESTRATÉGICO",
+            "RESP. OPERACIONAL",
+            "OBSERVAÇÕES / PRÓX. REUNIÃO"
+          ],
+          [
+            "1"
+          ],
+          [
+            "2"
+          ],
+          [
+            "3"
+          ],
+          [
+            "4"
+          ],
+          [
+            "5"
+          ],
+          [
+            "6"
+          ],
+          [
+            "7"
+          ],
+          [
+            "8"
+          ],
+          [
+            "9"
+          ],
+          [
+            "10"
+          ],
+          [
+            "11"
+          ],
+          [
+            "12"
+          ],
+          [
+            "13"
+          ],
+          [
+            "14"
+          ]
+        ]
+      },
+      {
+        "name": "Financeiro",
+        "preview": [
+          [
+            "ARCHÉ VIEZES  ·  FINANCEIRO — VISÃO GERAL"
+          ],
+          [
+            "Controle de recebimentos mensais por cliente"
+          ],
+          [
+            "CLIENTE",
+            "SERVIÇO",
+            "VALOR (R$)",
+            "VENCIMENTO",
+            "STATUS PAGTO.",
+            "COMPROVANTE / OBS."
+          ]
+        ]
+      },
+      {
+        "name": "Fluxo Operacional",
+        "preview": [
+          [
+            "ARCHÉ VIEZES  ·  FLUXO OPERACIONAL — 11 ETAPAS"
+          ],
+          [
+            "Mapa de responsabilidades do fluxo completo — Consultoria e Assessoria"
+          ],
+          [
+            "ETG.",
+            "DESCRIÇÃO DA ETAPA",
+            "RESPONSÁVEL",
+            "ENTREGÁVEL / AÇÃO",
+            "TIPO DE SERVIÇO"
+          ],
+          [
+            "1",
+            "Lead chega e é atendido — primeiro contato",
+            "Júlia Maria",
+            "Registro no CRM + 1ª mensagem enviada",
+            "Ambos"
+          ],
+          [
+            "2",
+            "1ª conversa: diagnóstico do cliente, histórico,\npresença digital, dores e metas",
+            "Júlia Maria",
+            "Diagnóstico documentado · Reunião marcada ou não",
+            "Ambos"
+          ],
+          [
+            "3",
+            "Fechamento: envio de contrato + acompanhamento\nde pagamento",
+            "Júlia Maria",
+            "Contrato assinado · Pagamento confirmado",
+            "Ambos"
+          ],
+          [
+            "4",
+            "Se não fechou: registrar motivo no CRM",
+            "Júlia Maria",
+            "Campo 'Motivo não fechou' preenchido",
+            "Ambos"
+          ],
+          [
+            "5",
+            "Pagamento confirmado: criar grupo oficial\nde trabalho com Júlia Maria e Julia Viana",
+            "Júlia Maria",
+            "Grupo criado · Cliente adicionado",
+            "Ambos"
+          ],
+          [
+            "6",
+            "Levantar: histórico, presença digital, metas,\nreferências, parcerias existentes e dores centrais\nPreencher planilha/Trello de onboarding",
+            "Julia Viana",
+            "Onboarding preenchido na íntegra",
+            "Ambos"
+          ],
+          [
+            "7",
+            "Marcar 1ª reunião oficial de imersão",
+            "Júlia Maria",
+            "Data confirmada com o cliente",
+            "Ambos"
+          ],
+          [
+            "8",
+            "Produzir relatório estratégico pós-reunião\ne definir direcionamento",
+            "Júlia Maria",
+            "Relatório estratégico entregue à equipe",
+            "Ambos"
+          ],
+          [
+            "9",
+            "Organizar o operacional: calendário editorial,\narquivos, listas, cronogramas e apoio",
+            "Julia Viana",
+            "Pasta organizada · Calendário editorial ativo",
+            "Ambos"
+          ],
+          [
+            "10",
+            "Entrar quando precisar de alteração\nou material final gráfico",
+            "Rogler",
+            "Peças gráficas entregues e aprovadas",
+            "Ambos"
+          ],
+          [
+            "11",
+            "Revisão semanal do plano +\npreparação da reunião seguinte",
+            "Júlia Maria + Julia Viana",
+            "Reunião realizada · Plano atualizado",
+            "Ambos"
+          ]
+        ]
+      },
+      {
+        "name": "Equipe",
+        "preview": [
+          [
+            "ARCHÉ VIEZES  ·  EQUIPE & RESPONSABILIDADES"
+          ],
+          [
+            "MEMBRO",
+            "PAPEL",
+            "RESPONSABILIDADES",
+            "ETAPAS",
+            "PRESENÇA NO GRUPO"
+          ],
+          [
+            "Júlia Maria",
+            "Liderança Estratégica",
+            "• Primeiro atendimento do lead\n• Diagnóstico completo do cliente\n• Fechamento e contrato\n• Criação do grupo oficial\n• Relatório estratégico pós-reunião\n• Direcionamento geral do projeto\n• Revisão semanal",
+            "1, 2, 3, 4, 5, 7, 8, 11",
+            "Sempre"
+          ],
+          [
+            "Julia Viana",
+            "Liderança Operacional",
+            "• Preenchimento do onboarding e Trello\n• Calendário editorial\n• Organização de arquivos e pastas\n• Listas, cronogramas e fluxos\n• Apoio geral da operação\n• Revisão semanal operacional",
+            "6, 9, 11",
+            "Sempre"
+          ],
+          [
+            "Rogler",
+            "Design & Material Final",
+            "• Criação de peças gráficas\n• Identidade visual (quando na Consultoria)\n• Material final para aprovação\n• Alterações visuais sob demanda",
+            "10 (sob demanda)",
+            "Quando acionado"
+          ]
+        ]
+      },
+      {
+        "name": "Consultoria x Assessoria",
+        "preview": [
+          [
+            "ARCHÉ VIEZES  ·  CONSULTORIA vs ASSESSORIA"
+          ],
+          [
+            "CRITÉRIO",
+            "CONSULTORIA",
+            "ASSESSORIA"
+          ],
+          [
+            "Para quem é?",
+            "Artistas, modelos e influenciadores que\nainda NÃO têm marca pessoal estruturada",
+            "Artistas, modelos e influenciadores que\nJÁ TÊM branding e presença definidos"
+          ],
+          [
+            "Ponto de partida",
+            "Do zero: identidade, posicionamento,\nvoz, visual e estratégia",
+            "Marca existente: foco no comercial\ne crescimento"
+          ],
+          [
+            "Branding",
+            "Criado do zero pela equipe Arché",
+            "Já existe — não é responsabilidade\nda Arché criar"
+          ],
+          [
+            "Escopo principal",
+            "Branding → Posicionamento → Calendário\nEditorial → Acompanhamento semanal",
+            "Gestão comercial: parcerias, publis,\nnegociações, oportunidades"
+          ],
+          [
+            "Relatório estratégico",
+            "Sim — produzido pela Júlia Maria\na cada reunião",
+            "Sim — com foco em resultado comercial\ne oportunidades de mercado"
+          ],
+          [
+            "Calendário editorial",
+            "Criado e gerenciado pela equipe",
+            "Gerenciado pela equipe com base no\nposicionamento já existente"
+          ],
+          [
+            "Duração típica",
+            "Mínimo 3 meses (processo de construção)",
+            "Contrato mensal recorrente"
+          ],
+          [
+            "Quem cuida do operacional",
+            "Julia Viana",
+            "Julia Viana"
+          ],
+          [
+            "Quem lidera a estratégia",
+            "Júlia Maria",
+            "Júlia Maria"
+          ],
+          [
+            "Material gráfico (Rogler)",
+            "Sim — identidade visual e peças",
+            "Sim — peças de apoio sob demanda"
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "file": "VIEZES - Onboarding P7.xlsx",
+    "sheets": [
+      {
+        "name": "Dashboard",
+        "preview": [
+          [
+            "VIEZES ASSESSORIA — FICHA DE ONBOARDING"
+          ],
+          [
+            "Preencha o nome do assessorado e acompanhe todo o processo de entrada"
+          ],
+          [
+            "ASSESSORADO:",
+            " Pedro Henrique Marçal Oliveira - P7",
+            "DATA ENTRADA:",
+            "2026-04-24 00:00:00"
+          ],
+          [
+            "/"
+          ],
+          [
+            "ETAPA ATUAL",
+            "PROGRESSO GERAL",
+            "TAREFAS CONCLUÍDAS",
+            "PENDÊNCIAS"
+          ],
+          [
+            "Em andamento",
+            "0.3555555556",
+            "16",
+            "19"
+          ],
+          [
+            "Atualizado pelo Checklist",
+            "Atualizado pelo Checklist",
+            "Atualizado pelo Checklist",
+            "Atualizado pelo Checklist"
+          ],
+          [
+            "  STATUS POR MÓDULO"
+          ],
+          [
+            "MÓDULO",
+            "RESPONSÁVEL",
+            "STATUS",
+            "% COMPLETO",
+            "OBS."
+          ],
+          [
+            "Perfil & Posicionamento",
+            "Julia Viana",
+            "Em andamento"
+          ],
+          [
+            "Contrato & Docs",
+            "Julia Viana",
+            "Concluido"
+          ],
+          [
+            "Mídia Kit & Materiais",
+            "Julia Viana",
+            "Nao iniciado"
+          ],
+          [
+            "Marcas & Metas",
+            "Julia Maria",
+            "Nao iniciado"
+          ],
+          [
+            "Acesso & Ferramentas",
+            "Julia Viana",
+            "Nao iniciado"
+          ],
+          [
+            "Reunião de Alinhamento",
+            "Julia Maria",
+            "Concluido"
+          ],
+          [
+            "  LINHA DO TEMPO DO ONBOARDING"
+          ]
+        ]
+      },
+      {
+        "name": "Checklist",
+        "preview": [
+          [
+            "CHECKLIST GERAL DE ONBOARDING"
+          ],
+          [
+            "Em andamento",
+            "0.3555555556",
+            "16",
+            "19"
+          ],
+          [
+            "#",
+            "STATUS",
+            "TAREFA",
+            "RESPONSÁVEL",
+            "PRAZO",
+            "CONCLUÍDO EM",
+            "OBS."
+          ],
+          [
+            "  PRÉ-ONBOARDING"
+          ],
+          [
+            "1.0",
+            "Concluido",
+            "Lead qualificado e aprovado por Julia Viana",
+            "Julia Viana"
+          ],
+          [
+            "2.0",
+            "Concluido",
+            "Reunião de descoberta realizada com Julia Maria",
+            "Julia Maria"
+          ],
+          [
+            "3.0",
+            "Concluido",
+            "Formato e condições de assessoria definidos",
+            "Julia Maria"
+          ],
+          [
+            "4.0",
+            "Concluido",
+            "Proposta enviada e aceita pelo assessorado",
+            "Julia Viana"
+          ],
+          [
+            "  CONTRATO & DOCUMENTAÇÃO"
+          ],
+          [
+            "5.0",
+            "Pendente",
+            "Contrato gerado conforme condições acordadas",
+            "Julia Viana"
+          ],
+          [
+            "6.0",
+            "Pendente",
+            "Contrato assinado por ambas as partes",
+            "Julia Viana"
+          ],
+          [
+            "7.0",
+            "Pendente",
+            "Contrato arquivado no Trello e Google Drive",
+            "Julia Viana"
+          ],
+          [
+            "8.0",
+            "Pendente",
+            "NDA assinado (se aplicável)",
+            "Julia Viana",
+            "Se necessário"
+          ],
+          [
+            "  ACESSO & COMUNICAÇÃO"
+          ],
+          [
+            "9.0",
+            "Concluido",
+            "Grupo de WhatsApp criado com o assessorado",
+            "Julia Viana"
+          ],
+          [
+            "10.0",
+            "Concluido",
+            "E-mail profissional operacional criado",
+            "Julia Viana",
+            "Ex: nome@viezes.com"
+          ],
+          [
+            "11.0",
+            "Concluido",
+            "Assessorado adicionado nos grupos internos necessários",
+            "Julia Viana"
+          ],
+          [
+            "12.0",
+            "Pendente",
+            "Acesso ao Google Drive compartilhado",
+            "Julia Viana"
+          ],
+          [
+            "  COLETA DE DADOS"
+          ]
+        ]
+      },
+      {
+        "name": "Perfil",
+        "preview": [
+          [
+            "PERFIL DO ASSESSORADO"
+          ],
+          [
+            "Em andamento"
+          ],
+          [
+            "  DADOS PESSOAIS E PROFISSIONAIS"
+          ],
+          [
+            "Nome completo",
+            "Pedro Henrique Marçal Oliveira"
+          ],
+          [
+            "Nome artístico / @",
+            "P7"
+          ],
+          [
+            "Data de nascimento",
+            "1999-12-28 00:00:00"
+          ],
+          [
+            "CPF / CNPJ",
+            "10924998652.0"
+          ],
+          [
+            "Telefone",
+            "(31) 99667-2061"
+          ],
+          [
+            "E-mail pessoal"
+          ],
+          [
+            "E-mail profissional",
+            "p7,viezes@gmail.com"
+          ],
+          [
+            "Cidade / Estado",
+            "Belo Horizonte"
+          ],
+          [
+            "CEP"
+          ],
+          [
+            "Endereço completo",
+            "Rua Passos 802, ap 302 - Crlos Prates "
+          ],
+          [
+            "  DADOS BANCÁRIOS"
+          ],
+          [
+            "Banco"
+          ],
+          [
+            "Agência"
+          ],
+          [
+            "Conta"
+          ],
+          [
+            "Tipo de conta"
+          ]
+        ]
+      },
+      {
+        "name": "Contrato",
+        "preview": [
+          [
+            "CONTRATO & DOCUMENTAÇÃO"
+          ],
+          [
+            "Em andamento"
+          ],
+          [
+            "  DADOS DO CONTRATO"
+          ],
+          [
+            "Modelo de contrato"
+          ],
+          [
+            "Data de assinatura"
+          ],
+          [
+            "Vigência do contrato"
+          ],
+          [
+            "Formato da assessoria"
+          ],
+          [
+            "Valor mensal (R$)"
+          ],
+          [
+            "Comissão acordada"
+          ],
+          [
+            "Forma de pagamento"
+          ],
+          [
+            "Dia de vencimento"
+          ],
+          [
+            "Cláusula de exclusividade"
+          ],
+          [
+            "Prazo de aviso prévio"
+          ],
+          [
+            "Foro eleito"
+          ],
+          [
+            "  CHECKLIST DOCUMENTAL"
+          ],
+          [
+            "#",
+            "STATUS",
+            "DOCUMENTO",
+            "RECEBIDO?",
+            "DATA",
+            "OBS."
+          ],
+          [
+            "1.0",
+            "Pendente",
+            "Contrato assinado (PDF)"
+          ],
+          [
+            "2.0",
+            "Pendente",
+            "RG ou CNH (frente e verso)"
+          ]
+        ]
+      },
+      {
+        "name": "MidiaKit",
+        "preview": [
+          [
+            "MÍDIA KIT & MATERIAIS"
+          ],
+          [
+            "Em andamento"
+          ],
+          [
+            "  TABELA DE VALORES"
+          ],
+          [
+            "PLATAFORMA",
+            "FORMATO",
+            "DESCRIÇÃO",
+            "VALOR (R$)",
+            "COMBO?",
+            "INCLUI REPOST?",
+            "PRAZO ENTREGA",
+            "OBS."
+          ],
+          [
+            "Instagram",
+            "Story (1 frame)"
+          ],
+          [
+            "Instagram",
+            "Story (3 frames)"
+          ],
+          [
+            "Instagram",
+            "Reels"
+          ],
+          [
+            "Instagram",
+            "Feed (foto)"
+          ],
+          [
+            "Instagram",
+            "Feed (carrossel)"
+          ],
+          [
+            "Instagram",
+            "Live"
+          ],
+          [
+            "TikTok",
+            "Video"
+          ],
+          [
+            "TikTok",
+            "Live"
+          ],
+          [
+            "YouTube",
+            "Video dedicado"
+          ],
+          [
+            "YouTube",
+            "Menção"
+          ],
+          [
+            "YouTube",
+            "Short"
+          ],
+          [
+            "Twitter / X",
+            "Post"
+          ],
+          [
+            "Pinterest",
+            "Pin patrocinado"
+          ],
+          [
+            "  RESTRIÇÕES DE MARCA E CONTEÚDO"
+          ]
+        ]
+      },
+      {
+        "name": "Marcas",
+        "preview": [
+          [
+            "MARCAS DESEJADAS & METAS"
+          ],
+          [
+            "Em andamento"
+          ],
+          [
+            "  MARCAS DOS SONHOS (TOP 10)"
+          ],
+          [
+            "MARCA",
+            "SEGMENTO",
+            "MOTIVO / AFINIDADE",
+            "CONTATO CONHECIDO?",
+            "STATUS",
+            "PRIORIDADE",
+            "VALOR ESTIMADO (R$)",
+            "OBS."
+          ],
+          [
+            "1."
+          ],
+          [
+            "2."
+          ],
+          [
+            "3."
+          ],
+          [
+            "4."
+          ],
+          [
+            "5."
+          ],
+          [
+            "6."
+          ],
+          [
+            "7."
+          ],
+          [
+            "8."
+          ],
+          [
+            "9."
+          ],
+          [
+            "10."
+          ],
+          [
+            "  MARCAS JÁ TRABALHADAS (HISTÓRICO)"
+          ],
+          [
+            "MARCA",
+            "SEGMENTO",
+            "ANO/PERÍODO",
+            "FORMATO",
+            "VALOR RECEBIDO (R$)",
+            "GEROU RENOVAÇÃO?",
+            "CONTATO NA MARCA",
+            "OBS."
+          ]
+        ]
+      },
+      {
+        "name": "Acessos",
+        "preview": [
+          [
+            "ACESSOS & FERRAMENTAS"
+          ],
+          [
+            "Em andamento"
+          ],
+          [
+            "  ACESSOS CRIADOS E COMPARTILHADOS"
+          ],
+          [
+            "FERRAMENTA/PLATAFORMA",
+            "USUÁRIO / E-MAIL",
+            "SENHA/ACESSO",
+            "COMPARTILHADO COM",
+            "STATUS",
+            "DATA",
+            "OBS."
+          ],
+          [
+            "E-mail profissional (Viezes)"
+          ],
+          [
+            "WhatsApp Business"
+          ],
+          [
+            "Google Drive — pasta do assessorado"
+          ],
+          [
+            "Trello — card do assessorado"
+          ],
+          [
+            "Instagram Business (acesso de parceiro)"
+          ],
+          [
+            "TikTok Creator Marketplace"
+          ],
+          [
+            "YouTube Studio"
+          ],
+          [
+            "Planilha de onboarding (este doc)"
+          ],
+          [
+            "CRM da Viezes"
+          ],
+          [
+            "Linktree / link na bio"
+          ],
+          [
+            "Canva (acesso de edição)"
+          ],
+          [
+            "  AGENDA E DISPONIBILIDADE"
+          ],
+          [
+            "DIA DA SEMANA",
+            "DISPONÍVEL?",
+            "HORÁRIO INÍCIO",
+            "HORÁRIO FIM",
+            "GRAVAÇÕES?",
+            "EVENTOS/VIAGENS",
+            "OBSERVAÇÃO"
+          ],
+          [
+            "Segunda-feira"
+          ]
+        ]
+      },
+      {
+        "name": "Reuniao",
+        "preview": [
+          [
+            "REUNIÃO DE ALINHAMENTO FINO"
+          ],
+          [
+            "Em andamento"
+          ],
+          [
+            "  DADOS DA REUNIÃO"
+          ],
+          [
+            "Data da reunião"
+          ],
+          [
+            "Horário"
+          ],
+          [
+            "Formato (online/pres)"
+          ],
+          [
+            "Participantes"
+          ],
+          [
+            "Link da reunião"
+          ],
+          [
+            "  PAUTAS DA REUNIÃO"
+          ],
+          [
+            "#",
+            "PAUTA",
+            "DISCUTIDO?",
+            "RESPONSÁVEL",
+            "DECISÃO/ENCAMINHAMENTO",
+            "OBS."
+          ],
+          [
+            "1.0",
+            "Apresentação da equipe Viezes e papéis de cada uma",
+            "Nao"
+          ],
+          [
+            "2.0",
+            "Como funciona o dia a dia da assessoria",
+            "Nao"
+          ],
+          [
+            "3.0",
+            "Processo de prospecção de marcas",
+            "Nao"
+          ],
+          [
+            "4.0",
+            "Como são as negociações e os fechamentos",
+            "Nao"
+          ],
+          [
+            "5.0",
+            "Briefing de criação de conteúdo patrocinado",
+            "Nao"
+          ],
+          [
+            "6.0",
+            "Comunicação e tempo de resposta esperados",
+            "Nao"
+          ],
+          [
+            "7.0",
+            "Revisão das metas dos próximos 30 dias",
+            "Nao"
+          ],
+          [
+            "8.0",
+            "Primeiras marcas a serem prospectadas",
+            "Nao"
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "file": "Viezes Assessoria - Painel Operacional.xlsx",
+    "sheets": [
+      {
+        "name": "Dashboard",
+        "preview": [
+          [
+            "VIEZES ASSESSORIA — PAINEL OPERACIONAL"
+          ],
+          [
+            "Gestão de Influenciadores · Artistas · Modelos"
+          ],
+          [
+            "ASSESSORADOS\nATIVOS",
+            "PROPOSTAS\nABERTAS",
+            "FECHAMENTOS\nMÊS",
+            "FOLLOW-UPS\nPENDENTES"
+          ],
+          [
+            "—",
+            "—",
+            "—",
+            "—"
+          ],
+          [
+            "Atualizar manualmente",
+            "Atualizar manualmente",
+            "Atualizar manualmente",
+            "Atualizar manualmente"
+          ],
+          [
+            "ℹ  Navegue pelas abas para acessar cada módulo operacional da assessoria."
+          ],
+          [
+            "  PAPÉIS DA EQUIPE"
+          ],
+          [
+            "BLOCO",
+            "JULIA MARIA",
+            "JULIA VIANA (JUJU)",
+            "OBSERVAÇÃO"
+          ],
+          [
+            "Relacionamento com Marcas",
+            "LIDERA — contato externo",
+            "Apoia pesquisa e preparo",
+            "Contato principal: Julia Maria"
+          ],
+          [
+            "Relacionamento com Assessorados",
+            "Pontos estratégicos",
+            "LIDERA — ponte do dia a dia",
+            "Juju é a referência diária"
+          ],
+          [
+            "PDFs e Materiais",
+            "Direciona e aprova",
+            "Monta rascunho (Rogler exec.)",
+            "Rogler executa o design"
+          ],
+          [
+            "Fechamento",
+            "LIDERA — reuniões finais",
+            "Apoia com proposta/contrato",
+            "Reuniões finais: Julia Maria"
+          ],
+          [
+            "  REGRAS DE COMISSIONAMENTO"
+          ],
+          [
+            "🏷  Marca vem do PRÓPRIO ASSESSORADO → Comissão: 10%",
+            "🚀  Marca TRAZIDA PELA VIEZES → Comissão: 20%"
+          ]
+        ]
+      },
+      {
+        "name": "Onboarding",
+        "preview": [
+          [
+            "CHECKLIST DE ONBOARDING — NOVO ASSESSORADO"
+          ],
+          [
+            "Assessorado:"
+          ],
+          [
+            "Data de entrada"
+          ],
+          [
+            "STATUS",
+            "TAREFA",
+            "RESPONSÁVEL",
+            "PRAZO",
+            "CONCLUÍDO EM",
+            "OBS."
+          ],
+          [
+            "  ETAPA 1 — CAPTAÇÃO"
+          ],
+          [
+            "—",
+            "Lead registrado no CRM (nome, origem, data, responsável)",
+            "Julia Viana",
+            "No ato"
+          ],
+          [
+            "—",
+            "Canal de entrada identificado (indicação / prospecção / direto)",
+            "Julia Viana",
+            "No ato"
+          ],
+          [
+            "  ETAPA 2 — QUALIFICAÇÃO"
+          ],
+          [
+            "—",
+            "Perfil e necessidade avaliados por Julia Viana",
+            "Julia Viana",
+            "D+1"
+          ],
+          [
+            "—",
+            "Reunião com Julia Maria agendada (se qualificado)",
+            "Julia Viana",
+            "D+2"
+          ],
+          [
+            "  ETAPA 3 — REUNIÃO DE DESCOBERTA"
+          ],
+          [
+            "—",
+            "Reunião de descoberta realizada por Julia Maria",
+            "Julia Maria",
+            "D+5"
+          ],
+          [
+            "—",
+            "Formato de assessoria e condições definidos",
+            "Julia Maria",
+            "D+5"
+          ],
+          [
+            "  ETAPA 4 — CONTRATO"
+          ],
+          [
+            "—",
+            "Contrato gerado por Julia Viana conforme condições acordadas",
+            "Julia Viana",
+            "D+6"
+          ],
+          [
+            "—",
+            "Contrato assinado e arquivado",
+            "Julia Viana",
+            "D+8"
+          ],
+          [
+            "  ETAPA 5 — ONBOARDING PÓS-ASSINATURA"
+          ],
+          [
+            "—",
+            "Grupo de comunicação criado com o assessorado",
+            "Julia Viana",
+            "D+9"
+          ]
+        ]
+      },
+      {
+        "name": "CRM — Leads",
+        "preview": [
+          [
+            "CRM — LEADS E ASSESSORADOS"
+          ],
+          [
+            "NOME",
+            "NICHO",
+            "COMO CHEGOU",
+            "STATUS",
+            "QUALIFICADO?",
+            "RESPONSÁVEL",
+            "DATA ENTRADA",
+            "OBSERVAÇÕES"
+          ]
+        ]
+      },
+      {
+        "name": "Pipeline — Marcas",
+        "preview": [
+          [
+            "PIPELINE DE PROSPECÇÃO — MARCAS"
+          ],
+          [
+            "ASSESSORADO",
+            "MARCA",
+            "CONTATO NA MARCA",
+            "NICHO/SEGMENTO",
+            "ORIGEM",
+            "STATUS",
+            "COMISSÃO %",
+            "VALOR (R$)",
+            "PRÓX. PASSO"
+          ]
+        ]
+      },
+      {
+        "name": "Rotina Semanal",
+        "preview": [
+          [
+            "ROTINA SEMANAL — VIEZES ASSESSORIA"
+          ],
+          [
+            "DIA",
+            "TAREFA",
+            "RESPONSÁVEL",
+            "STATUS",
+            "OBSERVAÇÃO"
+          ],
+          [
+            "  SEGUNDA-FEIRA"
+          ],
+          [
+            "Revisar pipeline de marcas por assessorado",
+            "Julia Viana",
+            "—"
+          ],
+          [
+            "Verificar oportunidades em aberto",
+            "Julia Viana",
+            "—"
+          ],
+          [
+            "Atualizar status no CRM",
+            "Julia Viana + Julia Maria",
+            "—"
+          ],
+          [
+            "  TERÇA-FEIRA"
+          ],
+          [
+            "Prospecção de novas marcas",
+            "Julia Maria",
+            "—",
+            "Usar mídia kit"
+          ],
+          [
+            "Follow-up com marcas sem resposta (3–5 dias)",
+            "Julia Maria",
+            "—",
+            "Firme e cordial"
+          ],
+          [
+            "Retomar contatos com marcas quentes",
+            "Julia Maria",
+            "—"
+          ],
+          [
+            "Reforçar propostas enviadas",
+            "Julia Maria",
+            "—"
+          ],
+          [
+            "Atualizar marcas com novidades do assessorado",
+            "Julia Viana",
+            "—"
+          ],
+          [
+            "  QUARTA-FEIRA"
+          ],
+          [
+            "Atualizar PDFs e mídia kits se necessário",
+            "Julia Viana",
+            "—",
+            "Rogler executa"
+          ],
+          [
+            "Revisar calendário de ações",
+            "Julia Viana",
+            "—"
+          ],
+          [
+            "Organizar pendências documentais",
+            "Julia Viana",
+            "—"
+          ]
+        ]
+      },
+      {
+        "name": "Fechamento Mensal",
+        "preview": [
+          [
+            "FECHAMENTO MENSAL — VIEZES ASSESSORIA"
+          ],
+          [
+            "Mês de referência:"
+          ],
+          [
+            "  MARCAS PROSPECTADAS NO MÊS"
+          ],
+          [
+            "ASSESSORADO",
+            "MARCA",
+            "STATUS FINAL",
+            "ORIGEM",
+            "COMISSÃO %",
+            "VALOR FECHADO (R$)",
+            "OBSERVAÇÃO"
+          ]
+        ]
+      },
+      {
+        "name": "Faturamento",
+        "preview": [
+          [
+            "CONTROLE DE FATURAMENTO — VIEZES"
+          ],
+          [
+            "ASSESSORADO",
+            "MÊS",
+            "VALOR DA AÇÃO (R$)",
+            "ORIGEM",
+            "COMISSÃO %",
+            "COMISSÃO VIEZES (R$)"
+          ]
+        ]
+      }
+    ]
+  }
+]

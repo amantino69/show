@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block page_title %}{% if item %}Editar{% else %}Novo{% endif %} — {{ category }}{% endblock %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h2>{% if item %}Editar{% else %}Novo item{% endif %}</h2>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <form method="post">
+            <div class="mb-3">
+                <label class="form-label">Nome *</label>
+                <input type="text" name="name" class="form-control" required value="{{ item.name if item else '' }}">
+            </div>
+            {% if category == 'service_type' %}
+            <div class="mb-3">
+                <label class="form-label">Slug (opcional)</label>
+                <input type="text" name="slug" class="form-control" placeholder="consultoria, assessoria"
+                       value="{{ item.slug if item else '' }}">
+                <small class="text-muted">Identificador interno usado em integrações.</small>
+            </div>
+            {% endif %}
+            <div class="mb-3">
+                <label class="form-label">Ordem de exibição</label>
+                <input type="number" name="sort_order" class="form-control" value="{{ item.sort_order if item else 0 }}">
+            </div>
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" name="is_active" id="is_active"
+                       {% if not item or item.is_active %}checked{% endif %}>
+                <label class="form-check-label" for="is_active">Ativo</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <a href="{{ url_for('catalog.list_items', category=category) }}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

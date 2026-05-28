@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block page_title %}Equipe{% endblock %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12 d-flex justify-content-between">
+        <div>
+            <h2><i class="fas fa-user-tie me-2"></i>Equipe</h2>
+            <p class="text-muted mb-0">Usuários da assessoria e portal dos assessorados</p>
+        </div>
+        <a href="{{ url_for('team.new_user') }}" class="btn btn-primary"><i class="fas fa-plus me-1"></i> Novo usuário</a>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr><th>Usuário</th><th>Nome exibição</th><th>Papel</th><th>Tipo</th><th>Ativo</th><th></th></tr>
+            </thead>
+            <tbody>
+                {% for u in users %}
+                <tr>
+                    <td><strong>{{ u.username }}</strong><br><small>{{ u.email }}</small></td>
+                    <td>{{ u.display_name or '—' }}</td>
+                    <td>{% if u.team_role %}{{ roles.get(u.team_role, u.team_role) }}{% else %}—{% endif %}</td>
+                    <td>
+                        {% if u.is_manager %}<span class="badge bg-primary">Empresário / equipe</span>
+                        {% else %}<span class="badge bg-info">Assessorado</span>{% endif %}
+                    </td>
+                    <td>{% if u.is_active_user %}<span class="badge bg-success">Sim</span>{% else %}<span class="badge bg-secondary">Não</span>{% endif %}</td>
+                    <td class="text-nowrap">
+                        <a href="{{ url_for('team.edit_user', user_id=u.id) }}" class="btn btn-sm btn-outline-primary">Editar</a>
+                        {% if u.id != current_user.id and (not u.is_manager or managers_count > 1) %}
+                        <form method="post" action="{{ url_for('team.delete_user', user_id=u.id) }}" class="d-inline"
+                              onsubmit="return confirm('Excluir o usuário {{ u.username }}?');">
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Excluir</button>
+                        </form>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

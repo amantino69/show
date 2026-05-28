@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% block page_title %}Dados de teste{% endblock %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h2><i class="fas fa-broom me-2"></i>Limpeza de dados de teste</h2>
+        <p class="text-muted mb-0">
+            Use antes de ir para produção. {{ total_operational }} registro(s) em tabelas operacionais.
+            Sua conta de login e pelo menos um empresário são preservados na limpeza de usuários.
+        </p>
+    </div>
+</div>
+
+<div class="card border-primary mb-4">
+    <div class="card-header bg-primary text-white">
+        <i class="fas fa-database me-1"></i> Backup
+    </div>
+    <div class="card-body">
+        <p class="small mb-3">
+            Recomendado antes de qualquer limpeza. Os arquivos ficam em
+            <a href="{{ url_for('main.backup_restore') }}">Backup e restauração</a>.
+        </p>
+        <form method="post" action="{{ url_for('devtools.backup_before_test') }}" class="d-inline">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save me-1"></i> Criar backup agora
+            </button>
+        </form>
+        {% if recent_backups %}
+        <ul class="list-unstyled small text-muted mt-3 mb-0">
+            {% for b in recent_backups %}
+            <li>
+                <i class="fas fa-file me-1"></i>{{ b.name }}
+                — {{ b.mtime.strftime('%d/%m/%Y %H:%M') }} ({{ b.size_mb }} MB)
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</div>
+
+<div class="card border-danger mb-4">
+    <div class="card-header bg-danger text-white">
+        <i class="fas fa-triangle-exclamation me-1"></i> Limpar tudo (dados operacionais)
+    </div>
+    <div class="card-body">
+        <p class="small mb-3">
+            Remove leads, assessorados, eventos, financeiro, marketing, P7, usuários extras etc., na ordem correta de dependências.
+        </p>
+        <form method="post" action="{{ url_for('devtools.purge_all_route') }}"
+              onsubmit="return confirm('ATENÇÃO: isso apaga quase todos os dados de teste. Continuar?');">
+            <div class="row g-2 align-items-end">
+                <div class="col-md-4">
+                    <label class="form-label">Digite <strong>LIMPAR</strong> para confirmar</label>
+                    <input type="text" name="confirm_text" class="form-control" placeholder="LIMPAR" autocomplete="off" required>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" name="auto_backup" id="autoBackupAll" value="on" checked>
+                        <label class="form-check-label" for="autoBackupAll">
+                            Criar backup antes de limpar
+                        </label>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" name="include_config" id="includeConfig">
+                        <label class="form-check-label" for="includeConfig">
+                            Incluir cadastros e modelos (segmentos, tipos de evento…)
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-danger w-100">
+                        <i class="fas fa-trash me-1"></i> Limpar todos os dados de teste
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header">Tabelas operacionais</div>
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Tabela</th>
+                    <th class="text-center">Registros</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in operational %}
+                <tr>
+                    <td>
+                        <strong>{{ row.label }}</strong>
+                        {% if row.note %}<br><small class="text-muted">{{ row.note }}</small>{% endif %}
+                    </td>
+                    <td class="text-center">
+                        <span class="badge {% if row.count > 0 %}bg-secondary{% else %}bg-light text-muted{% endif %}">{{ row.count }}</span>
+                    </td>
+                    <td class="text-end">
+                        {% if row.count > 0 %}
+                        <form method="post" action="{{ url_for('devtools.purge_table_route', table_key=row.key) }}" class="d-inline"
+                              onsubmit="return confirm('Excluir todos os {{ row.count }} registro(s) de «{{ row.label }}»?');">
+                            <input type="hidden" name="auto_backup" value="on">
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Limpar tabela</button>
+                        </form>
+                        {% else %}
+                        <span class="text-muted small">—</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">Configuração / catálogos</div>
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Tabela</th>
+                    <th class="text-center">Registros</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in config %}
+                <tr>
+                    <td>
+                        <strong>{{ row.label }}</strong>
+                        {% if row.note %}<br><small class="text-muted">{{ row.note }}</small>{% endif %}
+                    </td>
+                    <td class="text-center">
+                        <span class="badge {% if row.count > 0 %}bg-secondary{% else %}bg-light text-muted{% endif %}">{{ row.count }}</span>
+                    </td>
+                    <td class="text-end">
+                        {% if row.count > 0 %}
+                        <form method="post" action="{{ url_for('devtools.purge_table_route', table_key=row.key) }}" class="d-inline"
+                              onsubmit="return confirm('Excluir todos os {{ row.count }} registro(s) de «{{ row.label }}»?');">
+                            <input type="hidden" name="auto_backup" value="on">
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Limpar tabela</button>
+                        </form>
+                        {% else %}
+                        <span class="text-muted small">—</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<p class="text-muted small mt-3 mb-0">
+    Nas telas do sistema (CRM, equipe, P7, marketing…) também há botões <strong>Excluir</strong> em cada cadastro.
+</p>
+{% endblock %}

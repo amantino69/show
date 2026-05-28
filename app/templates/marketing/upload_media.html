@@ -1,0 +1,318 @@
+{% extends "base.html" %}
+
+{% block title %}Upload de Mídia{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <!-- Header -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h1 class="h3 mb-0">📤 Upload de Mídia</h1>
+                    <p class="text-muted">Adicione fotos, vídeos e documentos à biblioteca</p>
+                </div>
+                <a href="{{ url_for('marketing.media_library') }}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left"></i> Voltar à Biblioteca
+                </a>
+            </div>
+
+            <!-- Formulário de Upload -->
+            <div class="card">
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data" id="uploadForm">
+                        <!-- Seleção de Arquivo -->
+                        <div class="mb-4">
+                            <label for="file" class="form-label">Arquivo *</label>
+                            <div class="border border-dashed border-3 p-4 text-center rounded" 
+                                 id="dropZone" 
+                                 style="min-height: 200px; border-color: #dee2e6;">
+                                <input type="file" 
+                                       class="form-control d-none" 
+                                       id="file" 
+                                       name="file" 
+                                       accept=".png,.jpg,.jpeg,.gif,.webp,.mp4,.mov,.avi,.pdf,.doc,.docx"
+                                       required>
+                                
+                                <div id="dropZoneContent">
+                                    <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
+                                    <h5>Clique para selecionar ou arraste o arquivo aqui</h5>
+                                    <p class="text-muted">
+                                        Formatos aceitos: PNG, JPG, GIF, WebP, MP4, MOV, AVI, PDF, DOC, DOCX<br>
+                                        Tamanho máximo: 50MB
+                                    </p>
+                                    <button type="button" class="btn btn-primary" onclick="document.getElementById('file').click()">
+                                        <i class="fas fa-folder-open"></i> Selecionar Arquivo
+                                    </button>
+                                </div>
+
+                                <!-- Preview do arquivo selecionado -->
+                                <div id="filePreview" class="d-none">
+                                    <div id="previewContent"></div>
+                                    <p class="mt-3 mb-0">
+                                        <strong id="fileName"></strong><br>
+                                        <small class="text-muted" id="fileSize"></small>
+                                    </p>
+                                    <button type="button" class="btn btn-sm btn-outline-danger mt-2" onclick="clearFile()">
+                                        <i class="fas fa-times"></i> Remover
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Informações da Mídia -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="title" class="form-label">Título</label>
+                                    <input type="text" class="form-control" id="title" name="title" 
+                                           placeholder="Ex: Foto do show no Rock in Rio">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="artist_id" class="form-label">Artista</label>
+                                    <select class="form-select" id="artist_id" name="artist_id">
+                                        <option value="">Selecione um artista (opcional)</option>
+                                        {% for artist in artists %}
+                                        <option value="{{ artist.id }}">{{ artist.stage_name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="event_id" class="form-label">Evento Relacionado</label>
+                                    <select class="form-select" id="event_id" name="event_id">
+                                        <option value="">Selecione um evento (opcional)</option>
+                                        {% for event in events %}
+                                        <option value="{{ event.id }}">
+                                            {{ event.title }} - {{ event.start_datetime.strftime('%d/%m/%Y') }}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="tags" class="form-label">Tags</label>
+                                    <input type="text" class="form-control" id="tags" name="tags" 
+                                           placeholder="show, backstage, rock (separadas por vírgula)">
+                                    <div class="form-text">Use tags para facilitar a busca da mídia</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Descrição</label>
+                            <textarea class="form-control" id="description" name="description" rows="3" 
+                                      placeholder="Descreva o conteúdo da mídia..."></textarea>
+                        </div>
+
+                        <!-- Progress Bar -->
+                        <div class="mb-3 d-none" id="uploadProgress">
+                            <label class="form-label">Progresso do Upload</label>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 0%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Botões -->
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ url_for('marketing.media_library') }}" class="btn btn-secondary">
+                                <i class="fas fa-times"></i> Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-success" id="submitBtn">
+                                <i class="fas fa-upload"></i> Fazer Upload
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Dicas de Uso -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h6 class="mb-0"><i class="fas fa-lightbulb"></i> Dicas para Organizar sua Mídia</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>📸 Para Imagens:</h6>
+                            <ul class="small">
+                                <li>Use títulos descritivos</li>
+                                <li>Adicione tags como "backstage", "show", "promocional"</li>
+                                <li>Prefira alta resolução para press kits</li>
+                                <li>Organize por artista e evento</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>🎥 Para Vídeos:</h6>
+                            <ul class="small">
+                                <li>Inclua duração na descrição</li>
+                                <li>Use tags como "clipe", "live", "backstage"</li>
+                                <li>Comprima para reduzir tamanho</li>
+                                <li>Adicione informações do local/evento</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('file');
+    const dropZoneContent = document.getElementById('dropZoneContent');
+    const filePreview = document.getElementById('filePreview');
+    const previewContent = document.getElementById('previewContent');
+    const fileName = document.getElementById('fileName');
+    const fileSize = document.getElementById('fileSize');
+    const uploadForm = document.getElementById('uploadForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const uploadProgress = document.getElementById('uploadProgress');
+    const progressBar = uploadProgress.querySelector('.progress-bar');
+
+    // Drag & Drop
+    dropZone.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        dropZone.style.borderColor = '#007bff';
+        dropZone.style.backgroundColor = '#f8f9fa';
+    });
+
+    dropZone.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        dropZone.style.borderColor = '#dee2e6';
+        dropZone.style.backgroundColor = 'white';
+    });
+
+    dropZone.addEventListener('drop', function(e) {
+        e.preventDefault();
+        dropZone.style.borderColor = '#dee2e6';
+        dropZone.style.backgroundColor = 'white';
+        
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            fileInput.files = files;
+            handleFileSelection(files[0]);
+        }
+    });
+
+    // Click no drop zone
+    dropZone.addEventListener('click', function(e) {
+        if (e.target === dropZone || e.target === dropZoneContent) {
+            fileInput.click();
+        }
+    });
+
+    // Seleção de arquivo
+    fileInput.addEventListener('change', function(e) {
+        if (e.target.files.length > 0) {
+            handleFileSelection(e.target.files[0]);
+        }
+    });
+
+    function handleFileSelection(file) {
+        // Verificar tamanho (50MB)
+        if (file.size > 50 * 1024 * 1024) {
+            alert('Arquivo muito grande! Tamanho máximo: 50MB');
+            clearFile();
+            return;
+        }
+
+        // Atualizar informações
+        fileName.textContent = file.name;
+        fileSize.textContent = formatFileSize(file.size);
+
+        // Preencher título automaticamente se vazio
+        const titleInput = document.getElementById('title');
+        if (!titleInput.value) {
+            titleInput.value = file.name.replace(/\.[^/.]+$/, "");
+        }
+
+        // Preview
+        if (file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewContent.innerHTML = `
+                    <img src="${e.target.result}" 
+                         class="img-fluid rounded" 
+                         style="max-height: 150px; max-width: 200px;">
+                `;
+            };
+            reader.readAsDataURL(file);
+        } else if (file.type.startsWith('video/')) {
+            previewContent.innerHTML = `
+                <div class="bg-dark rounded d-flex align-items-center justify-content-center" 
+                     style="width: 200px; height: 150px;">
+                    <i class="fas fa-play text-white fa-3x"></i>
+                </div>
+            `;
+        } else {
+            previewContent.innerHTML = `
+                <div class="bg-secondary rounded d-flex align-items-center justify-content-center" 
+                     style="width: 200px; height: 150px;">
+                    <i class="fas fa-file text-white fa-3x"></i>
+                </div>
+            `;
+        }
+
+        // Mostrar preview
+        dropZoneContent.classList.add('d-none');
+        filePreview.classList.remove('d-none');
+    }
+
+    function clearFile() {
+        fileInput.value = '';
+        dropZoneContent.classList.remove('d-none');
+        filePreview.classList.add('d-none');
+        previewContent.innerHTML = '';
+    }
+
+    function formatFileSize(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+
+    // Submit com progress
+    uploadForm.addEventListener('submit', function(e) {
+        if (!fileInput.files.length) {
+            alert('Selecione um arquivo!');
+            e.preventDefault();
+            return;
+        }
+
+        // Mostrar progress bar
+        uploadProgress.classList.remove('d-none');
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+
+        // Simular progresso (em uma implementação real, você usaria XMLHttpRequest)
+        let progress = 0;
+        const interval = setInterval(function() {
+            progress += Math.random() * 30;
+            if (progress > 90) progress = 90;
+            progressBar.style.width = progress + '%';
+            
+            if (progress >= 90) {
+                clearInterval(interval);
+            }
+        }, 100);
+    });
+
+    // Fazer o dropzone visualmente responsivo
+    window.clearFile = clearFile;
+});
+</script>
+{% endblock %}

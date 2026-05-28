@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block page_title %}Financeiro — {{ artist.stage_name }}{% endblock %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12 d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <div>
+            <h2><i class="fas fa-wallet me-2"></i>{{ artist.stage_name }}</h2>
+            <p class="text-muted mb-0">{{ artist.client_status_label }}</p>
+        </div>
+        <a href="{{ url_for('finance.clients') }}" class="btn btn-outline-secondary">Voltar</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6 mb-4">
+        <div class="card">
+            <div class="card-header">Dados do cliente ativo</div>
+            <div class="card-body">
+                <form method="post">
+                    <div class="mb-3">
+                        <label class="form-label">Mensalidade (R$)</label>
+                        <input type="text" name="monthly_fee" class="form-control"
+                               value="{% if artist.monthly_fee %}{{ '%.2f'|format(artist.monthly_fee) }}{% endif %}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Dia de vencimento</label>
+                        <input type="number" name="payment_due_day" class="form-control" min="1" max="31"
+                               value="{{ artist.payment_due_day or '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Status de pagamento</label>
+                        <select name="payment_status" class="form-select">
+                            <option value="em_dia" {% if artist.payment_status == 'em_dia' %}selected{% endif %}>Em dia</option>
+                            <option value="pendente" {% if artist.payment_status == 'pendente' %}selected{% endif %}>Pendente</option>
+                            <option value="atrasado" {% if artist.payment_status == 'atrasado' %}selected{% endif %}>Atrasado</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Fase atual</label>
+                        <input type="text" name="current_phase" class="form-control"
+                               value="{{ artist.current_phase or '' }}" placeholder="Ex: Estruturação">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Resp. estratégico</label>
+                        <input type="text" name="strategic_manager" class="form-control"
+                               value="{{ artist.strategic_manager or '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Resp. operacional</label>
+                        <input type="text" name="operational_manager" class="form-control"
+                               value="{{ artist.operational_manager or '' }}">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mt-3">
+            <div class="card-header">Registrar mensalidade</div>
+            <div class="card-body">
+                <form method="post" action="{{ url_for('finance.register_monthly_fee', artist_id=artist.id) }}">
+                    <div class="mb-2">
+                        <label class="form-label">Mês (YYYY-MM)</label>
+                        <input type="month" name="reference_month" class="form-control" required>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Vencimento</label>
+                        <input type="date" name="due_date" class="form-control">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Status</label>
+                        <select name="payment_status" class="form-select">
+                            <option value="pendente">Pendente</option>
+                            <option value="pago">Pago</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-sm">Lançar mensalidade</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">Últimos lançamentos</div>
+            <div class="card-body p-0">
+                <table class="table table-sm mb-0">
+                    <thead><tr><th>Descrição</th><th>Valor</th><th>Status</th></tr></thead>
+                    <tbody>
+                        {% for r in records %}
+                        <tr>
+                            <td>{{ r.description }}</td>
+                            <td>R$ {{ '%.2f'|format(r.amount) }}</td>
+                            <td>{{ r.payment_status_label }}</td>
+                        </tr>
+                        {% else %}
+                        <tr><td colspan="3" class="text-muted text-center py-3">Sem lançamentos.</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

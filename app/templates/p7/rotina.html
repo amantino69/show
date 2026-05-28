@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block page_title %}Rotina — {{ artist.stage_name }}{% endblock %}
+{% block content %}
+{% include "p7/_nav.html" %}
+
+{% if can_edit %}
+<form method="post">
+    <div class="card">
+        <div class="card-header">Agenda semanal</div>
+        <div class="card-body p-0">
+            <table class="table mb-0">
+                <thead class="table-light">
+                    <tr><th>Dia</th><th>Disponível</th><th>Início</th><th>Fim</th><th>Gravações</th><th>Eventos / viagens</th><th>Obs.</th></tr>
+                </thead>
+                <tbody>
+                    {% for s in slots %}
+                    <tr>
+                        <td><strong>{{ s.weekday_label }}</strong></td>
+                        <td><input type="checkbox" name="day_{{ s.weekday }}_available" {% if s.is_available %}checked{% endif %}></td>
+                        <td><input name="day_{{ s.weekday }}_start" class="form-control form-control-sm" value="{{ s.start_time or '' }}" style="width:90px"></td>
+                        <td><input name="day_{{ s.weekday }}_end" class="form-control form-control-sm" value="{{ s.end_time or '' }}" style="width:90px"></td>
+                        <td><input type="checkbox" name="day_{{ s.weekday }}_recordings" {% if s.recordings_ok %}checked{% endif %}></td>
+                        <td><input name="day_{{ s.weekday }}_travel" class="form-control form-control-sm" value="{{ s.events_travel or '' }}"></td>
+                        <td><input name="day_{{ s.weekday }}_notes" class="form-control form-control-sm" value="{{ s.notes or '' }}"></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer"><button type="submit" class="btn btn-primary">Salvar rotina</button></div>
+    </div>
+</form>
+{% else %}
+<p class="text-muted">Somente leitura.</p>
+{% endif %}
+{% endblock %}

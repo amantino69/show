@@ -1,0 +1,442 @@
+{
+  "arche_organizacional_v2.xlsx|CRM - Pipeline": [
+    {
+      "row": 6,
+      "values": [
+        "#",
+        "NOME / PERFIL",
+        "INSTAGRAM / TIK TOK",
+        "SEGMENTO",
+        "TIPO DE SERVIÇO",
+        "ORIGEM DO LEAD",
+        "DATA 1º CONTATO",
+        "DATA DIAGNÓSTICO",
+        "STATUS DO LEAD",
+        "FECHOU?",
+        "VALOR (R$)",
+        "MOTIVO NÃO FECHOU",
+        "PRÓXIMA AÇÃO"
+      ]
+    }
+  ],
+  "arche_organizacional_v2.xlsx|CRM - Pipeline_count": 1,
+  "arche_organizacional_v2.xlsx|Clientes Ativos": [
+    {
+      "row": 6,
+      "values": [
+        "#",
+        "CLIENTE / PERFIL",
+        "SEGMENTO",
+        "TIPO DE SERVIÇO",
+        "INÍCIO DO PROJETO",
+        "MÊS ATUAL",
+        "FASE ATUAL",
+        "STATUS PAGTO.",
+        "VENCIMENTO PAGTO.",
+        "VALOR MENSAL (R$)",
+        "RESP. ESTRATÉGICO",
+        "RESP. OPERACIONAL",
+        "OBSERVAÇÕES / PRÓX. REUNIÃO"
+      ]
+    }
+  ],
+  "arche_organizacional_v2.xlsx|Clientes Ativos_count": 1,
+  "Viezes Assessoria - Painel Operacional.xlsx|CRM — Leads": [
+    {
+      "row": 3,
+      "values": [
+        "NOME",
+        "NICHO",
+        "COMO CHEGOU",
+        "STATUS",
+        "QUALIFICADO?",
+        "RESPONSÁVEL",
+        "DATA ENTRADA",
+        "OBSERVAÇÕES"
+      ]
+    }
+  ],
+  "Viezes Assessoria - Painel Operacional.xlsx|CRM — Leads_count": 1,
+  "Viezes Assessoria - Painel Operacional.xlsx|Pipeline — Marcas": [
+    {
+      "row": 3,
+      "values": [
+        "ASSESSORADO",
+        "MARCA",
+        "CONTATO NA MARCA",
+        "NICHO/SEGMENTO",
+        "ORIGEM",
+        "STATUS",
+        "COMISSÃO %",
+        "VALOR (R$)",
+        "PRÓX. PASSO"
+      ]
+    },
+    {
+      "row": 65,
+      "values": [
+        "TOTAL FECHADO NO PIPELINE:",
+        "0"
+      ]
+    }
+  ],
+  "Viezes Assessoria - Painel Operacional.xlsx|Pipeline — Marcas_count": 2,
+  "VIEZES - Onboarding P7.xlsx|Perfil": [
+    {
+      "row": 5,
+      "values": [
+        "Nome completo",
+        "Pedro Henrique Marçal Oliveira"
+      ]
+    },
+    {
+      "row": 6,
+      "values": [
+        "Nome artístico / @",
+        "P7"
+      ]
+    },
+    {
+      "row": 7,
+      "values": [
+        "Data de nascimento",
+        "1999-12-28 00:00:00"
+      ]
+    },
+    {
+      "row": 8,
+      "values": [
+        "CPF / CNPJ",
+        "10924998652.0"
+      ]
+    },
+    {
+      "row": 9,
+      "values": [
+        "Telefone",
+        "(31) 99667-2061"
+      ]
+    },
+    {
+      "row": 11,
+      "values": [
+        "E-mail profissional",
+        "p7,viezes@gmail.com"
+      ]
+    },
+    {
+      "row": 12,
+      "values": [
+        "Cidade / Estado",
+        "Belo Horizonte"
+      ]
+    },
+    {
+      "row": 14,
+      "values": [
+        "Endereço completo",
+        "Rua Passos 802, ap 302 - Crlos Prates "
+      ]
+    },
+    {
+      "row": 25,
+      "values": [
+        "PLATAFORMA",
+        "USUÁRIO / @",
+        "SEGUIDORES",
+        "ENGAJAMENTO %",
+        "ALCANCE MÉD.",
+        "PÚBLICO PRINC.",
+        "CRESCIMENTO/MÊS",
+        "OBS."
+      ]
+    },
+    {
+      "row": 26,
+      "values": [
+        "Instagram",
+        "@pe7dro",
+        "12.8"
+      ]
+    }
+  ],
+  "VIEZES - Onboarding P7.xlsx|Perfil_count": 10,
+  "VIEZES - Onboarding P7.xlsx|Checklist": [
+    {
+      "row": 3,
+      "values": [
+        "Em andamento",
+        "0.3555555556",
+        "16",
+        "19"
+      ]
+    },
+    {
+      "row": 4,
+      "values": [
+        "#",
+        "STATUS",
+        "TAREFA",
+        "RESPONSÁVEL",
+        "PRAZO",
+        "CONCLUÍDO EM",
+        "OBS."
+      ]
+    },
+    {
+      "row": 6,
+      "values": [
+        "1.0",
+        "Concluido",
+        "Lead qualificado e aprovado por Julia Viana",
+        "Julia Viana"
+      ]
+    },
+    {
+      "row": 7,
+      "values": [
+        "2.0",
+        "Concluido",
+        "Reunião de descoberta realizada com Julia Maria",
+        "Julia Maria"
+      ]
+    },
+    {
+      "row": 8,
+      "values": [
+        "3.0",
+        "Concluido",
+        "Formato e condições de assessoria definidos",
+        "Julia Maria"
+      ]
+    },
+    {
+      "row": 9,
+      "values": [
+        "4.0",
+        "Concluido",
+        "Proposta enviada e aceita pelo assessorado",
+        "Julia Viana"
+      ]
+    },
+    {
+      "row": 11,
+      "values": [
+        "5.0",
+        "Pendente",
+        "Contrato gerado conforme condições acordadas",
+        "Julia Viana"
+      ]
+    },
+    {
+      "row": 12,
+      "values": [
+        "6.0",
+        "Pendente",
+        "Contrato assinado por ambas as partes",
+        "Julia Viana"
+      ]
+    },
+    {
+      "row": 13,
+      "values": [
+        "7.0",
+        "Pendente",
+        "Contrato arquivado no Trello e Google Drive",
+        "Julia Viana"
+      ]
+    },
+    {
+      "row": 14,
+      "values": [
+        "8.0",
+        "Pendente",
+        "NDA assinado (se aplicável)",
+        "Julia Viana",
+        "Se necessário"
+      ]
+    },
+    {
+      "row": 16,
+      "values": [
+        "9.0",
+        "Concluido",
+        "Grupo de WhatsApp criado com o assessorado",
+        "Julia Viana"
+      ]
+    },
+    {
+      "row": 17,
+      "values": [
+        "10.0",
+        "Concluido",
+        "E-mail profissional operacional criado",
+        "Julia Viana",
+        "Ex: nome@viezes.com"
+      ]
+    },
+    {
+      "row": 18,
+      "values": [
+        "11.0",
+        "Concluido",
+        "Assessorado adicionado nos grupos internos necessários",
+        "Julia Viana"
+      ]
+    },
+    {
+      "row": 19,
+      "values": [
+        "12.0",
+        "Pendente",
+        "Acesso ao Google Drive compartilhado",
+        "Julia Viana"
+      ]
+    },
+    {
+      "row": 21,
+      "values": [
+        "13.0",
+        "Concluido",
+        "Bio completa recebida",
+        "Julia Viana"
+      ]
+    },
+    {
+      "row": 22,
+      "values": [
+        "14.0",
+        "Concluido",
+        "Posicionamento e nicho definidos",
+        "Julia Viana"
+      ]
+    },
+    {
+      "row": 23,
+      "values": [
+        "15.0",
+        "Em andamento",
+        "Audiência mapeada (faixa etária, gênero, localização)",
+        "Julia Viana"
+      ]
+    },
+    {
+      "row": 24,
+      "values": [
+        "16.0",
+        "Concluido",
+        "Histórico de marcas já trabalhadas recebido",
+        "Julia Viana"
+      ]
+    },
+    {
+      "row": 25,
+      "values": [
+        "17.0",
+        "Em andamento",
+        "Tabela de valores recebida e validada",
+        "Julia Viana"
+      ]
+    },
+    {
+      "row": 26,
+      "values": [
+        "18.0",
+        "Concluido",
+        "Agenda e disponibilidade informadas",
+        "Julia Viana"
+      ]
+    },
+    {
+      "row": 27,
+      "values": [
+        "19.0",
+        "Em andamento",
+        "Restrições de marca e conteúdo listadas",
+        "Julia Viana"
+      ]
+    },
+    {
+      "row": 28,
+      "values": [
+        "20.0",
+        "Pendente",
+        "Metas de curto e longo prazo definidas",
+        "Julia Maria"
+      ]
+    },
+    {
+      "row": 29,
+      "values": [
+        "21.0",
+        "Concluido",
+        "Marcas dos sonhos listadas",
+        "Julia Viana"
+      ]
+    },
+    {
+      "row": 30,
+      "values": [
+        "22.0",
+        "Pendente",
+        "Contatos relevantes do assessorado mapeados",
+        "Julia Viana"
+      ]
+    },
+    {
+      "row": 32,
+      "values": [
+        "23.0",
+        "Pendente",
+        "Pasta criada no Trello com nome do assessorado",
+        "Julia Viana"
+      ]
+    },
+    {
+      "row": 33,
+      "values": [
+        "24.0",
+        "Pendente",
+        "Contrato salvo na pasta",
+        "Julia Viana"
+      ]
+    },
+    {
+      "row": 34,
+      "values": [
+        "25.0",
+        "Pendente",
+        "Briefing completo salvo na pasta",
+        "Julia Viana"
+      ]
+    },
+    {
+      "row": 35,
+      "values": [
+        "26.0",
+        "Pendente",
+        "Histórico de marcas salvo na pasta",
+        "Julia Viana"
+      ]
+    },
+    {
+      "row": 36,
+      "values": [
+        "27.0",
+        "Pendente",
+        "Contatos importantes cadastrados na pasta",
+        "Julia Viana"
+      ]
+    },
+    {
+      "row": 37,
+      "values": [
+        "28.0",
+        "Pendente",
+        "Assessorado cadastrado no CRM principal",
+        "Julia Viana"
+      ]
+    }
+  ],
+  "VIEZES - Onboarding P7.xlsx|Checklist_count": 41
+}

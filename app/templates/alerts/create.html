@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block title %}Criar Alerta - Show Manager{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-bell-plus"></i> Criar Alerta Personalizado
+                    </h3>
+                </div>
+                <div class="card-body">
+                    
+                    <!-- Info do evento -->
+                    <div class="alert alert-info">
+                        <h5><i class="fas fa-calendar"></i> {{ event.title }}</h5>
+                        <p class="mb-0">
+                            <strong>Artista:</strong> {{ event.artist.stage_name }}<br>
+                            <strong>Data:</strong> {{ event.start_datetime.strftime('%d/%m/%Y às %H:%M') }}<br>
+                            <strong>Local:</strong> {{ event.location }}
+                        </p>
+                    </div>
+
+                    <!-- Formulário -->
+                    <form method="POST" action="{{ url_for('alerts.create_alert') }}">
+                        <input type="hidden" name="event_id" value="{{ event.id }}">
+                        
+                        <div class="form-group">
+                            <label for="alert_datetime">
+                                <i class="fas fa-clock"></i> Data e Hora do Alerta
+                            </label>
+                            <input type="datetime-local" 
+                                   class="form-control" 
+                                   id="alert_datetime" 
+                                   name="alert_datetime" 
+                                   required>
+                            <small class="form-text text-muted">
+                                Escolha quando você quer receber o alerta
+                            </small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="alert_type">
+                                <i class="fas fa-tag"></i> Tipo de Alerta
+                            </label>
+                            <select class="form-control" id="alert_type" name="alert_type">
+                                <option value="reminder">Lembrete Normal</option>
+                                <option value="urgent">Alerta Urgente</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6><i class="fas fa-lightbulb"></i> Sugestões de horários:</h6>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <button type="button" class="btn btn-outline-primary btn-sm btn-block" 
+                                                    onclick="setAlertTime(1, 'days')">
+                                                1 dia antes
+                                            </button>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <button type="button" class="btn btn-outline-warning btn-sm btn-block" 
+                                                    onclick="setAlertTime(2, 'hours')">
+                                                2 horas antes
+                                            </button>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <button type="button" class="btn btn-outline-danger btn-sm btn-block" 
+                                                    onclick="setAlertTime(30, 'minutes')">
+                                                30 min antes
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save"></i> Criar Alerta
+                            </button>
+                            <a href="{{ url_for('alerts.index') }}" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Voltar
+                            </a>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Data e hora do evento
+const eventDate = new Date('{{ event.start_datetime.isoformat() }}');
+
+function setAlertTime(value, unit) {
+    const alertTime = new Date(eventDate);
+    
+    switch(unit) {
+        case 'days':
+            alertTime.setDate(alertTime.getDate() - value);
+            break;
+        case 'hours':
+            alertTime.setHours(alertTime.getHours() - value);
+            break;
+        case 'minutes':
+            alertTime.setMinutes(alertTime.getMinutes() - value);
+            break;
+    }
+    
+    // Formatar para datetime-local input
+    const year = alertTime.getFullYear();
+    const month = String(alertTime.getMonth() + 1).padStart(2, '0');
+    const day = String(alertTime.getDate()).padStart(2, '0');
+    const hour = String(alertTime.getHours()).padStart(2, '0');
+    const minute = String(alertTime.getMinutes()).padStart(2, '0');
+    
+    const formattedDateTime = `${year}-${month}-${day}T${hour}:${minute}`;
+    document.getElementById('alert_datetime').value = formattedDateTime;
+    
+    // Definir tipo baseado no tempo
+    if (unit === 'minutes' && value <= 30) {
+        document.getElementById('alert_type').value = 'urgent';
+    } else {
+        document.getElementById('alert_type').value = 'reminder';
+    }
+}
+</script>
+{% endblock %}

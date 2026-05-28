@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Entrar — Viezes{% endblock %}
+{% block body_class %}page-auth{% endblock %}
+
+{% block content %}
+<div class="auth-shell">
+    <div class="auth-card card border-0">
+        <div class="card-header auth-brand">
+            <img src="{{ url_for('static', filename='img/viezes-mark.svg') }}" alt="" class="brand-mark" width="64" height="64">
+            <div class="brand-wordmark">viezes<span class="co">.co</span></div>
+            <div class="brand-tagline">Assessoria de carreiras</div>
+        </div>
+        <div class="card-body">
+            <h5 class="text-center mb-4" style="font-family: var(--font-display); color: var(--vz-text);">
+                Acesse o painel
+            </h5>
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="username" class="form-label small text-muted">Usuário</label>
+                    <input type="text" class="form-control" id="username" name="username" required
+                           placeholder="Seu login">
+                </div>
+                <div class="mb-4">
+                    <label for="password" class="form-label small text-muted">Senha</label>
+                    <input type="password" class="form-control" id="password" name="password" required
+                           placeholder="••••••••">
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="fas fa-arrow-right-to-bracket me-2"></i>Entrar
+                    </button>
+                </div>
+            </form>
+            <hr class="my-4">
+            <p class="text-center small text-muted mb-2">
+                Não tem conta?
+                <a href="{{ url_for('auth.register') }}">Cadastre-se</a>
+            </p>
+            <p class="text-center small mb-0">
+                <a href="https://www.instagram.com/viezes.co" target="_blank" rel="noopener" class="text-muted">
+                    <i class="fab fa-instagram me-1"></i> Siga @viezes.co no Instagram
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    body { background: var(--vz-espresso) !important; }
+    body.page-auth .main-content { background: transparent !important; padding: 0 !important; }
+    .mobile-menu-toggle, .desktop-sidebar, .mobile-sidebar { display: none !important; }
+    .col-md-10, .col-12 { max-width: 100%; flex: 0 0 100%; }
+</style>
+{% endblock %}

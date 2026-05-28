@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block page_title %}Contrato — {{ artist.stage_name }}{% endblock %}
+{% block content %}
+{% include "p7/_nav.html" %}
+
+<div class="card mb-4">
+    <div class="card-header">Dados do contrato</div>
+    <div class="card-body">
+        <form method="post">
+            <input type="hidden" name="action" value="contract">
+            <div class="row g-3">
+                <div class="col-md-4"><label class="form-label">Modelo</label><input name="contract_model" class="form-control" value="{{ contract.contract_model or '' }}"></div>
+                <div class="col-md-4"><label class="form-label">Assinatura</label><input type="date" name="signed_at" class="form-control" value="{{ contract.signed_at.strftime('%Y-%m-%d') if contract.signed_at else '' }}"></div>
+                <div class="col-md-4"><label class="form-label">Vigência até</label><input type="date" name="validity_end" class="form-control" value="{{ contract.validity_end.strftime('%Y-%m-%d') if contract.validity_end else '' }}"></div>
+                <div class="col-md-6"><label class="form-label">Formato assessoria</label><input name="service_format" class="form-control" value="{{ contract.service_format or '' }}"></div>
+                <div class="col-md-3"><label class="form-label">Valor mensal (R$)</label><input name="monthly_value" class="form-control" value="{% if contract.monthly_value %}{{ '%.2f'|format(contract.monthly_value) }}{% endif %}"></div>
+                <div class="col-md-3"><label class="form-label">Comissão marcas</label><input name="commission_pct" class="form-control" value="{{ contract.commission_pct or '' }}" placeholder="10% / 20%"></div>
+                <div class="col-md-4"><label class="form-label">Forma pagamento</label><input name="payment_method" class="form-control" value="{{ contract.payment_method or '' }}"></div>
+                <div class="col-md-2"><label class="form-label">Dia venc.</label><input type="number" name="due_day" class="form-control" min="1" max="31" value="{{ contract.due_day or '' }}"></div>
+                <div class="col-md-3"><label class="form-label">Exclusividade</label><input name="exclusivity" class="form-control" value="{{ contract.exclusivity or '' }}"></div>
+                <div class="col-md-3"><label class="form-label">Aviso prévio</label><input name="notice_period" class="form-control" value="{{ contract.notice_period or '' }}"></div>
+                <div class="col-md-4"><label class="form-label">Foro</label><input name="forum" class="form-control" value="{{ contract.forum or '' }}"></div>
+                <div class="col-12"><label class="form-label">Restrições de marca</label><textarea name="brand_restrictions" class="form-control" rows="2">{{ contract.brand_restrictions or '' }}</textarea></div>
+                <div class="col-12"><label class="form-label">Observações</label><textarea name="notes" class="form-control" rows="2">{{ contract.notes or '' }}</textarea></div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Salvar contrato</button>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header d-flex justify-content-between">
+        <span>Documentos</span>
+        <form method="post" class="d-flex gap-1">
+            <input type="hidden" name="action" value="add_doc">
+            <input name="title" class="form-control form-control-sm" placeholder="Novo documento">
+            <button class="btn btn-sm btn-outline-light">+</button>
+        </form>
+    </div>
+    <div class="card-body p-0">
+        <table class="table mb-0">
+            <thead class="table-light"><tr><th>Documento</th><th>Status</th><th>Recebido</th><th></th></tr></thead>
+            <tbody>
+                {% for d in docs %}
+                <tr>
+                    <td>{{ d.title }}</td>
+                    <td colspan="2">
+                        <form method="post" class="row g-1 align-items-center">
+                            <input type="hidden" name="action" value="update_doc">
+                            <input type="hidden" name="doc_id" value="{{ d.id }}">
+                            <div class="col-auto">
+                                <select name="status" class="form-select form-select-sm">
+                                    {% for k, v in d.STATUS_LABELS.items() %}
+                                    <option value="{{ k }}" {% if d.status == k %}selected{% endif %}>{{ v }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-auto form-check">
+                                <input type="checkbox" name="received" class="form-check-input" {% if d.received %}checked{% endif %}>
+                                <label class="form-check-label">Recebido</label>
+                            </div>
+                            <div class="col-auto"><input type="date" name="received_at" class="form-control form-control-sm" value="{{ d.received_at.strftime('%Y-%m-%d') if d.received_at else '' }}"></div>
+                            <div class="col"><button class="btn btn-sm btn-primary">OK</button></div>
+                        </form>
+                    </td>
+                    <td>
+                        <form method="post" action="{{ url_for('p7.delete_contract_doc', artist_id=artist.id, doc_id=d.id) }}" onsubmit="return confirm('Remover?');">
+                            <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

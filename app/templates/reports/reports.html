@@ -1,0 +1,485 @@
+{% extends "base.html" %}
+
+{% block page_title %}Relatórios{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h2><i class="fas fa-chart-bar me-2"></i>Relatórios e Estatísticas</h2>
+        <p class="text-muted">Análise completa de performance e atividades dos artistas</p>
+    </div>
+</div>
+
+<!-- Cards de Resumo -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-calendar-alt fa-2x text-primary mb-2"></i>
+                <h4 id="total-events">-</h4>
+                <p class="card-text">Total de Eventos</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-users fa-2x text-success mb-2"></i>
+                <h4 id="total-artists">-</h4>
+                <p class="card-text">Artistas Ativos</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-check-circle fa-2x text-info mb-2"></i>
+                <h4 id="completed-events">-</h4>
+                <p class="card-text">Eventos Concluídos</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-percentage fa-2x text-warning mb-2"></i>
+                <h4 id="success-rate">-%</h4>
+                <p class="card-text">Taxa de Sucesso</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Gráficos -->
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-chart-line me-2"></i>Eventos por Mês</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="eventsMonthChart" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-chart-pie me-2"></i>Eventos por Artista</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="eventsArtistChart" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-chart-bar me-2"></i>Tipos de Eventos</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="eventsTypeChart" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-chart-doughnut me-2"></i>Status dos Eventos</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="eventsStatusChart" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Gráficos de Tipos de Artistas -->
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-users me-2"></i>Artistas por Categoria</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="artistsTypeChart" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-chart-pie me-2"></i>Eventos por Tipo de Artista</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="eventsArtistTypeChart" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Performance por Artista -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-user-friends me-2"></i>Performance por Artista</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover" id="artistPerformanceTable">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Artista</th>
+                                <th>Total de Eventos</th>
+                                <th>Concluídos</th>
+                                <th>Taxa de Sucesso</th>
+                                <th>Último Evento</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="artistPerformanceBody">
+                            <tr>
+                                <td colspan="6" class="text-center">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Carregando...</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Ferramentas de Exportação -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-download me-2"></i>Exportar Dados</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h6>Período:</h6>
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                <input type="date" class="form-control" id="dateFrom" placeholder="Data inicial">
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <input type="date" class="form-control" id="dateTo" placeholder="Data final">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <h6>Formato:</h6>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-success" onclick="exportData('csv')">
+                                <i class="fas fa-file-csv me-2"></i>Exportar CSV
+                            </button>
+                            <button class="btn btn-outline-success" onclick="exportData('excel')">
+                                <i class="fas fa-file-excel me-2"></i>Exportar Excel
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <h6>Relatório Personalizado:</h6>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-info" onclick="generateCustomReport()">
+                                <i class="fas fa-file-pdf me-2"></i>Gerar PDF
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    loadDashboardData();
+});
+
+async function loadDashboardData() {
+    try {
+        const response = await fetch('{{ url_for("reports.dashboard_data") }}');
+        const data = await response.json();
+        
+        // Atualizar cards de resumo
+        updateSummaryCards(data);
+        
+        // Criar gráficos
+        createEventsMonthChart(data.events_by_month);
+        createEventsArtistChart(data.events_by_artist);
+        createEventsTypeChart(data.events_by_type);
+        createEventsStatusChart(data.events_by_status);
+        createArtistsTypeChart(data.artists_by_type);
+        createEventsArtistTypeChart(data.events_by_artist_type);
+        
+        // Carregar performance por artista
+        loadArtistPerformance();
+        
+    } catch (error) {
+        console.error('Erro ao carregar dados:', error);
+        showError('Erro ao carregar dados do dashboard');
+    }
+}
+
+function updateSummaryCards(data) {
+    const totalEvents = data.events_by_month.counts.reduce((a, b) => a + b, 0);
+    const totalArtists = data.events_by_artist.artists.length;
+    const completedEvents = data.events_by_status.counts[data.events_by_status.status.indexOf('concluido')] || 0;
+    const successRate = totalEvents > 0 ? Math.round((completedEvents / totalEvents) * 100) : 0;
+    
+    document.getElementById('total-events').textContent = totalEvents;
+    document.getElementById('total-artists').textContent = totalArtists;
+    document.getElementById('completed-events').textContent = completedEvents;
+    document.getElementById('success-rate').textContent = successRate + '%';
+}
+
+function createEventsMonthChart(data) {
+    const ctx = document.getElementById('eventsMonthChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: data.months.map(month => {
+                const [year, monthNum] = month.split('-');
+                return new Date(year, monthNum - 1).toLocaleDateString('pt-BR', { month: 'short', year: 'numeric' });
+            }),
+            datasets: [{
+                label: 'Eventos',
+                data: data.counts,
+                borderColor: 'rgb(75, 192, 192)',
+                backgroundColor: 'rgba(75, 192, 192, 0.1)',
+                tension: 0.1,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+function createEventsArtistChart(data) {
+    const ctx = document.getElementById('eventsArtistChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: data.artists,
+            datasets: [{
+                data: data.counts,
+                backgroundColor: [
+                    '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4',
+                    '#FFEAA7', '#DDA0DD', '#FFB347', '#87CEEB'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+}
+
+function createEventsTypeChart(data) {
+    const ctx = document.getElementById('eventsTypeChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: data.types,
+            datasets: [{
+                label: 'Quantidade',
+                data: data.counts,
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+function createEventsStatusChart(data) {
+    const ctx = document.getElementById('eventsStatusChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: data.status.map(s => s.charAt(0).toUpperCase() + s.slice(1)),
+            datasets: [{
+                data: data.counts,
+                backgroundColor: ['#28a745', '#ffc107', '#17a2b8', '#dc3545']
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+}
+
+function createArtistsTypeChart(data) {
+    const ctx = document.getElementById('artistsTypeChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: data.types,
+            datasets: [{
+                data: data.counts,
+                backgroundColor: data.colors
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const label = context.label || '';
+                            const value = context.parsed;
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = Math.round((value / total) * 100);
+                            return `${label}: ${value} (${percentage}%)`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+function createEventsArtistTypeChart(data) {
+    const ctx = document.getElementById('eventsArtistTypeChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: data.types,
+            datasets: [{
+                data: data.counts,
+                backgroundColor: data.colors
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const label = context.label || '';
+                            const value = context.parsed;
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = Math.round((value / total) * 100);
+                            return `${label}: ${value} eventos (${percentage}%)`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+async function loadArtistPerformance() {
+    // Implementar carregamento da performance por artista
+    const tbody = document.getElementById('artistPerformanceBody');
+    tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted">Dados de performance em desenvolvimento</td></tr>';
+}
+
+function exportData(format) {
+    const dateFrom = document.getElementById('dateFrom').value;
+    const dateTo = document.getElementById('dateTo').value;
+    
+    let url = `{{ url_for("reports.export_data", format="FORMAT") }}`.replace('FORMAT', format);
+    
+    if (dateFrom) url += `?date_from=${dateFrom}`;
+    if (dateTo) url += `${dateFrom ? '&' : '?'}date_to=${dateTo}`;
+    
+    window.open(url, '_blank');
+}
+
+function generateCustomReport() {
+    const dateFrom = document.getElementById('dateFrom').value;
+    const dateTo = document.getElementById('dateTo').value;
+    
+    let url = '{{ url_for("reports.generate_pdf") }}';
+    const params = new URLSearchParams();
+    
+    if (dateFrom) params.append('date_from', dateFrom);
+    if (dateTo) params.append('date_to', dateTo);
+    
+    if (params.toString()) {
+        url += '?' + params.toString();
+    }
+    
+    window.open(url, '_blank');
+}
+
+function showError(message) {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = 'alert alert-danger alert-dismissible fade show';
+    alertDiv.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+    document.querySelector('.container-fluid .main-content').prepend(alertDiv);
+}
+</script>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block page_title %}Presença digital — {{ artist.stage_name }}{% endblock %}
+{% block content %}
+{% include "p7/_nav.html" %}
+
+{% if can_edit %}
+<div class="card mb-3">
+    <div class="card-body">
+        <form method="post" class="row g-2 align-items-end">
+            <input type="hidden" name="action" value="add">
+            <div class="col-md-2"><label class="form-label small">Plataforma</label><input name="platform" class="form-control form-control-sm" required></div>
+            <div class="col-md-2"><label class="form-label small">@</label><input name="username" class="form-control form-control-sm"></div>
+            <div class="col-md-2"><label class="form-label small">Seguidores</label><input name="followers" type="number" class="form-control form-control-sm"></div>
+            <div class="col-md-2"><label class="form-label small">Engaj. %</label><input name="engagement_pct" class="form-control form-control-sm"></div>
+            <div class="col-auto"><button class="btn btn-primary btn-sm">Adicionar canal</button></div>
+        </form>
+    </div>
+</div>
+{% endif %}
+
+{% for r in rows %}
+<div class="card mb-2">
+    <div class="card-body py-2">
+        {% if can_edit %}
+        <form method="post" class="row g-2 align-items-end">
+            <input type="hidden" name="action" value="update">
+            <input type="hidden" name="row_id" value="{{ r.id }}">
+            <div class="col-md-2"><strong>{{ r.platform }}</strong></div>
+            <div class="col-md-2"><input name="username" class="form-control form-control-sm" value="{{ r.username or '' }}" placeholder="@"></div>
+            <div class="col-md-2"><input name="followers" type="number" class="form-control form-control-sm" value="{{ r.followers or '' }}"></div>
+            <div class="col-md-2"><input name="engagement_pct" class="form-control form-control-sm" value="{{ r.engagement_pct or '' }}"></div>
+            <div class="col-md-2"><input name="avg_reach" class="form-control form-control-sm" value="{{ r.avg_reach or '' }}" placeholder="Alcance"></div>
+            <div class="col-md-2"><input name="main_audience" class="form-control form-control-sm" value="{{ r.main_audience or '' }}" placeholder="Público"></div>
+            <div class="col-auto">
+                <button class="btn btn-sm btn-primary">Salvar</button>
+            </div>
+        </form>
+        <form method="post" action="{{ url_for('p7.delete_presenca', artist_id=artist.id, row_id=r.id) }}" class="mt-1" onsubmit="return confirm('Remover canal?');">
+            <button class="btn btn-sm btn-outline-danger">Excluir</button>
+        </form>
+        {% else %}
+        <strong>{{ r.platform }}</strong> — {{ r.username or '—' }} · {{ r.followers or 0 }} seg. · eng. {{ r.engagement_pct or '—' }}
+        {% endif %}
+    </div>
+</div>
+{% else %}
+<p class="text-muted">Nenhum canal cadastrado.</p>
+{% endfor %}
+{% endblock %}

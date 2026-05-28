@@ -1,0 +1,298 @@
+{% extends 'base.html' %}
+
+{% block title %}Métricas de Redes Sociais{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h2">Métricas de Redes Sociais</h1>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newMetricModal">
+            <i class="fas fa-plus"></i> Adicionar Métricas
+        </button>
+    </div>
+
+    <div class="row mb-4">
+        {% for artist_id, data in metrics_data.items() %}
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">{{ data.artist.stage_name }}</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {% for platform, metric in data.platforms.items() %}
+                        <div class="col-md-6 mb-3">
+                            <div class="card">
+                                <div class="card-header bg-white">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h6 class="mb-0">
+                                            {% if platform == 'instagram' %}
+                                            <i class="fab fa-instagram me-2"></i>
+                                            {% elif platform == 'facebook' %}
+                                            <i class="fab fa-facebook me-2"></i>
+                                            {% elif platform == 'twitter' %}
+                                            <i class="fab fa-twitter me-2"></i>
+                                            {% elif platform == 'youtube' %}
+                                            <i class="fab fa-youtube me-2"></i>
+                                            {% elif platform == 'tiktok' %}
+                                            <i class="fab fa-tiktok me-2"></i>
+                                            {% endif %}
+                                            {{ platform|capitalize }}
+                                        </h6>
+                                        <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#updateMetricModal{{ data.artist.id }}_{{ platform }}">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row text-center">
+                                        <div class="col-6 mb-3">
+                                            <h3 class="mb-0">{{ metric.followers_count }}</h3>
+                                            <small class="text-muted">Seguidores</small>
+                                        </div>
+                                        <div class="col-6 mb-3">
+                                            <h3 class="mb-0">{{ metric.posts_count }}</h3>
+                                            <small class="text-muted">Posts</small>
+                                        </div>
+                                    </div>
+                                    <div class="row text-center">
+                                        <div class="col-6">
+                                            <h5 class="mb-0 {% if metric.followers_growth > 0 %}text-success{% elif metric.followers_growth < 0 %}text-danger{% endif %}">
+                                                {% if metric.followers_growth > 0 %}+{% endif %}{{ metric.followers_growth }}
+                                            </h5>
+                                            <small class="text-muted">Crescimento</small>
+                                        </div>
+                                        <div class="col-6">
+                                            <h5 class="mb-0">{{ "%.1f"|format(metric.engagement_rate) }}%</h5>
+                                            <small class="text-muted">Engajamento</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-white">
+                                    <small class="text-muted">Atualizado em {{ metric.collected_at.strftime('%d/%m/%Y') }}</small>
+                                </div>
+                            </div>
+                            
+                            <!-- Modal para Atualizar Métricas -->
+                            <div class="modal fade" id="updateMetricModal{{ data.artist.id }}_{{ platform }}" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Atualizar Métricas - {{ platform|capitalize }}</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <form action="{{ url_for('marketing.update_social_metrics', metric_id=metric.id) }}" method="POST">
+                                            <div class="modal-body">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Artista</label>
+                                                    <input type="text" class="form-control" value="{{ data.artist.stage_name }}" disabled>
+                                                </div>
+                                                
+                                                <div class="row mb-3">
+                                                    <div class="col-md-6">
+                                                        <label for="followers_count{{ metric.id }}" class="form-label">Seguidores</label>
+                                                        <input type="number" class="form-control" id="followers_count{{ metric.id }}" name="followers_count" value="{{ metric.followers_count }}">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label for="posts_count{{ metric.id }}" class="form-label">Total de Posts</label>
+                                                        <input type="number" class="form-control" id="posts_count{{ metric.id }}" name="posts_count" value="{{ metric.posts_count }}">
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row mb-3">
+                                                    <div class="col-md-6">
+                                                        <label for="period_start{{ metric.id }}" class="form-label">Início do Período</label>
+                                                        <input type="date" class="form-control" id="period_start{{ metric.id }}" name="period_start" value="{{ metric.period_start.strftime('%Y-%m-%d') }}">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label for="period_end{{ metric.id }}" class="form-label">Fim do Período</label>
+                                                        <input type="date" class="form-control" id="period_end{{ metric.id }}" name="period_end" value="{{ metric.period_end.strftime('%Y-%m-%d') }}">
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row mb-3">
+                                                    <div class="col-md-6">
+                                                        <label for="total_likes{{ metric.id }}" class="form-label">Total de Curtidas</label>
+                                                        <input type="number" class="form-control" id="total_likes{{ metric.id }}" name="total_likes" value="{{ metric.total_likes }}">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label for="total_comments{{ metric.id }}" class="form-label">Total de Comentários</label>
+                                                        <input type="number" class="form-control" id="total_comments{{ metric.id }}" name="total_comments" value="{{ metric.total_comments }}">
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row mb-3">
+                                                    <div class="col-md-6">
+                                                        <label for="total_shares{{ metric.id }}" class="form-label">Total de Compartilhamentos</label>
+                                                        <input type="number" class="form-control" id="total_shares{{ metric.id }}" name="total_shares" value="{{ metric.total_shares }}">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label for="followers_growth{{ metric.id }}" class="form-label">Crescimento de Seguidores</label>
+                                                        <input type="number" class="form-control" id="followers_growth{{ metric.id }}" name="followers_growth" value="{{ metric.followers_growth }}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                <button type="submit" class="btn btn-primary">Atualizar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="col-12">
+                            <div class="alert alert-info">
+                                Nenhuma métrica registrada para este artista.
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                <p class="mb-0">Nenhuma métrica de redes sociais registrada.</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header bg-white">
+            <h5 class="mb-0">Posts Mais Engajados</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Título</th>
+                            <th>Artista</th>
+                            <th>Plataforma</th>
+                            <th>Data</th>
+                            <th>Curtidas</th>
+                            <th>Comentários</th>
+                            <th>Compartilhamentos</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for post in top_posts %}
+                        <tr>
+                            <td>
+                                <a href="{{ url_for('marketing.edit_social_post', post_id=post.id) }}">{{ post.title }}</a>
+                            </td>
+                            <td>{{ post.artist.stage_name }}</td>
+                            <td>
+                                <span class="badge bg-secondary">{{ post.platform }}</span>
+                            </td>
+                            <td>{{ post.published_at.strftime('%d/%m/%Y') if post.published_at else post.scheduled_datetime.strftime('%d/%m/%Y') }}</td>
+                            <td>{{ post.likes }}</td>
+                            <td>{{ post.comments }}</td>
+                            <td>{{ post.shares }}</td>
+                            <td><strong>{{ post.likes + post.comments + post.shares }}</strong></td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="8" class="text-center py-3">
+                                <p class="text-muted mb-0">Nenhum post publicado ainda.</p>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Adicionar Nova Métrica -->
+<div class="modal fade" id="newMetricModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Adicionar Novas Métricas</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ url_for('marketing.add_social_metrics') }}" method="POST">
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="artist_id" class="form-label">Artista</label>
+                            <select class="form-select" id="artist_id" name="artist_id" required>
+                                <option value="" selected disabled>Selecione um artista</option>
+                                {% for artist_id, data in metrics_data.items() %}
+                                <option value="{{ artist_id }}">{{ data.artist.stage_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="platform" class="form-label">Plataforma</label>
+                            <select class="form-select" id="platform" name="platform" required>
+                                <option value="" selected disabled>Selecione uma plataforma</option>
+                                <option value="instagram">Instagram</option>
+                                <option value="facebook">Facebook</option>
+                                <option value="twitter">Twitter</option>
+                                <option value="youtube">YouTube</option>
+                                <option value="tiktok">TikTok</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="followers_count" class="form-label">Seguidores</label>
+                            <input type="number" class="form-control" id="followers_count" name="followers_count" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="posts_count" class="form-label">Total de Posts</label>
+                            <input type="number" class="form-control" id="posts_count" name="posts_count" required>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="period_start" class="form-label">Início do Período</label>
+                            <input type="date" class="form-control" id="period_start" name="period_start" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="period_end" class="form-label">Fim do Período</label>
+                            <input type="date" class="form-control" id="period_end" name="period_end" required>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="total_likes" class="form-label">Total de Curtidas</label>
+                            <input type="number" class="form-control" id="total_likes" name="total_likes" value="0">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="total_comments" class="form-label">Total de Comentários</label>
+                            <input type="number" class="form-control" id="total_comments" name="total_comments" value="0">
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="total_shares" class="form-label">Total de Compartilhamentos</label>
+                            <input type="number" class="form-control" id="total_shares" name="total_shares" value="0">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="followers_growth" class="form-label">Crescimento de Seguidores</label>
+                            <input type="number" class="form-control" id="followers_growth" name="followers_growth" value="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Adicionar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

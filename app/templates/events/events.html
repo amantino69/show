@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+
+{% block page_title %}Eventos{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2><i class="fas fa-calendar-alt me-2"></i>Eventos</h2>
+            <div>
+                <a href="{{ url_for('events.calendar') }}" class="btn btn-success me-2">
+                    <i class="fas fa-calendar me-2"></i>Ver Agenda
+                </a>
+                <a href="{{ url_for('events.new_event') }}" class="btn btn-primary">
+                    <i class="fas fa-plus me-2"></i>Novo Evento
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Filtros -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form method="GET" class="row g-3">
+                    <div class="col-md-3">
+                        <label for="status" class="form-label">Status</label>
+                        <select class="form-select" id="status" name="status">
+                            <option value="">Todos</option>
+                            <option value="agendado">Agendado</option>
+                            <option value="em_andamento">Em Andamento</option>
+                            <option value="concluido">Concluído</option>
+                            <option value="cancelado">Cancelado</option>
+                        </select>
+                    </div>
+                    
+                    {% if current_user.is_manager %}
+                    <div class="col-md-3">
+                        <label for="artist" class="form-label">Artista</label>
+                        <select class="form-select" id="artist" name="artist">
+                            <option value="">Todos</option>
+                            <!-- Adicionar artistas dinamicamente -->
+                        </select>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="col-md-3">
+                        <label for="date_from" class="form-label">De</label>
+                        <input type="date" class="form-control" id="date_from" name="date_from">
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <label for="date_to" class="form-label">Até</label>
+                        <input type="date" class="form-control" id="date_to" name="date_to">
+                    </div>
+                    
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-search me-2"></i>Filtrar
+                        </button>
+                        <a href="{{ url_for('events.events') }}" class="btn btn-secondary ms-2">
+                            <i class="fas fa-times me-2"></i>Limpar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Lista de Eventos -->
+<div class="row">
+    <div class="col-12">
+        {% if events %}
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Data/Hora</th>
+                                <th>Evento</th>
+                                {% if current_user.is_manager %}
+                                <th>Artista</th>
+                                {% endif %}
+                                <th>Local</th>
+                                <th>Status</th>
+                                <th>Prioridade</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for event in events %}
+                            <tr>
+                                <td>
+                                    <div>
+                                        <strong>{{ event.start_datetime.strftime('%d/%m/%Y') }}</strong><br>
+                                        <small class="text-muted">{{ event.start_datetime.strftime('%H:%M') }} - {{ event.end_datetime.strftime('%H:%M') }}</small>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <strong>{{ event.title }}</strong>
+                                        {% if event.event_type %}
+                                        <br><small class="text-muted">{{ event.event_type.name }}</small>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                                {% if current_user.is_manager %}
+                                <td>
+                                    <span class="badge" style="background-color: {{ event.artist.color }}; color: white;">
+                                        {{ event.artist.stage_name }}
+                                    </span>
+                                </td>
+                                {% endif %}
+                                <td>{{ event.location or '-' }}</td>
+                                <td>
+                                    {% set status_class = {
+                                        'agendado': 'success',
+                                        'em_andamento': 'warning',
+                                        'concluido': 'info',
+                                        'cancelado': 'danger'
+                                    } %}
+                                    <span class="badge bg-{{ status_class.get(event.status, 'secondary') }}">
+                                        {{ event.status|title }}
+                                    </span>
+                                </td>
+                                <td>
+                                    {% if event.priority == 'high' %}
+                                        <span class="badge bg-danger">Alta</span>
+                                    {% elif event.priority == 'medium' %}
+                                        <span class="badge bg-warning">Média</span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">Baixa</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <div class="btn-group btn-group-sm">
+                                        <a href="{{ url_for('events.edit_event', event_id=event.id) }}" 
+                                           class="btn btn-outline-primary" title="Editar">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="{{ url_for('alerts.create_alert_form', event_id=event.id) }}" 
+                                           class="btn btn-outline-warning" title="Criar Alerta">
+                                            <i class="fas fa-bell"></i>
+                                        </a>
+                                        <a href="{{ url_for('alerts.auto_create_alerts', event_id=event.id) }}" 
+                                           class="btn btn-outline-info" title="Alertas Automáticos" 
+                                           onclick="return confirm('Criar alertas automáticos (1 dia, 2h e 30min antes)?')">
+                                            <i class="fas fa-magic"></i>
+                                        </a>
+                                        {% if current_user.is_manager or event.artist_id == current_user.artist_id %}
+                                        <button type="button" class="btn btn-outline-danger" 
+                                                onclick="confirmDelete({{ event.id }})" title="Deletar">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="card">
+            <div class="card-body text-center py-5">
+                <i class="fas fa-calendar-alt fa-4x text-muted mb-3"></i>
+                <h4 class="text-muted">Nenhum evento encontrado</h4>
+                <p class="text-muted">Comece criando seu primeiro evento!</p>
+                <a href="{{ url_for('events.new_event') }}" class="btn btn-primary">
+                    <i class="fas fa-plus me-2"></i>Criar Primeiro Evento
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Modal de Confirmação -->
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmar Exclusão</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                Tem certeza que deseja excluir este evento? Esta ação não pode ser desfeita.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <form id="deleteForm" method="POST" style="display: inline;">
+                    <button type="submit" class="btn btn-danger">Excluir</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function confirmDelete(eventId) {
+    const modal = new bootstrap.Modal(document.getElementById('deleteModal'));
+    const form = document.getElementById('deleteForm');
+    form.action = `/events/${eventId}/delete`;
+    modal.show();
+}
+</script>
+{% endblock %}

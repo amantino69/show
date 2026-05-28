@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+
+{% block page_title %}Novo Evento{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h2><i class="fas fa-plus me-2"></i>Novo Evento</h2>
+        <p class="text-muted">Crie um novo evento para seus artistas</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5>Informações do Evento</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="row">
+                        <div class="col-md-8 mb-3">
+                            <label for="title" class="form-label">Título do Evento *</label>
+                            <input type="text" class="form-control" id="title" name="title" required 
+                                   placeholder="Ex: Sessão de fotos, Show, Entrevista...">
+                        </div>
+                        
+                        <div class="col-md-4 mb-3">
+                            <label for="priority" class="form-label">Prioridade</label>
+                            <select class="form-select" id="priority" name="priority">
+                                <option value="low">Baixa</option>
+                                <option value="medium" selected>Média</option>
+                                <option value="high">Alta</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="artist_id" class="form-label">Artista *</label>
+                            <select class="form-select" id="artist_id" name="artist_id" required>
+                                <option value="">Selecione um artista...</option>
+                                {% for artist in artists %}
+                                <option value="{{ artist.id }}" data-color="{{ artist.color }}">
+                                    {{ artist.stage_name }} ({{ artist.name }})
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="event_type_id" class="form-label">Tipo de Evento</label>
+                            <select class="form-select" id="event_type_id" name="event_type_id">
+                                <option value="">Selecione o tipo...</option>
+                                {% for event_type in event_types %}
+                                <option value="{{ event_type.id }}">{{ event_type.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="start_datetime" class="form-label">Data/Hora de Início *</label>
+                            <input type="datetime-local" class="form-control" id="start_datetime" name="start_datetime" required>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="end_datetime" class="form-label">Data/Hora de Fim *</label>
+                            <input type="datetime-local" class="form-control" id="end_datetime" name="end_datetime" required>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Local</label>
+                        <input type="text" class="form-control" id="location" name="location" 
+                               placeholder="Ex: Estúdio XYZ, Teatro Municipal...">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Descrição</label>
+                        <textarea class="form-control" id="description" name="description" rows="4" 
+                                  placeholder="Descreva os detalhes do evento..."></textarea>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>Criar Evento
+                            </button>
+                            <a href="{{ url_for('events.events') }}" class="btn btn-secondary ms-2">
+                                <i class="fas fa-times me-2"></i>Cancelar
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h6><i class="fas fa-info-circle me-2"></i>Dicas</h6>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <i class="fas fa-bell text-warning me-2"></i>
+                        <small>Alertas serão enviados 2 dias, 1 dia e 3 horas antes do evento</small>
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-calendar text-info me-2"></i>
+                        <small>O evento será sincronizado automaticamente com o Google Agenda</small>
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-user text-success me-2"></i>
+                        <small>O artista receberá notificações por email</small>
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-exclamation-triangle text-danger me-2"></i>
+                        <small>Eventos de alta prioridade são destacados na agenda</small>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card mt-3">
+            <div class="card-header">
+                <h6><i class="fas fa-palette me-2"></i>Pré-visualização</h6>
+            </div>
+            <div class="card-body">
+                <div id="event-preview" class="p-3 rounded border" style="display: none;">
+                    <div class="d-flex align-items-center">
+                        <div id="preview-color" class="me-3" style="width: 20px; height: 20px; border-radius: 50%;"></div>
+                        <div>
+                            <strong id="preview-title">Título do Evento</strong><br>
+                            <small id="preview-artist" class="text-muted">Artista</small>
+                        </div>
+                    </div>
+                </div>
+                <small class="text-muted">Selecione um artista para ver a pré-visualização</small>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const artistSelect = document.getElementById('artist_id');
+    const titleInput = document.getElementById('title');
+    const preview = document.getElementById('event-preview');
+    const previewColor = document.getElementById('preview-color');
+    const previewTitle = document.getElementById('preview-title');
+    const previewArtist = document.getElementById('preview-artist');
+    
+    function updatePreview() {
+        const selectedOption = artistSelect.options[artistSelect.selectedIndex];
+        const title = titleInput.value || 'Título do Evento';
+        
+        if (artistSelect.value && selectedOption.dataset.color) {
+            const color = selectedOption.dataset.color;
+            const artistName = selectedOption.text;
+            
+            previewColor.style.backgroundColor = color;
+            previewTitle.textContent = title;
+            previewArtist.textContent = artistName;
+            preview.style.display = 'block';
+            preview.style.borderLeft = `4px solid ${color}`;
+            preview.style.backgroundColor = `${color}20`;
+        } else {
+            preview.style.display = 'none';
+        }
+    }
+    
+    artistSelect.addEventListener('change', updatePreview);
+    titleInput.addEventListener('input', updatePreview);
+    
+    // Configurar datas padrão (agora + 1 hora)
+    const now = new Date();
+    const oneHourLater = new Date(now.getTime() + 60 * 60 * 1000);
+    const twoHoursLater = new Date(now.getTime() + 2 * 60 * 60 * 1000);
+    
+    document.getElementById('start_datetime').value = oneHourLater.toISOString().slice(0, 16);
+    document.getElementById('end_datetime').value = twoHoursLater.toISOString().slice(0, 16);
+});
+</script>
+{% endblock %}

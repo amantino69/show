@@ -1,0 +1,21 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run Flask App",
+			"type": "shell",
+			"command": "& \"$env:LOCALAPPDATA\\Programs\\Python\\Python313\\python.exe\" app.py",
+			"group": "build",
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Run Ngrok Tunnel",
+			"type": "shell",
+			"command": ".\\ngrok.exe http 5001",
+			"group": "test",
+			"isBackground": true,
+			"problemMatcher": []
+		}
+	]
+}

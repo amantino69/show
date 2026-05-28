@@ -1,0 +1,247 @@
+{% extends "base.html" %}
+
+{% block page_title %}{{ artist.stage_name }} - Detalhes{% endblock %}
+
+{% block content %}
+<!-- Cabeçalho do Artista -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header" style="background-color: {{ artist.color }}; color: white;">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h2 class="mb-0">
+                            <i class="fas fa-user-circle me-2"></i>{{ artist.stage_name }}
+                        </h2>
+                        <h6 class="mb-0 opacity-75">{{ artist.name }}</h6>
+                    </div>
+                    <div class="text-end">
+                        <a href="{{ url_for('main.artists') }}" class="btn btn-light btn-sm">
+                            <i class="fas fa-arrow-left me-1"></i>Voltar
+                        </a>
+                        {% if current_user.is_manager %}
+                        <a href="{{ url_for('main.artist_credentials', artist_id=artist.id) }}" class="btn btn-info btn-sm">
+                            <i class="fas fa-key me-1"></i>Credenciais
+                        </a>
+                        <a href="{{ url_for('p7.hub', artist_id=artist.id) }}" class="btn btn-warning btn-sm">
+                            <i class="fas fa-th-large me-1"></i>Gestão P7
+                        </a>
+                        <a href="{{ url_for('main.artist_onboarding', artist_id=artist.id) }}" class="btn btn-outline-warning btn-sm">
+                            <i class="fas fa-clipboard-check me-1"></i>Onboarding
+                        </a>
+                        {% endif %}
+                        <a href="{{ url_for('events.new_event') }}?artist_id={{ artist.id }}" class="btn btn-success btn-sm">
+                            <i class="fas fa-plus me-1"></i>Novo Evento
+                        </a>
+                        {% if current_user.is_manager %}
+                        <form action="{{ url_for('main.delete_artist', artist_id=artist.id) }}" method="post" style="display:inline;" onsubmit="return confirm('Tem certeza que deseja excluir este artista? Todos os eventos e notificações relacionados serão removidos!');">
+                            <button type="submit" class="btn btn-danger btn-sm ms-2">
+                                <i class="fas fa-trash me-1"></i>Excluir Artista
+                            </button>
+                        </form>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5><i class="fas fa-info-circle me-2"></i>Informações Básicas</h5>
+                        <table class="table table-borderless">
+                            <tr>
+                                <td><strong>Nome Artístico:</strong></td>
+                                <td>{{ artist.stage_name }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Nome Real:</strong></td>
+                                <td>{{ artist.name }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Email:</strong></td>
+                                <td>
+                                    <a href="mailto:{{ artist.email }}">{{ artist.email }}</a>
+                                </td>
+                            </tr>
+                            {% if artist.phone %}
+                            <tr>
+                                <td><strong>Telefone:</strong></td>
+                                <td>
+                                    <a href="tel:{{ artist.phone }}">{{ artist.phone }}</a>
+                                </td>
+                            </tr>
+                            {% endif %}
+                            {% if artist.genre %}
+                            <tr>
+                                <td><strong>Gênero Musical:</strong></td>
+                                <td>{{ artist.genre }}</td>
+                            </tr>
+                            {% endif %}
+                            <tr>
+                                <td><strong>Status assessoria:</strong></td>
+                                <td>
+                                    <span class="badge bg-secondary">{{ artist.client_status_label }}</span>
+                                    {% if artist.onboarding_progress %}<span class="badge bg-info">{{ artist.onboarding_progress }}% onboarding</span>{% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Status:</strong></td>
+                                <td>
+                                    {% if artist.is_active %}
+                                        <span class="badge bg-success">Ativo</span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">Inativo</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cadastrado em:</strong></td>
+                                <td>{{ artist.created_at.strftime('%d/%m/%Y às %H:%M') }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <h5><i class="fas fa-chart-bar me-2"></i>Estatísticas</h5>
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <div class="card border-primary">
+                                    <div class="card-body">
+                                        <h3 class="text-primary">{{ total_events }}</h3>
+                                        <small class="text-muted">Total de Eventos</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="card border-success">
+                                    <div class="card-body">
+                                        <h3 class="text-success">{{ completed_events }}</h3>
+                                        <small class="text-muted">Concluídos</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="card border-warning">
+                                    <div class="card-body">
+                                        <h3 class="text-warning">{{ upcoming_events }}</h3>
+                                        <small class="text-muted">Próximos</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {% if artist.description %}
+                        <div class="mt-4">
+                            <h6><i class="fas fa-quote-left me-2"></i>Descrição</h6>
+                            <p class="text-muted">{{ artist.description }}</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Lista de Eventos -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-calendar-alt me-2"></i>Eventos
+                    <span class="badge bg-secondary ms-2">{{ events|length }}</span>
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if events %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Evento</th>
+                                    <th>Tipo</th>
+                                    <th>Data/Hora</th>
+                                    <th>Local</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for event in events %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ event.title }}</strong>
+                                        {% if event.description %}
+                                            <br><small class="text-muted">{{ event.description[:50] }}{% if event.description|length > 50 %}...{% endif %}</small>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <span class="badge" style="background-color: {{ event.event_type.color }}; color: white;">
+                                            {{ event.event_type.name }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <i class="fas fa-calendar me-1"></i>{{ event.start_datetime.strftime('%d/%m/%Y') }}<br>
+                                        <i class="fas fa-clock me-1"></i>{{ event.start_datetime.strftime('%H:%M') }} - {{ event.end_datetime.strftime('%H:%M') }}
+                                    </td>
+                                    <td>
+                                        {% if event.location %}
+                                            <i class="fas fa-map-marker-alt me-1"></i>{{ event.location }}
+                                        {% else %}
+                                            <span class="text-muted">Não informado</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if event.status == 'agendado' %}
+                                            <span class="badge bg-info">Agendado</span>
+                                        {% elif event.status == 'em_andamento' %}
+                                            <span class="badge bg-warning">Em Andamento</span>
+                                        {% elif event.status == 'concluido' %}
+                                            <span class="badge bg-success">Concluído</span>
+                                        {% elif event.status == 'cancelado' %}
+                                            <span class="badge bg-danger">Cancelado</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <a href="{{ url_for('events.edit_event', event_id=event.id) }}" class="btn btn-sm btn-outline-primary" title="Editar evento">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        {% if event.status != 'concluido' and event.status != 'cancelado' %}
+                                        <form method="POST" action="{{ url_for('events.delete_event', event_id=event.id) }}" style="display: inline;" onsubmit="return confirm('Tem certeza que deseja excluir este evento?')">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger" title="Excluir evento">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-calendar-times fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">Nenhum evento encontrado</h5>
+                        <p class="text-muted">Este artista ainda não possui eventos cadastrados.</p>
+                        <a href="{{ url_for('events.new_event') }}?artist_id={{ artist.id }}" class="btn btn-primary">
+                            <i class="fas fa-plus me-2"></i>Criar Primeiro Evento
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+$(document).ready(function() {
+    // Ativar tooltips
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    });
+});
+</script>
+{% endblock %}

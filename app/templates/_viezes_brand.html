@@ -1,0 +1,11 @@
+{# Marca Viezes.co — sidebar / auth #}
+<div class="sidebar-brand">
+    <a href="{{ url_for('main.dashboard') if current_user.is_authenticated else url_for('auth.login') }}">
+        <img src="{{ url_for('static', filename='img/viezes-mark.svg') }}" alt="Viezes" class="brand-mark" width="52" height="52">
+        <div class="brand-wordmark">viezes<span class="co">.co</span></div>
+        <span class="brand-tagline">Assessoria de carreiras</span>
+    </a>
+    <a href="https://www.instagram.com/viezes.co" target="_blank" rel="noopener noreferrer" class="brand-ig">
+        <i class="fab fa-instagram"></i> @viezes.co
+    </a>
+</div>

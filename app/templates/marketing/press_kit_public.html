@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+
+{% block title %}Press Kit - {{ artist.stage_name }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row mb-5">
+        <div class="col-md-8 mx-auto text-center">
+            {% if press_kit.banner_photo_id %}
+            <img src="{{ url_for('static', filename=press_kit.banner_photo.file_path) }}" class="img-fluid rounded mb-4" alt="{{ artist.stage_name }}">
+            {% endif %}
+            
+            <h1 class="display-4 mb-3">{{ artist.stage_name }}</h1>
+            
+            {% if press_kit.profile_photo_id %}
+            <div class="mb-4">
+                <img src="{{ url_for('static', filename=press_kit.profile_photo.file_path) }}" class="rounded-circle profile-image" alt="{{ artist.stage_name }}" style="width: 200px; height: 200px; object-fit: cover;">
+            </div>
+            {% endif %}
+            
+            <div class="lead mb-4">{{ press_kit.bio_short }}</div>
+            
+            <div class="social-links mb-4">
+                {% if press_kit.instagram %}
+                <a href="{{ press_kit.instagram }}" class="btn btn-outline-dark mx-1" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                {% endif %}
+                
+                {% if press_kit.facebook %}
+                <a href="{{ press_kit.facebook }}" class="btn btn-outline-dark mx-1" target="_blank">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                {% endif %}
+                
+                {% if press_kit.youtube %}
+                <a href="{{ press_kit.youtube }}" class="btn btn-outline-dark mx-1" target="_blank">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                {% endif %}
+                
+                {% if press_kit.spotify %}
+                <a href="{{ press_kit.spotify }}" class="btn btn-outline-dark mx-1" target="_blank">
+                    <i class="fab fa-spotify"></i>
+                </a>
+                {% endif %}
+                
+                {% if press_kit.website %}
+                <a href="{{ press_kit.website }}" class="btn btn-outline-dark mx-1" target="_blank">
+                    <i class="fas fa-globe"></i>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mb-5">
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="h4 mb-0">Biografia</h2>
+                </div>
+                <div class="card-body">
+                    {{ press_kit.bio_long | nl2br }}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% if press_kit.achievements %}
+    <div class="row mb-5">
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="h4 mb-0">Realizações e Destaques</h2>
+                </div>
+                <div class="card-body">
+                    {{ press_kit.achievements | nl2br }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    {% if upcoming_events %}
+    <div class="row mb-5">
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="h4 mb-0">Próximos Shows</h2>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        {% for event in upcoming_events %}
+                        <div class="list-group-item list-group-item-action">
+                            <div class="d-flex justify-content-between">
+                                <h5 class="mb-1">{{ event.title }}</h5>
+                                <small>{{ event.start_datetime.strftime('%d/%m/%Y') }}</small>
+                            </div>
+                            <p class="mb-1">{{ event.location }}</p>
+                            <small>{{ event.start_datetime.strftime('%H:%M') }}</small>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    {% if media_files %}
+    <div class="row mb-5">
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="h4 mb-0">Galeria</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {% for media in media_files %}
+                            {% if media.file_type == 'image' %}
+                            <div class="col-md-4 col-6 mb-4">
+                                <a href="{{ url_for('static', filename=media.file_path) }}" target="_blank">
+                                    <img src="{{ url_for('static', filename=media.file_path) }}" class="img-fluid rounded" alt="{{ media.title }}">
+                                </a>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    {% if press_kit.technical_rider or press_kit.stage_plot %}
+    <div class="row mb-5">
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="h4 mb-0">Informações Técnicas</h2>
+                </div>
+                <div class="card-body">
+                    {% if press_kit.technical_rider %}
+                    <h5>Rider Técnico</h5>
+                    <div class="mb-4">
+                        {{ press_kit.technical_rider | nl2br }}
+                    </div>
+                    {% endif %}
+                    
+                    {% if press_kit.stage_plot %}
+                    <h5>Stage Plot</h5>
+                    <div>
+                        {{ press_kit.stage_plot | nl2br }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    <div class="row mb-5">
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="h4 mb-0">Contato para Shows</h2>
+                </div>
+                <div class="card-body">
+                    <p><strong>Contato:</strong> {{ press_kit.booking_contact }}</p>
+                    <p><strong>Email:</strong> <a href="mailto:{{ press_kit.booking_email }}">{{ press_kit.booking_email }}</a></p>
+                    <p><strong>Telefone:</strong> {{ press_kit.booking_phone }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

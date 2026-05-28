@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+
+{% block title %}Novo Post{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h2">Novo Post para Redes Sociais</h1>
+        <a href="{{ url_for('marketing.social_posts') }}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> Voltar
+        </a>
+    </div>
+
+    <div class="card">
+        <div class="card-header bg-white">
+            <h5 class="mb-0">Detalhes do Post</h5>
+        </div>
+        <div class="card-body">
+            <form action="{{ url_for('marketing.new_social_post') }}" method="POST">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="title" class="form-label">Título do Post <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="title" name="title" required>
+                        <div class="form-text">Este título é apenas para referência interna.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="platform" class="form-label">Plataforma <span class="text-danger">*</span></label>
+                        <select class="form-select" id="platform" name="platform" required>
+                            <option value="" selected disabled>Selecione uma plataforma</option>
+                            <option value="instagram">Instagram</option>
+                            <option value="facebook">Facebook</option>
+                            <option value="twitter">Twitter</option>
+                            <option value="youtube">YouTube</option>
+                            <option value="tiktok">TikTok</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="artist_id" class="form-label">Artista <span class="text-danger">*</span></label>
+                        <select class="form-select" id="artist_id" name="artist_id" required>
+                            <option value="" selected disabled>Selecione um artista</option>
+                            {% for artist in artists %}
+                            <option value="{{ artist.id }}">{{ artist.stage_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="event_id" class="form-label">Evento Relacionado</label>
+                        <select class="form-select" id="event_id" name="event_id">
+                            <option value="">Nenhum (post independente)</option>
+                            {% for event in events %}
+                            <option value="{{ event.id }}">{{ event.title }} ({{ event.start_datetime.strftime('%d/%m/%Y') }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="scheduled_datetime" class="form-label">Data e Hora de Publicação <span class="text-danger">*</span></label>
+                        <input type="datetime-local" class="form-control" id="scheduled_datetime" name="scheduled_datetime" value="{{ (now + timedelta(hours=1)).strftime('%Y-%m-%dT%H:%M') }}" required>
+                        <div class="form-text">Formato: YYYY-MM-DD HH:MM</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
+                        <select class="form-select" id="status" name="status" required>
+                            <option value="draft">Rascunho</option>
+                            <option value="scheduled" selected>Agendado</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="content" class="form-label">Conteúdo do Post <span class="text-danger">*</span></label>
+                    <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
+                    <div class="form-text">Escreva aqui o texto que será publicado na rede social.</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="hashtags" class="form-label">Hashtags</label>
+                    <input type="text" class="form-control" id="hashtags" name="hashtags" placeholder="#exemplo #artista">
+                    <div class="form-text">Separe as hashtags com espaços.</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="location" class="form-label">Localização</label>
+                    <input type="text" class="form-control" id="location" name="location" placeholder="Ex: São Paulo, SP">
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">Mídia para o Post</label>
+                    <div class="row media-selector">
+                        {% if media_files %}
+                            {% for media in media_files %}
+                            <div class="col-md-3 col-6 mb-3">
+                                <div class="card h-100 media-card">
+                                    <input type="radio" class="btn-check" name="media_file_id" id="media{{ media.id }}" value="{{ media.id }}" autocomplete="off">
+                                    <label class="media-label" for="media{{ media.id }}">
+                                        <img src="{{ url_for('static', filename=media.file_path) }}" class="card-img-top media-preview" alt="{{ media.title }}">
+                                        <div class="card-body p-2">
+                                            <p class="card-text small text-truncate">{{ media.title or media.original_filename }}</p>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="col-12">
+                                <div class="alert alert-info">
+                                    Nenhuma imagem disponível. <a href="{{ url_for('marketing.upload_media') }}">Faça upload de imagens</a> para usá-las nos posts.
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="reset" class="btn btn-outline-secondary">Limpar</button>
+                    <button type="submit" class="btn btn-primary">Salvar Post</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+    .media-selector {
+        max-height: 500px;
+        overflow-y: auto;
+        padding: 10px;
+        border: 1px solid #dee2e6;
+        border-radius: 0.25rem;
+    }
+    
+    .media-card {
+        cursor: pointer;
+        transition: all 0.2s;
+        border: 2px solid transparent;
+    }
+    
+    .media-preview {
+        height: 150px;
+        object-fit: cover;
+    }
+    
+    .btn-check:checked + .media-label .media-card {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+    
+    .media-label {
+        cursor: pointer;
+        margin-bottom: 0;
+        width: 100%;
+        height: 100%;
+    }
+</style>
+{% endblock %}

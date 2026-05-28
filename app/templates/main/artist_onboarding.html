@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% block page_title %}Onboarding — {{ artist.stage_name }}{% endblock %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12 d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <div>
+            <h2><i class="fas fa-clipboard-check me-2"></i>Onboarding — {{ artist.stage_name }}</h2>
+            <p class="text-muted mb-0">{{ artist.name }} · {{ artist.client_status_label }}</p>
+        </div>
+        <a href="{{ url_for('main.artist_detail', artist_id=artist.id) }}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-1"></i> Voltar
+        </a>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between mb-2">
+                    <strong>Progresso</strong>
+                    <span>{{ done }}/{{ total }} concluídas · <strong>{{ artist.onboarding_progress }}%</strong></span>
+                </div>
+                <div class="progress" style="height: 14px;">
+                    <div class="progress-bar bg-success" style="width: {{ artist.onboarding_progress }}%"></div>
+                </div>
+                {% if artist.entry_date %}
+                <small class="text-muted">Entrada: {{ artist.entry_date.strftime('%d/%m/%Y') }}</small>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <h6>Ações rápidas</h6>
+                {% if can_edit %}
+                <form method="post" action="{{ url_for('main.onboarding_apply_template', artist_id=artist.id) }}" class="mb-2">
+                    <input type="hidden" name="replace" value="0">
+                    <button type="submit" class="btn btn-outline-primary btn-sm w-100">
+                        <i class="fas fa-copy me-1"></i> Aplicar template Viezes
+                    </button>
+                </form>
+                {% if not tasks %}
+                <form method="post" action="{{ url_for('main.onboarding_apply_template', artist_id=artist.id) }}">
+                    <input type="hidden" name="replace" value="1">
+                    <button type="submit" class="btn btn-primary btn-sm w-100">Substituir por template completo</button>
+                </form>
+                {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<ul class="nav nav-tabs mb-3" role="tablist">
+    <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tab-checklist">Checklist</a></li>
+    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-ficha">Ficha Arché</a></li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade show active" id="tab-checklist">
+        {% if can_edit %}
+        <div class="card mb-3">
+            <div class="card-header">Nova tarefa</div>
+            <div class="card-body">
+                <form method="post" action="{{ url_for('main.onboarding_task_create', artist_id=artist.id) }}" class="row g-2">
+                    <div class="col-md-2"><input name="module" class="form-control form-control-sm" placeholder="Módulo"></div>
+                    <div class="col-md-4"><input name="title" class="form-control form-control-sm" placeholder="Tarefa *" required></div>
+                    <div class="col-md-2"><input name="responsible" class="form-control form-control-sm" placeholder="Responsável"></div>
+                    <div class="col-md-2">
+                        <select name="status" class="form-select form-select-sm">
+                            {% for k, v in statuses.items() %}<option value="{{ k }}">{{ v }}</option>{% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-2"><button class="btn btn-primary btn-sm w-100">Adicionar</button></div>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+
+        {% for mod, mod_tasks in modules.items() %}
+        <div class="card mb-3">
+            <div class="card-header fw-bold">{{ mod }}</div>
+            <div class="card-body p-0">
+                <table class="table table-sm mb-0 align-middle">
+                    <tbody>
+                        {% for t in mod_tasks %}
+                        <tr>
+                            <td style="width:40px">
+                                {% if can_edit %}
+                                <form method="post" action="{{ url_for('main.onboarding_task_toggle', artist_id=artist.id, task_id=t.id) }}">
+                                    <button type="submit" class="btn btn-sm {% if t.status == 'concluido' %}btn-success{% else %}btn-outline-secondary{% endif %}" title="Marcar concluído">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                </form>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <span class="badge {% if t.status == 'concluido' %}bg-success{% elif t.status == 'em_andamento' %}bg-warning text-dark{% else %}bg-secondary{% endif %}">
+                                    {{ t.status_label }}
+                                </span>
+                            </td>
+                            <td>{{ t.title }}</td>
+                            <td>{{ t.responsible or '—' }}</td>
+                            <td class="text-nowrap">
+                                {% if can_edit %}
+                                <form method="post" action="{{ url_for('main.onboarding_task_update', artist_id=artist.id, task_id=t.id) }}" class="d-inline-flex gap-1">
+                                    <select name="status" class="form-select form-select-sm" style="width:auto" onchange="this.form.submit()">
+                                        {% for k, v in statuses.items() %}
+                                        <option value="{{ k }}" {% if t.status == k %}selected{% endif %}>{{ v }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </form>
+                                <form method="post" action="{{ url_for('main.onboarding_task_delete', artist_id=artist.id, task_id=t.id) }}" class="d-inline" onsubmit="return confirm('Remover tarefa?');">
+                                    <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                </form>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% else %}
+        <p class="text-muted">Nenhuma tarefa. Use &quot;Aplicar template Viezes&quot; para carregar o checklist padrão.</p>
+        {% endfor %}
+    </div>
+
+    <div class="tab-pane fade" id="tab-ficha">
+        <div class="card">
+            <div class="card-header">Formulário de onboarding (Arché)</div>
+            <div class="card-body">
+                <form method="post">
+                    <input type="hidden" name="form_type" value="profile">
+                    {% for section in sections %}
+                    <h5 class="mt-3 mb-3 text-primary">{{ section.title }}</h5>
+                    <div class="row g-3">
+                        {% for field_id, label, ftype in section.fields %}
+                        <div class="col-md-6">
+                            <label class="form-label">{{ label }}</label>
+                            {% if ftype == 'textarea' %}
+                            <textarea name="profile_{{ field_id }}" class="form-control" rows="2">{{ profile.get(field_id, '') }}</textarea>
+                            {% else %}
+                            <input type="{{ ftype }}" name="profile_{{ field_id }}" class="form-control"
+                                   value="{{ profile.get(field_id, '') }}">
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-primary">{% if can_edit %}Salvar ficha{% else %}Enviar minha ficha{% endif %}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

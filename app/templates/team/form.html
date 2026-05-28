@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block page_title %}{% if user %}Editar{% else %}Novo{% endif %} usuário{% endblock %}
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <form method="post">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label">Usuário (login)</label>
+                    <input name="username" class="form-control" value="{{ user.username if user else '' }}" {% if user %}readonly{% else %}required{% endif %}>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">E-mail</label>
+                    <input type="email" name="email" class="form-control" value="{{ user.email if user else '' }}" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Senha {% if user %}(deixe vazio para manter){% endif %}</label>
+                    <input type="password" name="password" class="form-control" {% if not user %}required{% endif %}>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Nome de exibição</label>
+                    <input name="display_name" class="form-control" value="{{ user.display_name if user and user.display_name else '' }}">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Papel na equipe</label>
+                    <select name="team_role" class="form-select">
+                        <option value="">—</option>
+                        {% for k, v in roles.items() %}
+                        <option value="{{ k }}" {% if user and user.team_role == k %}selected{% endif %}>{{ v }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Telefone</label>
+                    <input name="phone" class="form-control" value="{{ user.phone if user and user.phone else '' }}">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Tipo de conta</label>
+                    <select name="user_type" class="form-select" id="userType">
+                        <option value="manager" {% if user and user.is_manager %}selected{% endif %}>Equipe / empresário</option>
+                        <option value="artist" {% if user and not user.is_manager %}selected{% endif %}>Portal do assessorado</option>
+                    </select>
+                </div>
+                <div class="col-md-4" id="artistSelect">
+                    <label class="form-label">Assessorado vinculado</label>
+                    <select name="artist_id" class="form-select">
+                        <option value="">—</option>
+                        {% for a in artists %}
+                        <option value="{{ a.id }}" {% if user and user.artist_id == a.id %}selected{% endif %}>{{ a.stage_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% if user %}
+                <div class="col-12 form-check">
+                    <input type="checkbox" name="is_active_user" class="form-check-input" id="active" {% if user.is_active_user %}checked{% endif %}>
+                    <label class="form-check-label" for="active">Usuário ativo</label>
+                </div>
+                {% endif %}
+            </div>
+            <div class="mt-4 d-flex flex-wrap gap-2 align-items-center">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+                <a href="{{ url_for('team.index') }}" class="btn btn-secondary">Cancelar</a>
+                {% if user and can_delete %}
+                <form method="post" action="{{ url_for('team.delete_user', user_id=user.id) }}" class="ms-auto"
+                      onsubmit="return confirm('Excluir o usuário {{ user.username }}? Esta ação não pode ser desfeita.');">
+                    <button type="submit" class="btn btn-outline-danger">
+                        <i class="fas fa-trash me-1"></i>Excluir usuário
+                    </button>
+                </form>
+                {% elif user and delete_reason %}
+                <p class="text-muted small mb-0 ms-auto">{{ delete_reason }}</p>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

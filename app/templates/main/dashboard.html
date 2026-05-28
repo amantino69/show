@@ -1,0 +1,285 @@
+{% extends "base.html" %}
+
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="row mb-4 page-header">
+    <div class="col-12">
+        <h2>Dashboard</h2>
+        <p class="lead mb-0">
+            Bem-vinda à <strong>viezes.co</strong> — gestão de carreiras com a cara da assessoria.
+        </p>
+    </div>
+</div>
+
+{% if current_user.is_manager %}
+<!-- KPIs Painel Operacional -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card stat-card text-center">
+            <div class="card-body">
+                <div class="stat-icon gold"><i class="fas fa-user-group"></i></div>
+                <h4>{{ ops_active_clients }}</h4>
+                <p class="card-text mb-0 text-muted small">Assessorados ativos</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stat-card text-center">
+            <div class="card-body">
+                <div class="stat-icon dark"><i class="fas fa-handshake"></i></div>
+                <h4>{{ ops_open_proposals }}</h4>
+                <p class="card-text mb-0 text-muted small">Propostas abertas</p>
+                <a href="{{ url_for('crm.deals') }}" class="small">Ver pipeline</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stat-card text-center">
+            <div class="card-body">
+                <div class="stat-icon success"><i class="fas fa-check"></i></div>
+                <h4>{{ ops_month_closures }}</h4>
+                <p class="card-text mb-0 text-muted small">Fechamentos do mês</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stat-card text-center {% if ops_pending_followups > 0 %}border border-danger{% endif %}">
+            <div class="card-body">
+                <div class="stat-icon rose"><i class="fas fa-bell"></i></div>
+                <h4>{{ ops_pending_followups }}</h4>
+                <p class="card-text mb-0 text-muted small">Follow-ups pendentes</p>
+                <a href="{{ url_for('crm.index') }}" class="small">Ver CRM</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Cards de Estatísticas -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-users fa-2x text-primary mb-2"></i>
+                <h4>{{ total_artists }}</h4>
+                <p class="card-text">
+                    {% if current_user.is_manager %}
+                        Assessorados ativos
+                    {% else %}
+                        Meu Perfil
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-calendar-alt fa-2x text-success mb-2"></i>
+                <h4>{{ total_events }}</h4>
+                <p class="card-text">Eventos Futuros</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-clock fa-2x text-warning mb-2"></i>
+                <h4>{{ today_events|length }}</h4>
+                <p class="card-text">Eventos Hoje</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-star fa-2x text-info mb-2"></i>
+                <h4>{{ artist_types|length }}</h4>
+                <p class="card-text">Tipos de Artistas</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Estatísticas por Tipo de Artista (apenas para empresários) -->
+{% if current_user.is_manager and artist_types %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-chart-pie me-2"></i>Artistas por Categoria</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% for artist_type in artist_types %}
+                    <div class="col-md-4 col-sm-6 mb-3">
+                        <div class="d-flex align-items-center p-3 border rounded">
+                            <i class="{{ artist_type.icon }} fa-2x me-3" style="color: {{ artist_type.color }};"></i>
+                            <div>
+                                <h6 class="mb-0">{{ artist_type.name }}</h6>
+                                <small class="text-muted">{{ type_stats[artist_type.id] or 0 }} artista(s)</small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+    
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-calendar-week fa-2x text-info mb-2"></i>
+                <h4>{{ upcoming_events|length }}</h4>
+                <p class="card-text">Próximos 7 Dias</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Eventos de Hoje -->
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-clock me-2"></i>Eventos de Hoje</h5>
+            </div>
+            <div class="card-body">
+                {% if today_events %}
+                    {% for event in today_events %}
+                    <div class="d-flex justify-content-between align-items-center mb-2 p-2 rounded" 
+                         style="background-color: {{ event.artist.color }}20; border-left: 4px solid {{ event.artist.color }};">
+                        <div class="d-flex align-items-center">
+                            <i class="{{ event.artist.artist_type.icon }} me-2" style="color: {{ event.artist.color }};"></i>
+                            <div>
+                                <strong>{{ event.title }}</strong><br>
+                                <small class="text-muted">
+                                    {{ event.start_datetime.strftime('%H:%M') }} - {{ event.artist.stage_name }}
+                                </small>
+                            </div>
+                        </div>
+                        <span class="badge bg-{{ 'success' if event.status == 'agendado' else 'warning' }}">
+                            {{ event.status|title }}
+                        </span>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted text-center">Nenhum evento hoje</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Próximos Eventos -->
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5><i class="fas fa-calendar-week me-2"></i>Próximos Eventos</h5>
+                <a href="{{ url_for('events.new_event') }}" class="btn btn-sm btn-light">
+                    <i class="fas fa-plus me-1"></i>Novo
+                </a>
+            </div>
+            <div class="card-body">
+                {% if upcoming_events %}
+                    {% for event in upcoming_events %}
+                    <div class="d-flex justify-content-between align-items-center mb-2 p-2 rounded" 
+                         style="background-color: {{ event.artist.color }}20; border-left: 4px solid {{ event.artist.color }};">
+                        <div class="d-flex align-items-center">
+                            <i class="{{ event.artist.artist_type.icon }} me-2" style="color: {{ event.artist.color }};"></i>
+                            <div>
+                                <strong>{{ event.title }}</strong><br>
+                                <small class="text-muted">
+                                    {{ event.start_datetime.strftime('%d/%m %H:%M') }} - {{ event.artist.stage_name }}
+                                </small>
+                            </div>
+                        </div>
+                        <div>
+                            <span class="badge bg-{{ 'success' if event.status == 'agendado' else 'warning' }} me-1">
+                                {{ event.status|title }}
+                            </span>
+                            {% if event.priority == 'high' %}
+                                <i class="fas fa-exclamation-triangle text-danger" title="Alta prioridade"></i>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted text-center">Nenhum evento próximo</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Ações Rápidas -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-bolt me-2"></i>Ações Rápidas</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 mb-2">
+                        <a href="{{ url_for('events.new_event') }}" class="btn btn-primary w-100">
+                            <i class="fas fa-plus me-2"></i>Novo Evento
+                        </a>
+                    </div>
+                    
+                    <div class="col-md-3 mb-2">
+                        <a href="{{ url_for('events.calendar') }}" class="btn btn-success w-100">
+                            <i class="fas fa-calendar me-2"></i>Ver Agenda
+                        </a>
+                    </div>
+                    
+                    {% if current_user.is_manager %}
+                    <div class="col-md-3 mb-2">
+                        <a href="{{ url_for('main.new_artist') }}" class="btn btn-info w-100">
+                            <i class="fas fa-user-plus me-2"></i>Novo Artista
+                        </a>
+                    </div>
+                    
+                    <div class="col-md-3 mb-2">
+                        <a href="{{ url_for('reports.reports') }}" class="btn btn-warning w-100">
+                            <i class="fas fa-chart-bar me-2"></i>Relatórios
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Integração Google Calendar -->
+                <hr>
+                <div class="row">
+                    <div class="col-12">
+                        <h6><i class="fas fa-link me-2"></i>Integrações</h6>
+                    </div>
+                    {% if current_user.google_token %}
+                    <div class="col-md-6 mb-2">
+                        <div class="d-flex align-items-center">
+                            <span class="badge bg-success me-2">Conectado</span>
+                            <span>Google Calendar</span>
+                            <a href="{{ url_for('google_auth.disconnect') }}" class="btn btn-sm btn-outline-danger ms-auto">
+                                Desconectar
+                            </a>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="col-md-6 mb-2">
+                        <a href="{{ url_for('google_auth.authorize') }}" class="btn btn-success w-100">
+                            <i class="fab fa-google me-2"></i>Conectar Google Calendar
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

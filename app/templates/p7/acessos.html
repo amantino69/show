@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block page_title %}Acessos — {{ artist.stage_name }}{% endblock %}
+{% block content %}
+{% include "p7/_nav.html" %}
+
+<div class="alert alert-warning small">
+    <i class="fas fa-lock me-1"></i> Área restrita à equipe. Não compartilhe senhas fora dos canais seguros da assessoria.
+</div>
+
+<form method="post" class="mb-3 d-flex gap-2">
+    <input type="hidden" name="action" value="add">
+    <input name="platform" class="form-control form-control-sm" placeholder="Nova ferramenta" style="max-width:280px">
+    <button class="btn btn-sm btn-primary">Adicionar</button>
+</form>
+
+<div class="card">
+    <div class="card-body p-0">
+        <table class="table table-sm mb-0">
+            <thead class="table-light">
+                <tr><th>Ferramenta</th><th>Usuário / e-mail</th><th>Acesso</th><th>Compartilhado</th><th>Status</th><th></th><th></th></tr>
+            </thead>
+            <tbody>
+                {% for a in accesses %}
+                <tr>
+                    <form method="post">
+                        <input type="hidden" name="action" value="update">
+                        <input type="hidden" name="access_id" value="{{ a.id }}">
+                        <td><strong>{{ a.platform }}</strong></td>
+                        <td><input name="username_email" class="form-control form-control-sm" value="{{ a.username_email or '' }}"></td>
+                        <td><input name="access_secret" type="password" class="form-control form-control-sm" value="{{ a.access_secret or '' }}" autocomplete="off"></td>
+                        <td><input name="shared_with" class="form-control form-control-sm" value="{{ a.shared_with or '' }}"></td>
+                        <td>
+                            <select name="status" class="form-select form-select-sm">
+                                <option value="ativo" {% if a.status == 'ativo' %}selected{% endif %}>Ativo</option>
+                                <option value="pendente" {% if a.status == 'pendente' %}selected{% endif %}>Pendente</option>
+                                <option value="revogado" {% if a.status == 'revogado' %}selected{% endif %}>Revogado</option>
+                            </select>
+                        </td>
+                        <td class="text-nowrap">
+                            <button class="btn btn-sm btn-primary">Salvar</button>
+                        </td>
+                    </form>
+                    <td>
+                        <form method="post" action="{{ url_for('p7.delete_access', artist_id=artist.id, item_id=a.id) }}"
+                              onsubmit="return confirm('Excluir este acesso?');">
+                            <button type="submit" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

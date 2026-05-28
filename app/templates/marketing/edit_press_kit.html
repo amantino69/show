@@ -1,0 +1,212 @@
+{% extends 'base.html' %}
+
+{% block title %}Editar Press Kit - {{ artist.stage_name }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h2">Editar Press Kit - {{ artist.stage_name }}</h1>
+        <div>
+            <a href="{{ url_for('marketing.press_kits') }}" class="btn btn-outline-secondary me-2">
+                <i class="fas fa-arrow-left"></i> Voltar
+            </a>
+            {% if press_kit.is_public %}
+            <a href="{{ url_for('marketing.view_press_kit', artist_id=artist.id) }}" class="btn btn-outline-success" target="_blank">
+                <i class="fas fa-eye"></i> Visualizar
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <form action="{{ url_for('marketing.edit_press_kit', artist_id=artist.id) }}" method="POST">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0">Informações Básicas</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="bio_short" class="form-label">Bio Curta</label>
+                            <textarea class="form-control" id="bio_short" name="bio_short" rows="3">{{ press_kit.bio_short }}</textarea>
+                            <div class="form-text">Versão curta da biografia (100-200 palavras)</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="bio_long" class="form-label">Bio Completa</label>
+                            <textarea class="form-control" id="bio_long" name="bio_long" rows="6">{{ press_kit.bio_long }}</textarea>
+                            <div class="form-text">Biografia completa do artista</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="achievements" class="form-label">Conquistas e Destaques</label>
+                            <textarea class="form-control" id="achievements" name="achievements" rows="4">{{ press_kit.achievements }}</textarea>
+                            <div class="form-text">Principais conquistas, números, destaques na mídia, etc.</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0">Redes Sociais e Links</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="website" class="form-label">Website</label>
+                                <input type="url" class="form-control" id="website" name="website" value="{{ press_kit.website }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="instagram" class="form-label">Instagram</label>
+                                <input type="url" class="form-control" id="instagram" name="instagram" value="{{ press_kit.instagram }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="facebook" class="form-label">Facebook</label>
+                                <input type="url" class="form-control" id="facebook" name="facebook" value="{{ press_kit.facebook }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="youtube" class="form-label">YouTube</label>
+                                <input type="url" class="form-control" id="youtube" name="youtube" value="{{ press_kit.youtube }}">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="spotify" class="form-label">Spotify</label>
+                                <input type="url" class="form-control" id="spotify" name="spotify" value="{{ press_kit.spotify }}">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="deezer" class="form-label">Deezer</label>
+                                <input type="url" class="form-control" id="deezer" name="deezer" value="{{ press_kit.deezer }}">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="apple_music" class="form-label">Apple Music</label>
+                                <input type="url" class="form-control" id="apple_music" name="apple_music" value="{{ press_kit.apple_music }}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0">Informações Técnicas</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="technical_rider" class="form-label">Rider Técnico</label>
+                            <textarea class="form-control" id="technical_rider" name="technical_rider" rows="4">{{ press_kit.technical_rider }}</textarea>
+                            <div class="form-text">Requisitos técnicos para shows</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="stage_plot" class="form-label">Stage Plot</label>
+                            <textarea class="form-control" id="stage_plot" name="stage_plot" rows="4">{{ press_kit.stage_plot }}</textarea>
+                            <div class="form-text">Disposição no palco, diagramas, etc.</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0">Contatos para Shows</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-12">
+                                <label for="booking_contact" class="form-label">Nome do Contato</label>
+                                <input type="text" class="form-control" id="booking_contact" name="booking_contact" value="{{ press_kit.booking_contact }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="booking_email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="booking_email" name="booking_email" value="{{ press_kit.booking_email }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="booking_phone" class="form-label">Telefone</label>
+                                <input type="tel" class="form-control" id="booking_phone" name="booking_phone" value="{{ press_kit.booking_phone }}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0">Configurações</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="is_public" name="is_public" value="1" {% if press_kit.is_public %}checked{% endif %}>
+                            <label class="form-check-label" for="is_public">Press Kit Público</label>
+                            <div class="form-text">Se ativado, o press kit poderá ser acessado publicamente</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="template_style" class="form-label">Estilo do Template</label>
+                            <select class="form-select" id="template_style" name="template_style">
+                                <option value="default" {% if press_kit.template_style == 'default' %}selected{% endif %}>Padrão</option>
+                                <option value="dark" {% if press_kit.template_style == 'dark' %}selected{% endif %}>Escuro</option>
+                                <option value="light" {% if press_kit.template_style == 'light' %}selected{% endif %}>Claro</option>
+                                <option value="minimal" {% if press_kit.template_style == 'minimal' %}selected{% endif %}>Minimalista</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0">Foto de Perfil</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if press_kit.profile_photo_id %}
+                        <div class="text-center mb-3">
+                            <img src="{{ url_for('static', filename=press_kit.profile_photo.file_path) }}" class="img-fluid rounded" alt="Foto de Perfil">
+                        </div>
+                        {% endif %}
+                        
+                        <label for="profile_photo_id" class="form-label">Selecionar Foto de Perfil</label>
+                        <select class="form-select" id="profile_photo_id" name="profile_photo_id">
+                            <option value="">Nenhuma foto</option>
+                            {% for photo in photos %}
+                            <option value="{{ photo.id }}" {% if press_kit.profile_photo_id == photo.id %}selected{% endif %}>
+                                {{ photo.title or photo.original_filename }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                        <div class="form-text mb-3">Escolha uma foto para o perfil do artista</div>
+                        
+                        <a href="{{ url_for('marketing.upload_media') }}" class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-upload"></i> Fazer Upload de Novas Fotos
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0">Banner</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if press_kit.banner_photo_id %}
+                        <div class="text-center mb-3">
+                            <img src="{{ url_for('static', filename=press_kit.banner_photo.file_path) }}" class="img-fluid rounded" alt="Banner">
+                        </div>
+                        {% endif %}
+                        
+                        <label for="banner_photo_id" class="form-label">Selecionar Banner</label>
+                        <select class="form-select" id="banner_photo_id" name="banner_photo_id">
+                            <option value="">Nenhum banner</option>
+                            {% for photo in photos %}
+                            <option value="{{ photo.id }}" {% if press_kit.banner_photo_id == photo.id %}selected{% endif %}>
+                                {{ photo.title or photo.original_filename }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                        <div class="form-text">Escolha uma imagem para o banner do press kit</div>
+                    </div>
+                </div>
+                
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

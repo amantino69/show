@@ -1,0 +1,481 @@
+/**
+ * Viezes.co — identidade visual
+ * Assessoria de carreiras · Julia Maria
+ * @see https://www.instagram.com/viezes.co
+ */
+:root {
+    --vz-black: #12100e;
+    --vz-espresso: #1c1916;
+    --vz-brown: #2d2824;
+    --vz-cream: #faf7f2;
+    --vz-linen: #f0ebe4;
+    --vz-sand: #e5ddd3;
+    --vz-gold: #b8956b;
+    --vz-gold-dark: #96784f;
+    --vz-gold-light: #d9c4a3;
+    --vz-rose: #9e7b7b;
+    --vz-rose-soft: #e8d8d8;
+    --vz-text: #1f1b18;
+    --vz-text-muted: #6f6760;
+    --vz-white: #ffffff;
+    --vz-success: #5a7d5c;
+    --vz-warning: #c4a035;
+    --vz-danger: #b85c5c;
+    --vz-radius: 12px;
+    --vz-radius-lg: 18px;
+    --vz-shadow: 0 4px 24px rgba(28, 25, 22, 0.06);
+    --vz-shadow-lg: 0 12px 40px rgba(28, 25, 22, 0.1);
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+    --sidebar-width: 260px;
+}
+
+/* Bootstrap overrides */
+.btn-primary {
+    --bs-btn-bg: var(--vz-espresso);
+    --bs-btn-border-color: var(--vz-espresso);
+    --bs-btn-hover-bg: var(--vz-brown);
+    --bs-btn-hover-border-color: var(--vz-brown);
+    --bs-btn-active-bg: var(--vz-black);
+    --bs-btn-focus-shadow-rgb: 184, 149, 107;
+}
+
+.btn-outline-primary {
+    --bs-btn-color: var(--vz-espresso);
+    --bs-btn-border-color: var(--vz-gold);
+    --bs-btn-hover-bg: var(--vz-espresso);
+    --bs-btn-hover-border-color: var(--vz-espresso);
+}
+
+.text-primary { color: var(--vz-gold-dark) !important; }
+.border-primary { border-color: var(--vz-gold) !important; }
+.bg-primary { background-color: var(--vz-espresso) !important; }
+
+body {
+    font-family: var(--font-body);
+    color: var(--vz-text);
+    background: var(--vz-cream);
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6,
+.navbar-brand,
+.card-header,
+.brand-display {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+/* ——— Sidebar ——— */
+.sidebar,
+.mobile-sidebar {
+    background: linear-gradient(165deg, var(--vz-black) 0%, var(--vz-espresso) 45%, #2a2420 100%);
+    border-right: 1px solid rgba(184, 149, 107, 0.15);
+}
+
+/* Desktop: sidebar fixo com rolagem própria */
+@media (min-width: 769px) {
+    .desktop-sidebar {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        align-self: flex-start;
+    }
+
+    .desktop-sidebar .sidebar {
+        height: 100vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+}
+
+.sidebar-brand {
+    text-align: center;
+    padding: 1.5rem 1rem 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 0.5rem;
+}
+
+.sidebar-brand a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.sidebar-brand .brand-mark {
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 0.75rem;
+    display: block;
+}
+
+.sidebar-brand .brand-wordmark {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--vz-white);
+    letter-spacing: 0.12em;
+    text-transform: lowercase;
+    line-height: 1;
+}
+
+.sidebar-brand .brand-wordmark .co {
+    color: var(--vz-gold-light);
+    font-weight: 500;
+}
+
+.sidebar-brand .brand-tagline {
+    display: block;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.45);
+    margin-top: 0.35rem;
+}
+
+.sidebar-brand .brand-ig {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 0.75rem;
+    font-size: 0.7rem;
+    color: var(--vz-gold-light);
+    opacity: 0.85;
+    transition: opacity 0.2s;
+}
+
+.sidebar-brand .brand-ig:hover {
+    opacity: 1;
+    color: var(--vz-gold-light);
+}
+
+.sidebar .nav-link,
+.mobile-sidebar .nav-link {
+    color: rgba(255, 255, 255, 0.72);
+    border-radius: 8px;
+    margin: 2px 8px;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.sidebar .nav-link i,
+.mobile-sidebar .nav-link i {
+    width: 1.25rem;
+    color: var(--vz-gold);
+    opacity: 0.9;
+}
+
+.sidebar .nav-link:hover,
+.mobile-sidebar .nav-link:hover,
+.sidebar .nav-link.active,
+.mobile-sidebar .nav-link.active {
+    background: rgba(184, 149, 107, 0.15);
+    color: var(--vz-white);
+}
+
+.sidebar .nav-section {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.35);
+    padding: 1rem 1.25rem 0.35rem;
+    margin-top: 0.25rem;
+}
+
+/* ——— Main area ——— */
+.main-content {
+    background: var(--vz-cream);
+    min-height: 100vh;
+}
+
+.top-navbar {
+    background: var(--vz-white) !important;
+    border: 1px solid var(--vz-sand);
+    border-radius: var(--vz-radius-lg);
+    box-shadow: var(--vz-shadow);
+    padding: 0.85rem 1.25rem;
+}
+
+.top-navbar .navbar-brand {
+    color: var(--vz-text) !important;
+    font-size: 1.35rem;
+}
+
+.top-navbar .navbar-text {
+    color: var(--vz-text-muted) !important;
+    font-size: 0.875rem;
+}
+
+.top-navbar .user-pill {
+    background: var(--vz-linen);
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    color: var(--vz-text);
+}
+
+/* ——— Cards ——— */
+.card {
+    border: 1px solid var(--vz-sand);
+    border-radius: var(--vz-radius-lg);
+    box-shadow: var(--vz-shadow);
+    background: var(--vz-white);
+    overflow: hidden;
+}
+
+.card-header {
+    background: var(--vz-espresso);
+    color: var(--vz-white);
+    border: none;
+    padding: 1rem 1.25rem;
+    font-size: 1.1rem;
+}
+
+.card-header.card-header-light {
+    background: var(--vz-linen);
+    color: var(--vz-text);
+    border-bottom: 1px solid var(--vz-sand);
+}
+
+/* KPI / stat cards */
+.stat-card {
+    border: 1px solid var(--vz-sand);
+    border-radius: var(--vz-radius-lg);
+    background: var(--vz-white);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--vz-shadow-lg);
+}
+
+.stat-card .stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 0.75rem;
+    font-size: 1.25rem;
+}
+
+.stat-card .stat-icon.gold { background: rgba(184, 149, 107, 0.15); color: var(--vz-gold-dark); }
+.stat-card .stat-icon.dark { background: var(--vz-linen); color: var(--vz-espresso); }
+.stat-card .stat-icon.rose { background: var(--vz-rose-soft); color: var(--vz-rose); }
+.stat-card .stat-icon.success { background: rgba(90, 125, 92, 0.12); color: var(--vz-success); }
+
+.stat-card h4 {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    margin-bottom: 0;
+    color: var(--vz-text);
+}
+
+/* ——— Buttons ——— */
+.btn-primary {
+    background: var(--vz-espresso);
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    padding: 0.5rem 1.25rem;
+}
+
+.btn-primary:hover {
+    background: var(--vz-brown);
+}
+
+.btn-gold {
+    background: linear-gradient(135deg, var(--vz-gold) 0%, var(--vz-gold-dark) 100%);
+    color: var(--vz-white);
+    border: none;
+    font-weight: 600;
+}
+
+.btn-gold:hover {
+    color: var(--vz-white);
+    filter: brightness(1.05);
+}
+
+/* ——— Tables ——— */
+.table {
+    --bs-table-bg: transparent;
+}
+
+.table thead th {
+    background: var(--vz-linen);
+    color: var(--vz-text-muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+    border: none;
+}
+
+.table-hover tbody tr:hover {
+    background: rgba(184, 149, 107, 0.06);
+}
+
+/* ——— Badges ——— */
+.badge {
+    font-weight: 600;
+    letter-spacing: 0.03em;
+}
+
+.badge-viezes {
+    background: rgba(184, 149, 107, 0.2);
+    color: var(--vz-gold-dark);
+}
+
+/* ——— Nav tabs (P7) ——— */
+.nav-tabs .nav-link {
+    color: var(--vz-text-muted);
+    border: none;
+    font-weight: 500;
+}
+
+.nav-tabs .nav-link.active {
+    color: var(--vz-espresso);
+    border-bottom: 2px solid var(--vz-gold);
+    background: transparent;
+}
+
+.nav-pills .nav-link.active {
+    background: var(--vz-espresso);
+}
+
+/* ——— Alerts ——— */
+.alert {
+    border-radius: var(--vz-radius);
+    border: none;
+}
+
+.alert-info {
+    background: rgba(184, 149, 107, 0.12);
+    color: var(--vz-brown);
+}
+
+/* ——— Mobile menu ——— */
+.mobile-menu-toggle {
+    background: var(--vz-espresso) !important;
+    border: 1px solid rgba(184, 149, 107, 0.3);
+    border-radius: 10px;
+}
+
+/* ——— Login page ——— */
+body.page-auth {
+    background: var(--vz-espresso);
+    min-height: 100vh;
+}
+
+body.page-auth::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 80% 50% at 20% 20%, rgba(184, 149, 107, 0.12) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(158, 123, 123, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.auth-shell {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.auth-card {
+    max-width: 420px;
+    width: 100%;
+    border: 1px solid rgba(184, 149, 107, 0.2);
+    border-radius: var(--vz-radius-lg);
+    box-shadow: var(--vz-shadow-lg);
+    overflow: hidden;
+}
+
+.auth-card .card-header {
+    background: transparent;
+    color: var(--vz-white);
+    padding: 2rem 2rem 0;
+    text-align: center;
+}
+
+.auth-card .card-body {
+    padding: 1.5rem 2rem 2rem;
+    background: var(--vz-white);
+}
+
+.auth-brand .brand-mark {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 1rem;
+}
+
+.auth-brand .brand-wordmark {
+    font-family: var(--font-display);
+    font-size: 2.25rem;
+    color: var(--vz-white);
+    letter-spacing: 0.14em;
+    text-transform: lowercase;
+}
+
+.auth-brand .brand-wordmark .co { color: var(--vz-gold-light); }
+
+.auth-brand .brand-tagline {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    margin-top: 0.5rem;
+}
+
+/* ——— Page headers ——— */
+.page-header h2 {
+    font-size: 1.85rem;
+    color: var(--vz-text);
+}
+
+.page-header .lead {
+    color: var(--vz-text-muted);
+}
+
+/* ——— Links ——— */
+a {
+    color: var(--vz-gold-dark);
+}
+
+a:hover {
+    color: var(--vz-espresso);
+}
+
+/* ——— Form controls focus ——— */
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--vz-gold);
+    box-shadow: 0 0 0 0.2rem rgba(184, 149, 107, 0.2);
+}
+
+/* Progress bars */
+.progress-bar.bg-success {
+    background-color: var(--vz-gold) !important;
+}
+
+/* Artist card header override - keep dynamic color but soften */
+.card-header[style*="background-color"] {
+    position: relative;
+}
+
+.card-header[style*="background-color"]::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.15) 100%);
+    border-radius: inherit;
+    pointer-events: none;
+}

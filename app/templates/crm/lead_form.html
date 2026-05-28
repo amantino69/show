@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block page_title %}{% if lead %}Editar lead{% else %}Novo lead{% endif %}{% endblock %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h2><i class="fas fa-user-plus me-2"></i>{% if lead %}Editar lead{% else %}Novo lead{% endif %}</h2>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <form method="post">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Nome / Perfil *</label>
+                    <input type="text" name="name" class="form-control" required
+                           value="{{ lead.name if lead else '' }}">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Instagram / TikTok</label>
+                    <input type="text" name="social_handle" class="form-control"
+                           value="{{ lead.social_handle if lead else '' }}" placeholder="@perfil">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Segmento</label>
+                    <select name="segment_id" class="form-select">
+                        <option value="">— Selecione —</option>
+                        {% for item in segments %}
+                        <option value="{{ item.id }}" {% if lead and lead.segment_id == item.id %}selected{% endif %}>{{ item.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <small class="text-muted"><a href="{{ url_for('catalog.list_items', category='segment') }}">Gerenciar segmentos</a></small>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Tipo de serviço</label>
+                    <select name="service_type_id" class="form-select">
+                        <option value="">— Selecione —</option>
+                        {% for item in service_types %}
+                        <option value="{{ item.id }}" {% if lead and lead.service_type_id == item.id %}selected{% endif %}>{{ item.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <small class="text-muted"><a href="{{ url_for('catalog.list_items', category='service_type') }}">Gerenciar tipos</a></small>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Origem do lead</label>
+                    <select name="lead_source_id" class="form-select">
+                        <option value="">— Selecione —</option>
+                        {% for item in lead_sources %}
+                        <option value="{{ item.id }}" {% if lead and lead.lead_source_id == item.id %}selected{% endif %}>{{ item.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <small class="text-muted"><a href="{{ url_for('catalog.list_items', category='lead_source') }}">Gerenciar origens</a></small>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Data 1º contato</label>
+                    <input type="date" name="first_contact_date" class="form-control"
+                           value="{{ lead.first_contact_date.isoformat() if lead and lead.first_contact_date else '' }}">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Data diagnóstico</label>
+                    <input type="date" name="diagnostic_date" class="form-control"
+                           value="{{ lead.diagnostic_date.isoformat() if lead and lead.diagnostic_date else '' }}">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Follow-up</label>
+                    <input type="date" name="follow_up_date" class="form-control"
+                           value="{{ lead.follow_up_date.isoformat() if lead and lead.follow_up_date else '' }}">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Status</label>
+                    <select name="status" class="form-select">
+                        {% for key, label in statuses.items() %}
+                        <option value="{{ key }}" {% if lead and lead.status == key %}selected{% elif not lead and key == 'novo' %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Valor (R$)</label>
+                    <input type="text" name="value" class="form-control"
+                           value="{{ lead.value if lead and lead.value else '' }}" placeholder="0,00">
+                </div>
+                <div class="col-md-9">
+                    <label class="form-label">Próxima ação</label>
+                    <input type="text" name="next_action" class="form-control"
+                           value="{{ lead.next_action if lead else '' }}">
+                </div>
+                <div class="col-12">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="closed" id="closed"
+                               {% if lead and lead.closed %}checked{% endif %}>
+                        <label class="form-check-label" for="closed">Fechou contrato</label>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Motivo não fechou</label>
+                    <textarea name="lost_reason" class="form-control" rows="2">{{ lead.lost_reason if lead else '' }}</textarea>
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Observações</label>
+                    <textarea name="notes" class="form-control" rows="3">{{ lead.notes if lead else '' }}</textarea>
+                </div>
+            </div>
+            <div class="mt-4 d-flex flex-wrap gap-2 align-items-center">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+                <a href="{{ url_for('crm.index') }}" class="btn btn-secondary">Cancelar</a>
+                {% if lead %}
+                <form method="post" action="{{ url_for('crm.delete_lead', lead_id=lead.id) }}" class="ms-auto"
+                      onsubmit="return confirm('Excluir este lead?{% if lead.artist_id %} O assessorado vinculado será mantido.{% endif %}');">
+                    <button type="submit" class="btn btn-outline-danger">
+                        <i class="fas fa-trash me-1"></i>Excluir lead
+                    </button>
+                </form>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

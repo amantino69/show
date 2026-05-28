@@ -1,0 +1,46 @@
+<div class="card mb-3">
+    <div class="card-body py-2">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
+            <div>
+                <strong>{{ artist.stage_name }}</strong>
+                <span class="text-muted">· Gestão assessorado</span>
+            </div>
+            <a href="{{ url_for('main.artist_detail', artist_id=artist.id) }}" class="btn btn-sm btn-outline-secondary">
+                <i class="fas fa-arrow-left"></i> Ficha
+            </a>
+        </div>
+        <ul class="nav nav-pills flex-wrap small">
+            <li class="nav-item">
+                <a class="nav-link {% if active_tab == 'hub' %}active{% endif %}" href="{{ url_for('p7.hub', artist_id=artist.id) }}">Visão geral</a>
+            </li>
+            {% if current_user.is_manager %}
+            <li class="nav-item">
+                <a class="nav-link {% if active_tab == 'contrato' %}active{% endif %}" href="{{ url_for('p7.contrato', artist_id=artist.id) }}">Contrato</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link {% if active_tab == 'midia_kit' %}active{% endif %}" href="{{ url_for('p7.midia_kit', artist_id=artist.id) }}">Mídia Kit</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if active_tab == 'marcas' %}active{% endif %}" href="{{ url_for('p7.marcas', artist_id=artist.id) }}">Marcas</a>
+            </li>
+            {% if current_user.is_manager %}
+            <li class="nav-item">
+                <a class="nav-link {% if active_tab == 'acessos' %}active{% endif %}" href="{{ url_for('p7.acessos', artist_id=artist.id) }}">Acessos</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link {% if active_tab == 'reuniao' %}active{% endif %}" href="{{ url_for('p7.reuniao', artist_id=artist.id) }}">Reunião</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if active_tab == 'rotina' %}active{% endif %}" href="{{ url_for('p7.rotina', artist_id=artist.id) }}">Rotina</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if active_tab == 'presenca' %}active{% endif %}" href="{{ url_for('p7.presenca_digital', artist_id=artist.id) }}">Presença digital</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('main.artist_onboarding', artist_id=artist.id) }}">Onboarding</a>
+            </li>
+        </ul>
+    </div>
+</div>
