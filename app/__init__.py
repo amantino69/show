@@ -111,6 +111,10 @@ def create_app():
         except:
             return str(datetime_string)
 
+    @app.context_processor
+    def inject_globals():
+        return {'asset_version': app.config.get('ASSET_VERSION', '1')}
+
     # Inicializar scheduler
     if not scheduler.running:
         scheduler.start()

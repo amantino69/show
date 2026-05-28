@@ -533,7 +533,7 @@ body.page-auth .alert {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--vz-text-muted);
+    color: #3d3834;
 }
 
 .auth-input-wrap {

@@ -66,7 +66,13 @@
 {% block extra_css %}
 <style>
     .mobile-menu-toggle, .desktop-sidebar, .mobile-sidebar { display: none !important; }
-    .col-md-10, .col-12 { max-width: 100%; flex: 0 0 100%; }
+    .col-md-10, .col-12 { max-width: 100%; flex: 0 0 100%; padding: 0 !important; }
     body.page-auth .main-content { background: transparent !important; padding: 0 !important; min-height: 100vh; }
+    body.page-auth { background: #12100e !important; }
+    .auth-visual-wordmark, .auth-visual-headline { color: #faf7f2 !important; }
+    .auth-panel { background: #faf7f2 !important; }
+    .auth-form-title, .auth-label { color: #1f1b18 !important; }
+    .auth-form-subtitle { color: #6f6760 !important; }
+    .auth-input, .auth-input-plain, .auth-select { color: #1f1b18 !important; background: #fff !important; }
 </style>
 {% endblock %}

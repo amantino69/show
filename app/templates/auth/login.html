@@ -4,6 +4,7 @@
 {% block body_class %}page-auth{% endblock %}
 
 {% block content %}
+<!-- viezes-auth-build: {{ asset_version }} -->
 <div class="auth-page">
     <aside class="auth-visual" aria-hidden="true">
         <div class="auth-visual-inner">
@@ -73,9 +74,34 @@
 {% block extra_css %}
 <style>
     .mobile-menu-toggle, .desktop-sidebar, .mobile-sidebar { display: none !important; }
-    .col-md-10, .col-12 { max-width: 100%; flex: 0 0 100%; }
+    .col-md-10, .col-12 { max-width: 100%; flex: 0 0 100%; padding: 0 !important; }
     body.page-auth .main-content { background: transparent !important; padding: 0 !important; min-height: 100vh; }
     body.page-auth .container-fluid,
-    body.page-auth .row { min-height: 100vh; margin: 0; }
+    body.page-auth .row { min-height: 100vh; margin: 0; max-width: 100%; }
+
+    /* Contraste garantido — não depende só do viezes.css em cache */
+    body.page-auth { background: #12100e !important; color: #1f1b18 !important; }
+    .auth-visual { background: linear-gradient(155deg, #12100e 0%, #1c1916 42%, #2a231e 100%) !important; }
+    .auth-visual-wordmark,
+    .auth-visual-headline { color: #faf7f2 !important; }
+    .auth-visual-wordmark .co { color: #d9c4a3 !important; }
+    .auth-visual-lead { color: rgba(250, 247, 242, 0.85) !important; }
+    .auth-disciplines li { color: #d9c4a3 !important; }
+    .auth-panel { background: #faf7f2 !important; }
+    .auth-form-title { color: #1f1b18 !important; }
+    .auth-form-subtitle,
+    .auth-footer-line,
+    .auth-ig-link { color: #6f6760 !important; }
+    .auth-label { color: #3d3834 !important; font-weight: 600 !important; }
+    .auth-input,
+    .auth-input-plain,
+    .auth-select {
+        color: #1f1b18 !important;
+        background: #ffffff !important;
+        border-color: #c9bfb3 !important;
+    }
+    .auth-input::placeholder { color: #8a8178 !important; opacity: 1 !important; }
+    .auth-footer-line a { color: #96784f !important; }
+    .auth-submit { color: #faf7f2 !important; }
 </style>
 {% endblock %}
