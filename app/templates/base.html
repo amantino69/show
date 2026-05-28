@@ -2,7 +2,11 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#1c1916">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>{% block title %}Viezes — Gestão de Carreiras{% endblock %}</title>
     <link rel="icon" href="{{ url_for('static', filename='img/viezes-mark.svg') }}" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,86 +16,31 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.css" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/viezes.css') }}?v={{ asset_version }}" rel="stylesheet">
-    <style>
-        /* Overrides mínimos — tema principal em viezes.css */
-        .sidebar { min-height: 100vh; }
-        .mobile-menu-toggle {
-            display: none;
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 1050;
-            width: 50px;
-            height: 50px;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-        }
-        .mobile-sidebar {
-            position: fixed;
-            top: 0;
-            left: -280px;
-            width: 280px;
-            height: 100vh;
-            z-index: 1040;
-            transition: left 0.3s ease;
-            overflow-y: auto;
-        }
-        .mobile-sidebar.open { left: 0; }
-        .mobile-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 1030;
-            display: none;
-        }
-        .mobile-overlay.show { display: block; }
-        @media (max-width: 768px) {
-            .mobile-menu-toggle { display: block !important; }
-            .desktop-sidebar { display: none !important; }
-            .main-content {
-                padding-top: 80px !important;
-                padding-left: 15px !important;
-                padding-right: 15px !important;
-            }
-        }
-        @media (min-width: 769px) {
-            .mobile-sidebar, .mobile-overlay { display: none !important; }
-        }
-        .fc-event { border-radius: 6px !important; border: none !important; }
-        .sidebar-user {
-            text-align: center;
-            padding: 0 0.5rem 0.75rem;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            margin-bottom: 0.5rem;
-        }
-        .sidebar-user .role {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: var(--vz-gold-light);
-        }
-        .sidebar-user .name {
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.7);
-        }
-    </style>
-    
+    <link href="{{ url_for('static', filename='css/viezes-responsive.css') }}?v={{ asset_version }}" rel="stylesheet">
     {% block extra_css %}{% endblock %}
 </head>
-<body class="{% block body_class %}{% endblock %}">
-    <!-- Menu Hambúrguer para Mobile -->
+<body class="{% block body_class %}{% endblock %}{% if current_user.is_authenticated %} vz-app{% endif %}">
     {% if current_user.is_authenticated %}
-    <button class="mobile-menu-toggle" id="mobileMenuToggle">
-        <i class="fas fa-bars"></i>
-    </button>
-    
-    <!-- Overlay para fechar menu -->
-    <div class="mobile-overlay" id="mobileOverlay"></div>
-    
-    <!-- Sidebar Mobile -->
-    <div class="mobile-sidebar" id="mobileSidebar">
-        <div class="pt-2 pb-3">
+    <header class="mobile-topbar" role="banner">
+        <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle"
+                aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileSidebar">
+            <i class="fas fa-bars" aria-hidden="true"></i>
+        </button>
+        <h1 class="mobile-topbar-title">{% block page_title %}Painel{% endblock %}</h1>
+        <a href="{{ url_for('main.dashboard') }}" class="mobile-topbar-user" aria-label="Conta">
+            <i class="fas fa-circle-user" aria-hidden="true"></i>
+        </a>
+    </header>
+
+    <div class="mobile-overlay" id="mobileOverlay" aria-hidden="true"></div>
+
+    <aside class="mobile-sidebar sidebar" id="mobileSidebar" aria-label="Menu de navegação">
+        <div class="mobile-sidebar-header">
+            <button type="button" class="mobile-sidebar-close" id="mobileSidebarClose" aria-label="Fechar menu">
+                <i class="fas fa-times" aria-hidden="true"></i>
+            </button>
+        </div>
+        <div class="px-2 pb-3">
             {% include '_viezes_brand.html' %}
             <div class="sidebar-user">
                 <div class="role">{% if current_user.is_manager %}Equipe Viezes{% else %}Assessorado{% endif %}</div>
@@ -99,14 +48,13 @@
             </div>
             {% include '_sidebar_nav.html' %}
         </div>
-    </div>
+    </aside>
     {% endif %}
 
-    <div class="container-fluid">
-        <div class="row">
-            <!-- Sidebar Desktop -->
+    <div class="container-fluid vz-app-layout px-0">
+        <div class="row g-0 flex-nowrap">
             {% if current_user.is_authenticated %}
-            <div class="col-md-2 px-0 desktop-sidebar">
+            <div class="col-auto px-0 desktop-sidebar d-none d-lg-block">
                 <div class="sidebar py-2">
                     {% include '_viezes_brand.html' %}
                     <div class="sidebar-user">
@@ -117,19 +65,16 @@
                 </div>
             </div>
             {% endif %}
-            
-            <!-- Main Content -->
-            <div class="{% if current_user.is_authenticated %}col-md-10{% else %}col-12{% endif %} px-0">
-                <div class="main-content p-4">
+
+            <div class="col vz-main-column px-0">
+                <div class="main-content">
                     {% if current_user.is_authenticated %}
-                    <nav class="navbar navbar-expand-lg top-navbar mb-4">
-                        <div class="container-fluid">
-                            <span class="navbar-brand mb-0">
-                                {% block page_title %}Painel{% endblock %}
-                            </span>
-                            <div class="navbar-nav ms-auto align-items-center">
+                    <nav class="navbar navbar-expand-lg top-navbar mb-4 d-none d-lg-flex">
+                        <div class="container-fluid px-0">
+                            <span class="navbar-brand mb-0">{{ self.page_title() }}</span>
+                            <div class="navbar-nav ms-auto align-items-center flex-row">
                                 <a href="https://www.instagram.com/viezes.co" target="_blank" rel="noopener"
-                                   class="nav-link d-none d-md-inline text-muted small me-3">
+                                   class="nav-link text-muted small me-3">
                                     <i class="fab fa-instagram me-1"></i>@viezes.co
                                 </a>
                                 <span class="user-pill">
@@ -140,96 +85,34 @@
                         </div>
                     </nav>
                     {% endif %}
-                    
-                    <!-- Flash Messages -->
+
                     {% with messages = get_flashed_messages(with_categories=true) %}
                         {% if messages %}
                             {% for category, message in messages %}
                                 <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
                                     {{ message }}
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
                                 </div>
                             {% endfor %}
                         {% endif %}
                     {% endwith %}
-                    
-                    <!-- Page Content -->
+
                     {% block content %}{% endblock %}
                 </div>
             </div>
         </div>
     </div>
-    
-    <!-- Scripts -->
+
+    {% if current_user.is_authenticated %}
+        {% include '_mobile_bottom_nav.html' %}
+    {% endif %}
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <script>
-        // Mobile Menu Toggle - Debug e funcionalidade melhorada
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM carregado - Inicializando menu mobile');
-            
-            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-            const mobileSidebar = document.getElementById('mobileSidebar');
-            const mobileOverlay = document.getElementById('mobileOverlay');
-            
-            console.log('Elementos encontrados:', {
-                toggle: !!mobileMenuToggle,
-                sidebar: !!mobileSidebar,
-                overlay: !!mobileOverlay
-            });
-            
-            if (mobileMenuToggle && mobileSidebar && mobileOverlay) {
-                // Função para abrir menu
-                function openMenu() {
-                    console.log('Abrindo menu mobile');
-                    mobileSidebar.classList.add('open');
-                    mobileOverlay.classList.add('show');
-                    document.body.style.overflow = 'hidden';
-                }
-                
-                // Função para fechar menu
-                function closeMenu() {
-                    console.log('Fechando menu mobile');
-                    mobileSidebar.classList.remove('open');
-                    mobileOverlay.classList.remove('show');
-                    document.body.style.overflow = 'auto';
-                }
-                
-                // Event listeners
-                mobileMenuToggle.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    console.log('Botão hambúrguer clicado');
-                    openMenu();
-                });
-                
-                // Evento touch para mobile
-                mobileMenuToggle.addEventListener('touchstart', function(e) {
-                    e.preventDefault();
-                    console.log('Touch no botão hambúrguer');
-                    openMenu();
-                });
-                
-                // Fechar menu pelo overlay
-                mobileOverlay.addEventListener('click', closeMenu);
-                mobileOverlay.addEventListener('touchstart', closeMenu);
-                
-                // Fechar menu pelos links (navegação)
-                const mobileNavLinks = mobileSidebar.querySelectorAll('.nav-link');
-                mobileNavLinks.forEach(link => {
-                    link.addEventListener('click', closeMenu);
-                    link.addEventListener('touchstart', closeMenu);
-                });
-                
-                console.log('Menu mobile inicializado com sucesso');
-            } else {
-                console.error('Erro: Elementos do menu mobile não encontrados');
-            }
-        });
-    </script>
-    
+    {% if current_user.is_authenticated %}
+    <script src="{{ url_for('static', filename='js/viezes-app.js') }}?v={{ asset_version }}"></script>
+    {% endif %}
     {% block extra_js %}{% endblock %}
 </body>
 </html>

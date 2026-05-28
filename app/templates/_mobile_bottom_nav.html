@@ -1,0 +1,33 @@
+<nav class="mobile-bottom-nav" aria-label="Navegação principal">
+    <a href="{{ url_for('main.dashboard') }}" data-nav data-nav-match="/|/dashboard|/dashboard/*">
+        <i class="fas fa-gauge-high" aria-hidden="true"></i>
+        <span>Início</span>
+    </a>
+    <a href="{{ url_for('events.calendar') }}" data-nav data-nav-match="/events/calendar|/events">
+        <i class="fas fa-calendar-days" aria-hidden="true"></i>
+        <span>Agenda</span>
+    </a>
+    {% if current_user.is_manager %}
+    <a href="{{ url_for('crm.index') }}" data-nav data-nav-match="/crm|/crm/*">
+        <i class="fas fa-address-book" aria-hidden="true"></i>
+        <span>CRM</span>
+    </a>
+    <a href="{{ url_for('main.artists') }}" data-nav data-nav-match="/artists*">
+        <i class="fas fa-user-group" aria-hidden="true"></i>
+        <span>Artistas</span>
+    </a>
+    {% else %}
+    <a href="{{ url_for('portal.index') }}" data-nav data-nav-match="/portal*">
+        <i class="fas fa-star" aria-hidden="true"></i>
+        <span>Portal</span>
+    </a>
+    <a href="{{ url_for('events.events') }}" data-nav data-nav-match="/events*">
+        <i class="fas fa-calendar-check" aria-hidden="true"></i>
+        <span>Eventos</span>
+    </a>
+    {% endif %}
+    <button type="button" data-vz-open-menu aria-label="Abrir menu completo">
+        <i class="fas fa-bars" aria-hidden="true"></i>
+        <span>Menu</span>
+    </button>
+</nav>

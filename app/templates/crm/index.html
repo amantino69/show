@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% block page_title %}CRM — Leads{% endblock %}
 {% block content %}
-<div class="row mb-4">
-    <div class="col-12 d-flex justify-content-between align-items-center flex-wrap gap-2">
+<div class="vz-page-header">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start gap-3">
         <div>
             <h2><i class="fas fa-funnel-dollar me-2"></i>CRM — Pipeline de Leads</h2>
             <p class="text-muted mb-0">{{ open_leads }} lead(s) em aberto</p>
         </div>
-        <div>
+        <div class="vz-page-actions">
             <a href="{{ url_for('crm.new_lead') }}" class="btn btn-primary">
                 <i class="fas fa-plus me-1"></i> Novo lead
             </a>
@@ -18,24 +18,20 @@
     </div>
 </div>
 
-<div class="row mb-3">
+<div class="vz-filter-scroll">
     {% for key, label in statuses.items() %}
-    <div class="col-auto mb-2">
-        <a href="{{ url_for('crm.index', status=key) }}"
-           class="btn btn-sm {% if status_filter == key %}btn-primary{% else %}btn-outline-secondary{% endif %}">
-            {{ label }} <span class="badge bg-light text-dark">{{ counts.get(key, 0) }}</span>
-        </a>
-    </div>
+    <a href="{{ url_for('crm.index', status=key) }}"
+       class="btn btn-sm {% if status_filter == key %}btn-primary{% else %}btn-outline-secondary{% endif %}">
+        {{ label }} <span class="badge bg-light text-dark">{{ counts.get(key, 0) }}</span>
+    </a>
     {% endfor %}
-    <div class="col-auto mb-2">
-        <a href="{{ url_for('crm.index') }}" class="btn btn-sm btn-outline-secondary">Todos</a>
-    </div>
+    <a href="{{ url_for('crm.index') }}" class="btn btn-sm btn-outline-secondary">Todos</a>
 </div>
 
 <div class="card">
     <div class="card-body p-0">
-        <div class="table-responsive">
-            <table class="table table-hover mb-0">
+        <div class="table-responsive vz-table-wrap">
+            <table class="table table-hover mb-0 vz-table-cards">
                 <thead class="table-light">
                     <tr>
                         <th>Nome / Perfil</th>
@@ -52,29 +48,29 @@
                 <tbody>
                     {% for lead in leads %}
                     <tr>
-                        <td><strong>{{ lead.name }}</strong></td>
-                        <td>{{ lead.social_handle or '—' }}</td>
-                        <td>{{ lead.segment_label }}</td>
-                        <td>{{ lead.service_type_label }}</td>
-                        <td><span class="badge bg-secondary">{{ lead.status_label }}</span></td>
-                        <td>{% if lead.value %}R$ {{ '%.2f'|format(lead.value) }}{% else %}—{% endif %}</td>
-                        <td><small>{{ lead.next_action or '—' }}</small></td>
-                        <td>
+                        <td data-label="Nome"><strong>{{ lead.name }}</strong></td>
+                        <td data-label="Redes">{{ lead.social_handle or '—' }}</td>
+                        <td data-label="Segmento">{{ lead.segment_label }}</td>
+                        <td data-label="Serviço">{{ lead.service_type_label }}</td>
+                        <td data-label="Status"><span class="badge bg-secondary">{{ lead.status_label }}</span></td>
+                        <td data-label="Valor">{% if lead.value %}R$ {{ '%.2f'|format(lead.value) }}{% else %}—{% endif %}</td>
+                        <td data-label="Próxima ação"><small>{{ lead.next_action or '—' }}</small></td>
+                        <td data-label="Follow-up">
                             {% if lead.follow_up_date %}
                             {{ lead.follow_up_date.strftime('%d/%m/%Y') }}
                             {% else %}—{% endif %}
                         </td>
-                        <td class="text-nowrap">
+                        <td class="vz-td-actions" data-label="Ações">
                             <a href="{{ url_for('crm.edit_lead', lead_id=lead.id) }}" class="btn btn-sm btn-outline-primary">Editar</a>
                             {% if not lead.artist_id %}
-                            <form method="post" action="{{ url_for('crm.convert_lead', lead_id=lead.id) }}" class="d-inline"
+                            <form method="post" action="{{ url_for('crm.convert_lead', lead_id=lead.id) }}" class="d-grid"
                                   onsubmit="return confirm('Converter este lead em assessorado e iniciar onboarding?');">
                                 <button type="submit" class="btn btn-sm btn-success">Converter</button>
                             </form>
                             {% else %}
                             <a href="{{ url_for('main.artist_detail', artist_id=lead.artist_id) }}" class="btn btn-sm btn-outline-success">Ver assessorado</a>
                             {% endif %}
-                            <form method="post" action="{{ url_for('crm.delete_lead', lead_id=lead.id) }}" class="d-inline"
+                            <form method="post" action="{{ url_for('crm.delete_lead', lead_id=lead.id) }}" class="d-grid"
                                   onsubmit="return confirm('Excluir este lead?{% if lead.artist_id %} O assessorado vinculado será mantido.{% endif %}');">
                                 <button type="submit" class="btn btn-sm btn-outline-danger">Excluir</button>
                             </form>

@@ -3,18 +3,16 @@
 {% block page_title %}Dashboard{% endblock %}
 
 {% block content %}
-<div class="row mb-4 page-header">
-    <div class="col-12">
-        <h2>Dashboard</h2>
-        <p class="lead mb-0">
-            Bem-vinda à <strong>viezes.co</strong> — gestão de carreiras com a cara da assessoria.
-        </p>
-    </div>
+<div class="vz-page-header">
+    <h2>Dashboard</h2>
+    <p class="lead mb-0">
+        Bem-vinda à <strong>viezes.co</strong> — gestão de carreiras com a cara da assessoria.
+    </p>
 </div>
 
 {% if current_user.is_manager %}
 <!-- KPIs Painel Operacional -->
-<div class="row mb-4">
+<div class="row mb-4 vz-stat-grid">
     <div class="col-md-3">
         <div class="card stat-card text-center">
             <div class="card-body">
@@ -57,7 +55,7 @@
 {% endif %}
 
 <!-- Cards de Estatísticas -->
-<div class="row mb-4">
+<div class="row mb-4 vz-stat-grid">
     <div class="col-md-3">
         <div class="card text-center">
             <div class="card-body">

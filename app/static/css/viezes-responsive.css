@@ -1,0 +1,501 @@
+/**
+ * Viezes — layout responsivo (mobile-first)
+ * Classes de dispositivo no <body>: device-mobile | device-tablet | device-desktop
+ */
+
+:root {
+    --vz-mobile-topbar-h: 56px;
+    --vz-mobile-bottomnav-h: 64px;
+    --vz-touch-min: 44px;
+    --vz-safe-bottom: env(safe-area-inset-bottom, 0px);
+    --vz-safe-top: env(safe-area-inset-top, 0px);
+}
+
+/* ——— App shell (autenticado) ——— */
+body.vz-app {
+    padding-bottom: 0;
+}
+
+body.vz-app.device-mobile,
+body.vz-app.device-tablet {
+    padding-bottom: calc(var(--vz-mobile-bottomnav-h) + var(--vz-safe-bottom));
+}
+
+.vz-app-layout {
+    min-height: 100vh;
+}
+
+.vz-main-column {
+    min-width: 0;
+    flex: 1 1 auto;
+}
+
+/* ——— Topbar mobile ——— */
+.mobile-topbar {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1045;
+    height: calc(var(--vz-mobile-topbar-h) + var(--vz-safe-top));
+    padding-top: var(--vz-safe-top);
+    background: var(--vz-white);
+    border-bottom: 1px solid var(--vz-sand);
+    box-shadow: 0 2px 12px rgba(28, 25, 22, 0.06);
+    align-items: center;
+    gap: 0.5rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+}
+
+.mobile-topbar-title {
+    flex: 1;
+    min-width: 0;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--vz-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+}
+
+.mobile-menu-toggle {
+    flex-shrink: 0;
+    width: var(--vz-touch-min);
+    height: var(--vz-touch-min);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: var(--vz-linen);
+    color: var(--vz-espresso);
+    border-radius: 10px;
+    font-size: 1.15rem;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-menu-toggle:active {
+    transform: scale(0.96);
+}
+
+.mobile-topbar-user {
+    flex-shrink: 0;
+    width: var(--vz-touch-min);
+    height: var(--vz-touch-min);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--vz-gold-dark);
+    font-size: 1.35rem;
+    text-decoration: none;
+}
+
+/* ——— Sidebar drawer ——— */
+.mobile-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: min(300px, 88vw);
+    height: 100%;
+    height: 100dvh;
+    z-index: 1050;
+    transform: translateX(-105%);
+    transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-top: var(--vz-safe-top);
+    padding-bottom: calc(1rem + var(--vz-safe-bottom));
+    box-shadow: 8px 0 32px rgba(0, 0, 0, 0.25);
+}
+
+.mobile-sidebar.open {
+    transform: translateX(0);
+}
+
+.mobile-sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem 0;
+}
+
+.mobile-sidebar-close {
+    width: var(--vz-touch-min);
+    height: var(--vz-touch-min);
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--vz-cream);
+    border-radius: 10px;
+    font-size: 1.1rem;
+}
+
+.mobile-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1048;
+    background: rgba(18, 16, 14, 0.55);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.28s, visibility 0.28s;
+    backdrop-filter: blur(2px);
+}
+
+.mobile-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+body.vz-menu-open {
+    overflow: hidden;
+    touch-action: none;
+}
+
+/* ——— Bottom navigation ——— */
+.mobile-bottom-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1040;
+    height: calc(var(--vz-mobile-bottomnav-h) + var(--vz-safe-bottom));
+    padding-bottom: var(--vz-safe-bottom);
+    background: var(--vz-white);
+    border-top: 1px solid var(--vz-sand);
+    box-shadow: 0 -4px 20px rgba(28, 25, 22, 0.08);
+    justify-content: space-around;
+    align-items: stretch;
+}
+
+.mobile-bottom-nav a,
+.mobile-bottom-nav button {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem;
+    min-height: var(--vz-mobile-bottomnav-h);
+    padding: 0.35rem 0.25rem;
+    border: none;
+    background: transparent;
+    color: var(--vz-text-muted);
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-bottom-nav i {
+    font-size: 1.2rem;
+}
+
+.mobile-bottom-nav a.active,
+.mobile-bottom-nav a:hover,
+.mobile-bottom-nav button:hover {
+    color: var(--vz-gold-dark);
+}
+
+.mobile-bottom-nav a.active i {
+    color: var(--vz-espresso);
+}
+
+/* ——— Main content areas ——— */
+@media (max-width: 991.98px) {
+    .mobile-topbar,
+    .mobile-bottom-nav {
+        display: flex;
+    }
+
+    .desktop-sidebar {
+        display: none !important;
+    }
+
+    .vz-app .main-content {
+        padding: 1rem 0.85rem 1.25rem;
+        padding-top: calc(var(--vz-mobile-topbar-h) + var(--vz-safe-top) + 0.75rem);
+    }
+
+    .vz-app .top-navbar {
+        display: none !important;
+    }
+
+    .vz-app .container-fluid > .row {
+        margin: 0;
+    }
+
+    .vz-app .vz-main-column {
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+    }
+}
+
+@media (min-width: 992px) {
+    .mobile-sidebar,
+    .mobile-overlay,
+    .mobile-topbar,
+    .mobile-bottom-nav {
+        display: none !important;
+    }
+
+    body.vz-app {
+        padding-bottom: 0;
+    }
+
+    .vz-app .main-content {
+        padding: 1.5rem 1.75rem;
+    }
+}
+
+/* ——— Page headers & actions ——— */
+.vz-page-header {
+    margin-bottom: 1.25rem;
+}
+
+.vz-page-header h2 {
+    font-size: clamp(1.35rem, 4vw, 1.85rem);
+    margin-bottom: 0.35rem;
+}
+
+.vz-page-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+@media (max-width: 575.98px) {
+    .vz-page-actions {
+        width: 100%;
+    }
+
+    .vz-page-actions .btn {
+        flex: 1 1 auto;
+        min-width: calc(50% - 0.25rem);
+        justify-content: center;
+    }
+
+    .vz-page-actions .btn:only-child {
+        flex: 1 1 100%;
+    }
+}
+
+/* ——— Filtros horizontais (CRM, listas) ——— */
+.vz-filter-scroll {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0.35rem;
+    margin-bottom: 1rem;
+    scrollbar-width: thin;
+}
+
+.vz-filter-scroll::-webkit-scrollbar {
+    height: 4px;
+}
+
+.vz-filter-scroll .btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+/* ——— Tabelas: scroll + cards no mobile ——— */
+.vz-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 767.98px) {
+    .vz-table-cards thead {
+        display: none;
+    }
+
+    .vz-table-cards tbody tr {
+        display: block;
+        margin-bottom: 0.85rem;
+        border: 1px solid var(--vz-sand);
+        border-radius: var(--vz-radius);
+        background: var(--vz-white);
+        padding: 0.5rem 0;
+        box-shadow: var(--vz-shadow);
+    }
+
+    .vz-table-cards tbody td {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 0.75rem;
+        padding: 0.55rem 1rem;
+        border: none;
+        text-align: right;
+    }
+
+    .vz-table-cards tbody td::before {
+        content: attr(data-label);
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--vz-text-muted);
+        text-align: left;
+        flex-shrink: 0;
+    }
+
+    .vz-table-cards tbody td.vz-td-actions {
+        flex-direction: column;
+        align-items: stretch;
+        padding-top: 0.75rem;
+        border-top: 1px solid var(--vz-linen);
+    }
+
+    .vz-table-cards tbody td.vz-td-actions::before {
+        margin-bottom: 0.35rem;
+    }
+
+    .vz-table-cards tbody td.vz-td-actions .btn {
+        width: 100%;
+        margin-bottom: 0.35rem;
+    }
+
+    .vz-table-cards tbody tr td[colspan] {
+        display: block;
+        text-align: center;
+    }
+
+    .vz-table-cards tbody tr td[colspan]::before {
+        display: none;
+    }
+}
+
+/* ——— KPI / stat grid ——— */
+.vz-stat-grid > [class*="col-"] {
+    margin-bottom: 0.75rem;
+}
+
+@media (max-width: 575.98px) {
+    .vz-stat-grid > .col-md-3,
+    .vz-stat-grid > .col-md-4,
+    .vz-stat-grid > .col-md-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
+
+@media (max-width: 380px) {
+    .vz-stat-grid > .col-md-3,
+    .vz-stat-grid > .col-md-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+/* ——— Forms & touch ——— */
+@media (max-width: 991.98px) {
+    .form-control,
+    .form-select,
+    .btn {
+        min-height: var(--vz-touch-min);
+    }
+
+    .btn-sm {
+        min-height: 38px;
+    }
+
+    .form-control,
+    .form-select {
+        font-size: 16px; /* evita zoom automático no iOS */
+    }
+
+    .card-body {
+        padding: 1rem;
+    }
+
+    .alert {
+        font-size: 0.9rem;
+    }
+
+    .nav-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        border-bottom: 1px solid var(--vz-sand);
+    }
+
+    .nav-tabs .nav-link {
+        white-space: nowrap;
+    }
+}
+
+/* ——— Pipeline kanban (marcas) ——— */
+@media (max-width: 991.98px) {
+    .vz-pipeline-board > [class*="col"] {
+        margin-bottom: 0.75rem;
+    }
+
+    .vz-pipeline-board .card-body {
+        max-height: none !important;
+    }
+}
+
+/* ——— FullCalendar mobile ——— */
+@media (max-width: 991.98px) {
+    .fc .fc-toolbar {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .fc .fc-toolbar-title {
+        font-size: 1.1rem;
+    }
+
+    .fc .fc-button {
+        padding: 0.35rem 0.5rem;
+        font-size: 0.8rem;
+    }
+}
+
+/* ——— Desktop refinements ——— */
+@media (min-width: 992px) {
+    .desktop-sidebar {
+        flex: 0 0 var(--sidebar-width);
+        max-width: var(--sidebar-width);
+    }
+
+    .vz-main-column {
+        flex: 1 1 calc(100% - var(--sidebar-width));
+        max-width: calc(100% - var(--sidebar-width));
+    }
+
+    .top-navbar .navbar-brand {
+        font-size: 1.4rem;
+    }
+}
+
+/* ——— Tablet: sidebar drawer também ——— */
+body.device-tablet .mobile-topbar,
+body.device-tablet .mobile-bottom-nav {
+    display: flex;
+}
+
+body.device-tablet .desktop-sidebar {
+    display: none !important;
+}
+
+/* Auth login standalone pages */
+body.page-auth {
+    padding-bottom: 0 !important;
+}
+
+@media (max-width: 991.98px) {
+    body.page-auth .auth-panel {
+        padding-bottom: max(2rem, var(--vz-safe-bottom));
+    }
+}
