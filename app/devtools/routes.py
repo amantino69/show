@@ -28,12 +28,20 @@ def test_data_index():
 
     recent_backups = list_backups()[:8]
 
+    demo_loaded = False
+    try:
+        from seed_demo import demo_exists
+        demo_loaded = demo_exists()
+    except Exception:
+        pass
+
     return render_template(
         'devtools/test_data.html',
         operational=operational,
         config=config,
         total_operational=total_operational,
         recent_backups=recent_backups,
+        demo_loaded=demo_loaded,
     )
 
 
@@ -116,5 +124,62 @@ def purge_all_route():
         if backup_name:
             msg += f' Backup: {backup_name}'
         flash(msg, 'success')
+
+    return redirect(url_for('devtools.test_data_index'))
+
+
+@bp.route('/dados-teste/demo/carregar', methods=['POST'])
+@login_required
+def load_demo_data():
+    if not _manager_required():
+        return redirect(url_for('main.dashboard'))
+
+    try:
+        from seed_demo import run_seed, demo_exists, DEMO_EMAIL_DOMAIN
+
+        reset = request.form.get('reset') == 'on'
+        if demo_exists() and not reset:
+            flash(
+                f'Já existem dados de demonstração ({DEMO_EMAIL_DOMAIN}). '
+                'Use "Recriar do zero" para substituir.',
+                'info',
+            )
+            return redirect(url_for('devtools.test_data_index'))
+
+        if request.form.get('auto_backup', 'on') == 'on':
+            _maybe_backup('pre_demo')
+
+        result = run_seed(reset=reset)
+        if result.get('skipped'):
+            flash('Demonstração já carregada.', 'info')
+        else:
+            flash(
+                f'Demonstração criada: {result["artists"]} assessorados, '
+                f'{result["leads"]} leads, {result["deals"]} marcas, '
+                f'{result["events"]} eventos. '
+                f'(Fictícios — {DEMO_EMAIL_DOMAIN})',
+                'success',
+            )
+    except Exception as exc:
+        db.session.rollback()
+        flash(f'Erro ao carregar demonstração: {exc}', 'error')
+
+    return redirect(url_for('devtools.test_data_index'))
+
+
+@bp.route('/dados-teste/demo/remover', methods=['POST'])
+@login_required
+def remove_demo_data():
+    if not _manager_required():
+        return redirect(url_for('main.dashboard'))
+
+    try:
+        from seed_demo import purge_demo
+
+        n = purge_demo()
+        flash(f'Removidos {n} assessorado(s) e leads de demonstração.', 'success')
+    except Exception as exc:
+        db.session.rollback()
+        flash(f'Erro ao remover demonstração: {exc}', 'error')
 
     return redirect(url_for('devtools.test_data_index'))

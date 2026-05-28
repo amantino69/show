@@ -127,8 +127,29 @@ def create_app():
     if not scheduler.running:
         scheduler.start()
         atexit.register(lambda: scheduler.shutdown())
-    
+
+    _maybe_seed_demo_on_start(app)
+
     return app
+
+
+def _maybe_seed_demo_on_start(app):
+    """Carrega dados de demonstração na subida se configurado e ainda não existirem."""
+    if not app.config.get('SEED_DEMO_ON_START'):
+        return
+    with app.app_context():
+        try:
+            from seed_demo import demo_exists, run_seed
+            if demo_exists():
+                return
+            result = run_seed(reset=False)
+            app.logger.info(
+                'Demo seed on start: %s assessorados, %s leads',
+                result.get('artists', 0),
+                result.get('leads', 0),
+            )
+        except Exception as exc:
+            app.logger.exception('Falha ao carregar demo no startup: %s', exc)
 
 # User loader para Flask-Login
 @login_manager.user_loader

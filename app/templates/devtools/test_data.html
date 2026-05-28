@@ -11,6 +11,46 @@
     </div>
 </div>
 
+<div class="card border-success mb-4">
+    <div class="card-header bg-success text-white">
+        <i class="fas fa-star me-1"></i> Demonstração para apresentação (dados fictícios)
+    </div>
+    <div class="card-body">
+        <p class="small mb-3">
+            Carrega exemplos com nomes conhecidos do mercado brasileiro <strong>apenas para ilustração</strong>
+            (Anitta, Alok, Gisele, Pablo Vittar em leads, marcas Natura/Spotify etc.).
+            Todos os registros usam e-mail <code>@demo.viezes.co</code> — não são clientes reais.
+        </p>
+        {% if demo_loaded %}
+        <p class="small text-success mb-3"><i class="fas fa-check-circle me-1"></i> Demonstração ativa no banco.</p>
+        {% endif %}
+        <div class="d-flex flex-wrap gap-2">
+            <form method="post" action="{{ url_for('devtools.load_demo_data') }}" class="d-inline">
+                <input type="hidden" name="auto_backup" value="on">
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-play me-1"></i> Carregar demonstração
+                </button>
+            </form>
+            <form method="post" action="{{ url_for('devtools.load_demo_data') }}" class="d-inline"
+                  onsubmit="return confirm('Substituir a demonstração atual?');">
+                <input type="hidden" name="auto_backup" value="on">
+                <input type="hidden" name="reset" value="on">
+                <button type="submit" class="btn btn-outline-success">
+                    <i class="fas fa-redo me-1"></i> Recriar do zero
+                </button>
+            </form>
+            {% if demo_loaded %}
+            <form method="post" action="{{ url_for('devtools.remove_demo_data') }}" class="d-inline"
+                  onsubmit="return confirm('Remover todos os dados de demonstração?');">
+                <button type="submit" class="btn btn-outline-danger">
+                    <i class="fas fa-times me-1"></i> Remover demonstração
+                </button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
 <div class="card border-primary mb-4">
     <div class="card-header bg-primary text-white">
         <i class="fas fa-database me-1"></i> Backup
