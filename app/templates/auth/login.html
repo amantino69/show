@@ -4,54 +4,78 @@
 {% block body_class %}page-auth{% endblock %}
 
 {% block content %}
-<div class="auth-shell">
-    <div class="auth-card card border-0">
-        <div class="card-header auth-brand">
-            <img src="{{ url_for('static', filename='img/viezes-mark.svg') }}" alt="" class="brand-mark" width="64" height="64">
-            <div class="brand-wordmark">viezes<span class="co">.co</span></div>
-            <div class="brand-tagline">Assessoria de carreiras</div>
+<div class="auth-page">
+    <aside class="auth-visual" aria-hidden="true">
+        <div class="auth-visual-inner">
+            <img src="{{ url_for('static', filename='img/viezes-mark.svg') }}" alt="" class="auth-visual-mark" width="72" height="72">
+            <p class="auth-visual-wordmark">viezes<span class="co">.co</span></p>
+            <p class="auth-visual-headline">O palco da sua carreira,<br>organizado com elegância.</p>
+            <p class="auth-visual-lead">
+                Cantores, atores, modelos, influenciadores e criadores —
+                um painel pensado para quem vive de arte.
+            </p>
+            <ul class="auth-disciplines">
+                <li><i class="fas fa-microphone" aria-hidden="true"></i> Música</li>
+                <li><i class="fas fa-theater-masks" aria-hidden="true"></i> Teatro & TV</li>
+                <li><i class="fas fa-camera" aria-hidden="true"></i> Moda & imagem</li>
+                <li><i class="fas fa-wifi" aria-hidden="true"></i> Digital</li>
+            </ul>
         </div>
-        <div class="card-body">
-            <h5 class="text-center mb-4" style="font-family: var(--font-display); color: var(--vz-text);">
-                Acesse o painel
-            </h5>
-            <form method="POST">
-                <div class="mb-3">
-                    <label for="username" class="form-label small text-muted">Usuário</label>
-                    <input type="text" class="form-control" id="username" name="username" required
-                           placeholder="Seu login">
+        <div class="auth-visual-glow"></div>
+    </aside>
+
+    <main class="auth-panel">
+        <div class="auth-form-wrap">
+            <header class="auth-form-header">
+                <img src="{{ url_for('static', filename='img/viezes-mark.svg') }}" alt="Viezes" class="auth-form-mark d-lg-none" width="48" height="48">
+                <h1 class="auth-form-title">Acesse o painel</h1>
+                <p class="auth-form-subtitle">Entre com suas credenciais para continuar</p>
+            </header>
+
+            <form method="POST" class="auth-form" novalidate>
+                <div class="auth-field">
+                    <label for="username" class="auth-label">Usuário</label>
+                    <div class="auth-input-wrap">
+                        <i class="fas fa-user auth-input-icon" aria-hidden="true"></i>
+                        <input type="text" class="auth-input" id="username" name="username" required
+                               placeholder="Seu login" autocomplete="username">
+                    </div>
                 </div>
-                <div class="mb-4">
-                    <label for="password" class="form-label small text-muted">Senha</label>
-                    <input type="password" class="form-control" id="password" name="password" required
-                           placeholder="••••••••">
+                <div class="auth-field">
+                    <label for="password" class="auth-label">Senha</label>
+                    <div class="auth-input-wrap">
+                        <i class="fas fa-lock auth-input-icon" aria-hidden="true"></i>
+                        <input type="password" class="auth-input" id="password" name="password" required
+                               placeholder="Sua senha" autocomplete="current-password">
+                    </div>
                 </div>
-                <div class="d-grid">
-                    <button type="submit" class="btn btn-primary btn-lg">
-                        <i class="fas fa-arrow-right-to-bracket me-2"></i>Entrar
-                    </button>
-                </div>
+                <button type="submit" class="auth-submit">
+                    <span>Entrar</span>
+                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                </button>
             </form>
-            <hr class="my-4">
-            <p class="text-center small text-muted mb-2">
-                Não tem conta?
-                <a href="{{ url_for('auth.register') }}">Cadastre-se</a>
-            </p>
-            <p class="text-center small mb-0">
-                <a href="https://www.instagram.com/viezes.co" target="_blank" rel="noopener" class="text-muted">
-                    <i class="fab fa-instagram me-1"></i> Siga @viezes.co no Instagram
+
+            <footer class="auth-form-footer">
+                <p class="auth-footer-line">
+                    Não tem conta?
+                    <a href="{{ url_for('auth.register') }}">Cadastre-se</a>
+                </p>
+                <a href="https://www.instagram.com/viezes.co" target="_blank" rel="noopener" class="auth-ig-link">
+                    <i class="fab fa-instagram" aria-hidden="true"></i>
+                    @viezes.co
                 </a>
-            </p>
+            </footer>
         </div>
-    </div>
+    </main>
 </div>
 {% endblock %}
 
 {% block extra_css %}
 <style>
-    body { background: var(--vz-espresso) !important; }
-    body.page-auth .main-content { background: transparent !important; padding: 0 !important; }
     .mobile-menu-toggle, .desktop-sidebar, .mobile-sidebar { display: none !important; }
     .col-md-10, .col-12 { max-width: 100%; flex: 0 0 100%; }
+    body.page-auth .main-content { background: transparent !important; padding: 0 !important; min-height: 100vh; }
+    body.page-auth .container-fluid,
+    body.page-auth .row { min-height: 100vh; margin: 0; }
 </style>
 {% endblock %}

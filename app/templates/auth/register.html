@@ -4,54 +4,69 @@
 {% block body_class %}page-auth{% endblock %}
 
 {% block content %}
-<div class="auth-shell">
-    <div class="auth-card card border-0">
-        <div class="card-header auth-brand">
-            <img src="{{ url_for('static', filename='img/viezes-mark.svg') }}" alt="" class="brand-mark" width="64" height="64">
-            <div class="brand-wordmark">viezes<span class="co">.co</span></div>
-            <div class="brand-tagline">Assessoria de carreiras</div>
+<div class="auth-page">
+    <aside class="auth-visual" aria-hidden="true">
+        <div class="auth-visual-inner">
+            <img src="{{ url_for('static', filename='img/viezes-mark.svg') }}" alt="" class="auth-visual-mark" width="72" height="72">
+            <p class="auth-visual-wordmark">viezes<span class="co">.co</span></p>
+            <p class="auth-visual-headline">Comece sua jornada<br>com a assessoria certa.</p>
+            <p class="auth-visual-lead">
+                Crie sua conta e tenha acesso à agenda, eventos e ferramentas
+                pensadas para artistas e equipes.
+            </p>
         </div>
-        <div class="card-body">
-            <h5 class="text-center mb-4" style="font-family: var(--font-display);">Criar conta</h5>
-            <form method="POST">
-                <div class="mb-3">
-                    <label for="username" class="form-label small text-muted">Usuário</label>
-                    <input type="text" class="form-control" id="username" name="username" required>
+        <div class="auth-visual-glow"></div>
+    </aside>
+
+    <main class="auth-panel">
+        <div class="auth-form-wrap">
+            <header class="auth-form-header">
+                <img src="{{ url_for('static', filename='img/viezes-mark.svg') }}" alt="Viezes" class="auth-form-mark d-lg-none" width="48" height="48">
+                <h1 class="auth-form-title">Criar conta</h1>
+                <p class="auth-form-subtitle">Preencha os dados para se cadastrar</p>
+            </header>
+
+            <form method="POST" class="auth-form" novalidate>
+                <div class="auth-field">
+                    <label for="username" class="auth-label">Usuário</label>
+                    <input type="text" class="auth-input auth-input-plain" id="username" name="username" required autocomplete="username">
                 </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label small text-muted">E-mail</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
+                <div class="auth-field">
+                    <label for="email" class="auth-label">E-mail</label>
+                    <input type="email" class="auth-input auth-input-plain" id="email" name="email" required autocomplete="email">
                 </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label small text-muted">Senha</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
+                <div class="auth-field">
+                    <label for="password" class="auth-label">Senha</label>
+                    <input type="password" class="auth-input auth-input-plain" id="password" name="password" required autocomplete="new-password">
                 </div>
-                <div class="mb-4">
-                    <label for="user_type" class="form-label small text-muted">Tipo de conta</label>
-                    <select class="form-select" id="user_type" name="user_type" required>
+                <div class="auth-field">
+                    <label for="user_type" class="auth-label">Tipo de conta</label>
+                    <select class="auth-input auth-input-plain auth-select" id="user_type" name="user_type" required>
                         <option value="">Selecione...</option>
                         <option value="manager">Equipe Viezes</option>
                         <option value="artist">Assessorado</option>
                     </select>
                 </div>
-                <div class="d-grid">
-                    <button type="submit" class="btn btn-primary btn-lg">
-                        <i class="fas fa-user-plus me-2"></i>Cadastrar
-                    </button>
-                </div>
+                <button type="submit" class="auth-submit">
+                    <span>Cadastrar</span>
+                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                </button>
             </form>
-            <hr class="my-4">
-            <p class="text-center small text-muted mb-0">
-                Já tem conta? <a href="{{ url_for('auth.login') }}">Faça login</a>
-            </p>
+
+            <footer class="auth-form-footer">
+                <p class="auth-footer-line mb-0">
+                    Já tem conta? <a href="{{ url_for('auth.login') }}">Faça login</a>
+                </p>
+            </footer>
         </div>
-    </div>
+    </main>
 </div>
 {% endblock %}
 
 {% block extra_css %}
 <style>
-    body { background: var(--vz-espresso) !important; }
-    body.page-auth .main-content { background: transparent !important; padding: 0 !important; }
+    .mobile-menu-toggle, .desktop-sidebar, .mobile-sidebar { display: none !important; }
+    .col-md-10, .col-12 { max-width: 100%; flex: 0 0 100%; }
+    body.page-auth .main-content { background: transparent !important; padding: 0 !important; min-height: 100vh; }
 </style>
 {% endblock %}
