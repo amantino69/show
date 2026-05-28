@@ -1,107 +1,202 @@
-{% extends "base.html" %}
-
-{% block title %}Entrar — Viezes{% endblock %}
-{% block body_class %}page-auth{% endblock %}
-
-{% block content %}
-<!-- viezes-auth-build: {{ asset_version }} -->
-<div class="auth-page">
-    <aside class="auth-visual" aria-hidden="true">
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrar — Viezes</title>
+    <link rel="icon" href="{{ url_for('static', filename='img/viezes-mark.svg') }}" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <!-- build: {{ asset_version }} -->
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'DM Sans', system-ui, sans-serif;
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: #12100e;
+            color: #1f1b18;
+        }
+        .auth-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(155deg, #12100e 0%, #1c1916 45%, #2a231e 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .auth-visual::after {
+            content: '';
+            position: absolute;
+            width: 400px; height: 400px;
+            top: -60px; right: -100px;
+            background: radial-gradient(circle, rgba(184,149,107,0.2), transparent 70%);
+            pointer-events: none;
+        }
+        .auth-visual-inner { position: relative; z-index: 1; max-width: 380px; }
+        .auth-visual img { display: block; margin-bottom: 1.25rem; }
+        .auth-visual .wordmark {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #faf7f2;
+            letter-spacing: 0.14em;
+            text-transform: lowercase;
+        }
+        .auth-visual .wordmark span { color: #d9c4a3; }
+        .auth-visual h2 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.75rem;
+            font-weight: 500;
+            color: #faf7f2;
+            margin: 1.25rem 0 0.75rem;
+            line-height: 1.3;
+        }
+        .auth-visual p {
+            color: rgba(250,247,242,0.75);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .auth-panel {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+            background: #faf7f2;
+        }
+        .auth-form-box { width: 100%; max-width: 380px; }
+        .auth-form-box h1 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.85rem;
+            font-weight: 600;
+            color: #1f1b18;
+            text-align: center;
+            margin-bottom: 0.35rem;
+        }
+        .auth-form-box .sub {
+            text-align: center;
+            color: #6f6760;
+            font-size: 0.9rem;
+            margin-bottom: 1.75rem;
+        }
+        .field { margin-bottom: 1.1rem; }
+        .field label {
+            display: block;
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #3d3834;
+            margin-bottom: 0.4rem;
+        }
+        .field input {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            font-size: 0.95rem;
+            color: #1f1b18;
+            background: #fff;
+            border: 1px solid #c9bfb3;
+            border-radius: 10px;
+            font-family: inherit;
+        }
+        .field input::placeholder { color: #8a8178; }
+        .field input:focus {
+            outline: none;
+            border-color: #b8956b;
+            box-shadow: 0 0 0 3px rgba(184,149,107,0.2);
+        }
+        .btn-enter {
+            width: 100%;
+            margin-top: 0.5rem;
+            padding: 0.95rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            font-family: inherit;
+            color: #faf7f2;
+            background: linear-gradient(135deg, #1c1916, #12100e);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .btn-enter:hover { opacity: 0.92; }
+        .auth-footer {
+            margin-top: 1.75rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid #e5ddd3;
+            text-align: center;
+            font-size: 0.875rem;
+            color: #6f6760;
+        }
+        .auth-footer a { color: #96784f; font-weight: 600; text-decoration: none; }
+        .auth-footer a:hover { text-decoration: underline; }
+        .auth-ig { display: inline-flex; align-items: center; gap: 0.35rem; margin-top: 0.75rem; color: #6f6760; font-size: 0.8rem; }
+        .flash {
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+        }
+        .flash.error { background: #f8e8e8; color: #8b3a3a; border: 1px solid #e8c4c4; }
+        .flash.info, .flash.success { background: #e8f0e8; color: #3a5c3a; border: 1px solid #c4dcc4; }
+        @media (max-width: 991px) {
+            body { grid-template-columns: 1fr; }
+            .auth-visual { display: none; }
+            .auth-panel { min-height: 100vh; }
+        }
+    </style>
+</head>
+<body>
+    <aside class="auth-visual">
         <div class="auth-visual-inner">
-            <img src="{{ url_for('static', filename='img/viezes-mark.svg') }}" alt="" class="auth-visual-mark" width="72" height="72">
-            <p class="auth-visual-wordmark">viezes<span class="co">.co</span></p>
-            <p class="auth-visual-headline">O palco da sua carreira,<br>organizado com elegância.</p>
-            <p class="auth-visual-lead">
-                Cantores, atores, modelos, influenciadores e criadores —
-                um painel pensado para quem vive de arte.
-            </p>
-            <ul class="auth-disciplines">
-                <li><i class="fas fa-microphone" aria-hidden="true"></i> Música</li>
-                <li><i class="fas fa-theater-masks" aria-hidden="true"></i> Teatro & TV</li>
-                <li><i class="fas fa-camera" aria-hidden="true"></i> Moda & imagem</li>
-                <li><i class="fas fa-wifi" aria-hidden="true"></i> Digital</li>
-            </ul>
+            <img src="{{ url_for('static', filename='img/viezes-mark.svg') }}" alt="Viezes" width="72" height="72">
+            <p class="wordmark">viezes<span>.co</span></p>
+            <h2>O palco da sua carreira, organizado com elegância.</h2>
+            <p>Cantores, atores, modelos, influenciadores e criadores — um painel pensado para quem vive de arte.</p>
         </div>
-        <div class="auth-visual-glow"></div>
     </aside>
 
     <main class="auth-panel">
-        <div class="auth-form-wrap">
-            <header class="auth-form-header">
-                <img src="{{ url_for('static', filename='img/viezes-mark.svg') }}" alt="Viezes" class="auth-form-mark d-lg-none" width="48" height="48">
-                <h1 class="auth-form-title">Acesse o painel</h1>
-                <p class="auth-form-subtitle">Entre com suas credenciais para continuar</p>
-            </header>
+        <div class="auth-form-box">
+            <h1>Acesse o painel</h1>
+            <p class="sub">Entre com suas credenciais</p>
 
-            <form method="POST" class="auth-form" novalidate>
-                <div class="auth-field">
-                    <label for="username" class="auth-label">Usuário</label>
-                    <div class="auth-input-wrap">
-                        <i class="fas fa-user auth-input-icon" aria-hidden="true"></i>
-                        <input type="text" class="auth-input" id="username" name="username" required
-                               placeholder="Seu login" autocomplete="username">
-                    </div>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="flash {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <form method="POST">
+                <div class="field">
+                    <label for="username">Usuário</label>
+                    <input type="text" id="username" name="username" required placeholder="Seu login" autocomplete="username">
                 </div>
-                <div class="auth-field">
-                    <label for="password" class="auth-label">Senha</label>
-                    <div class="auth-input-wrap">
-                        <i class="fas fa-lock auth-input-icon" aria-hidden="true"></i>
-                        <input type="password" class="auth-input" id="password" name="password" required
-                               placeholder="Sua senha" autocomplete="current-password">
-                    </div>
+                <div class="field">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" name="password" required placeholder="Sua senha" autocomplete="current-password">
                 </div>
-                <button type="submit" class="auth-submit">
-                    <span>Entrar</span>
-                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                <button type="submit" class="btn-enter">
+                    Entrar <i class="fas fa-arrow-right" aria-hidden="true"></i>
                 </button>
             </form>
 
-            <footer class="auth-form-footer">
-                <p class="auth-footer-line">
-                    Não tem conta?
-                    <a href="{{ url_for('auth.register') }}">Cadastre-se</a>
-                </p>
-                <a href="https://www.instagram.com/viezes.co" target="_blank" rel="noopener" class="auth-ig-link">
-                    <i class="fab fa-instagram" aria-hidden="true"></i>
-                    @viezes.co
+            <div class="auth-footer">
+                <p>Não tem conta? <a href="{{ url_for('auth.register') }}">Cadastre-se</a></p>
+                <a href="https://www.instagram.com/viezes.co" target="_blank" rel="noopener" class="auth-ig">
+                    <i class="fab fa-instagram"></i> @viezes.co
                 </a>
-            </footer>
+            </div>
         </div>
     </main>
-</div>
-{% endblock %}
-
-{% block extra_css %}
-<style>
-    .mobile-menu-toggle, .desktop-sidebar, .mobile-sidebar { display: none !important; }
-    .col-md-10, .col-12 { max-width: 100%; flex: 0 0 100%; padding: 0 !important; }
-    body.page-auth .main-content { background: transparent !important; padding: 0 !important; min-height: 100vh; }
-    body.page-auth .container-fluid,
-    body.page-auth .row { min-height: 100vh; margin: 0; max-width: 100%; }
-
-    /* Contraste garantido — não depende só do viezes.css em cache */
-    body.page-auth { background: #12100e !important; color: #1f1b18 !important; }
-    .auth-visual { background: linear-gradient(155deg, #12100e 0%, #1c1916 42%, #2a231e 100%) !important; }
-    .auth-visual-wordmark,
-    .auth-visual-headline { color: #faf7f2 !important; }
-    .auth-visual-wordmark .co { color: #d9c4a3 !important; }
-    .auth-visual-lead { color: rgba(250, 247, 242, 0.85) !important; }
-    .auth-disciplines li { color: #d9c4a3 !important; }
-    .auth-panel { background: #faf7f2 !important; }
-    .auth-form-title { color: #1f1b18 !important; }
-    .auth-form-subtitle,
-    .auth-footer-line,
-    .auth-ig-link { color: #6f6760 !important; }
-    .auth-label { color: #3d3834 !important; font-weight: 600 !important; }
-    .auth-input,
-    .auth-input-plain,
-    .auth-select {
-        color: #1f1b18 !important;
-        background: #ffffff !important;
-        border-color: #c9bfb3 !important;
-    }
-    .auth-input::placeholder { color: #8a8178 !important; opacity: 1 !important; }
-    .auth-footer-line a { color: #96784f !important; }
-    .auth-submit { color: #faf7f2 !important; }
-</style>
-{% endblock %}
+</body>
+</html>

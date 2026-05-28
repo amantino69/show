@@ -679,6 +679,20 @@ body.page-auth .alert {
     }
 }
 
+/* Legado: card antigo (caso deploy antigo ainda sirva este markup) */
+.auth-card > .card-header.auth-brand {
+    background: linear-gradient(160deg, #12100e 0%, #1c1916 100%) !important;
+    color: #faf7f2 !important;
+    border-bottom: none !important;
+}
+.auth-card .brand-wordmark { color: #faf7f2 !important; }
+.auth-card .brand-wordmark .co { color: #d9c4a3 !important; }
+.auth-card .brand-tagline { color: rgba(250, 247, 242, 0.65) !important; }
+.auth-card .card-body .form-label,
+.auth-card .card-body label { color: #3d3834 !important; }
+.auth-card .card-body .text-muted { color: #6f6760 !important; }
+.auth-card .card-body a.text-muted { color: #96784f !important; }
+
 /* ——— Page headers ——— */
 .page-header h2 {
     font-size: 1.85rem;

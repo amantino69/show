@@ -115,6 +115,14 @@ def create_app():
     def inject_globals():
         return {'asset_version': app.config.get('ASSET_VERSION', '1')}
 
+    @app.route('/__version')
+    def app_version():
+        from flask import jsonify
+        return jsonify({
+            'asset_version': app.config.get('ASSET_VERSION'),
+            'login_template': 'standalone-v2',
+        })
+
     # Inicializar scheduler
     if not scheduler.running:
         scheduler.start()

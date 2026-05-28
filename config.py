@@ -5,7 +5,7 @@ load_dotenv()
 
 class Config:
     # Incrementar após mudanças em CSS/templates para invalidar cache do navegador
-    ASSET_VERSION = os.environ.get('ASSET_VERSION') or '20260528c'
+    ASSET_VERSION = os.environ.get('ASSET_VERSION') or '20260528d'
 
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'dev-key-change-in-production'
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///artistas_sistema.db'
