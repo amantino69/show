@@ -5,7 +5,7 @@ load_dotenv()
 
 class Config:
     # Incrementar após mudanças em CSS/templates para invalidar cache do navegador
-    ASSET_VERSION = os.environ.get('ASSET_VERSION') or '20260528f'
+    ASSET_VERSION = os.environ.get('ASSET_VERSION') or '20260528g'
     # Carrega demo na subida se ainda não existir (desative com SEED_DEMO_ON_START=false)
     SEED_DEMO_ON_START = os.environ.get('SEED_DEMO_ON_START', 'true').lower() in (
         '1', 'true', 'yes', 'on',

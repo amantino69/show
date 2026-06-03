@@ -20,6 +20,10 @@ def create_app():
     db.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)
+
+    with app.app_context():
+        from app.schema_ensure import ensure_schema
+        ensure_schema()
     
     login_manager.login_view = 'auth.login'
     login_manager.login_message = 'Por favor, faça login para acessar esta página.'
@@ -129,8 +133,19 @@ def create_app():
         atexit.register(lambda: scheduler.shutdown())
 
     _maybe_seed_demo_on_start(app)
+    _register_error_handlers(app)
 
     return app
+
+
+def _register_error_handlers(app):
+    @app.errorhandler(500)
+    def internal_error(exc):
+        app.logger.exception('Erro interno: %s', exc)
+        if app.config.get('DEBUG'):
+            raise exc
+        from flask import render_template
+        return render_template('errors/500.html'), 500
 
 
 def _maybe_seed_demo_on_start(app):
