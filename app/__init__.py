@@ -22,8 +22,11 @@ def create_app():
     mail.init_app(app)
 
     with app.app_context():
-        from app.schema_ensure import ensure_schema
-        ensure_schema()
+        try:
+            from app.schema_ensure import ensure_schema
+            ensure_schema()
+        except Exception as exc:
+            app.logger.exception('schema_ensure falhou: %s', exc)
     
     login_manager.login_view = 'auth.login'
     login_manager.login_message = 'Por favor, faça login para acessar esta página.'
@@ -118,6 +121,19 @@ def create_app():
     @app.context_processor
     def inject_globals():
         return {'asset_version': app.config.get('ASSET_VERSION', '1')}
+
+    @app.route('/__health')
+    def health_check():
+        from flask import jsonify
+        try:
+            from sqlalchemy import text
+            from app.models import User
+            db.session.execute(text('SELECT 1'))
+            users = User.query.count()
+            return jsonify({'ok': True, 'users': users, 'asset_version': app.config.get('ASSET_VERSION')})
+        except Exception as exc:
+            app.logger.exception('health check failed')
+            return jsonify({'ok': False, 'error': str(exc)}), 500
 
     @app.route('/__version')
     def app_version():

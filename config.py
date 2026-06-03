@@ -3,16 +3,25 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
+def _database_uri():
+    url = os.environ.get('DATABASE_URL') or 'sqlite:///artistas_sistema.db'
+    # Render/Heroku usam postgres:// — SQLAlchemy exige postgresql://
+    if url.startswith('postgres://'):
+        url = url.replace('postgres://', 'postgresql://', 1)
+    return url
+
+
 class Config:
     # Incrementar após mudanças em CSS/templates para invalidar cache do navegador
-    ASSET_VERSION = os.environ.get('ASSET_VERSION') or '20260528g'
-    # Carrega demo na subida se ainda não existir (desative com SEED_DEMO_ON_START=false)
-    SEED_DEMO_ON_START = os.environ.get('SEED_DEMO_ON_START', 'true').lower() in (
+    ASSET_VERSION = os.environ.get('ASSET_VERSION') or '20260528h'
+    # Desativado por padrão em produção — use ferramentas/dados-teste ou seed_demo.py
+    SEED_DEMO_ON_START = os.environ.get('SEED_DEMO_ON_START', 'false').lower() in (
         '1', 'true', 'yes', 'on',
     )
 
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'dev-key-change-in-production'
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///artistas_sistema.db'
+    SQLALCHEMY_DATABASE_URI = _database_uri()
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
     # Configurações de Email

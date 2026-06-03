@@ -1,4 +1,4 @@
-from flask import render_template, request, flash, redirect, url_for
+from flask import render_template, request, flash, redirect, url_for, current_app
 from flask_login import login_user, logout_user, login_required, current_user
 from urllib.parse import urlparse as url_parse
 from app.auth import bp
@@ -9,11 +9,15 @@ from werkzeug.security import generate_password_hash
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
-        
-        user = User.query.filter_by(username=username).first()
-        
+        username = (request.form.get('username') or '').strip()
+        password = request.form.get('password') or ''
+        try:
+            user = User.query.filter_by(username=username).first()
+        except Exception as exc:
+            current_app.logger.exception('Erro ao consultar usuário no login')
+            flash('Erro temporário no banco de dados. Tente novamente em instantes.', 'error')
+            return render_template('auth/login.html')
+
         if user and user.check_password(password):
             login_user(user)
             next_page = request.args.get('next')
@@ -23,9 +27,8 @@ def login():
                 else:
                     next_page = url_for('portal.index')
             return redirect(next_page)
-        else:
-            flash('Usuário ou senha inválidos.', 'error')
-    
+        flash('Usuário ou senha inválidos.', 'error')
+
     return render_template('auth/login.html')
 
 @bp.route('/logout')
