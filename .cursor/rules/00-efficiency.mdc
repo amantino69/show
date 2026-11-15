@@ -1,0 +1,11 @@
+---
+description: Eficiência de tokens — escopo e ferramentas (backup se User Rules não estiverem ativas)
+alwaysApply: true
+---
+
+# Eficiência
+
+- Escopo mínimo; sem refatoração lateral.
+- Busca pontual: grep/glob/read — sem Task explore.
+- Sem docs/testes não pedidos.
+- Sem Canvas salvo pedido explícito.

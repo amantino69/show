@@ -1,0 +1,12 @@
+---
+description: Convenções Flask (comercialTC, TR, elianefinance, show, recibot)
+globs: "**/*.py"
+alwaysApply: false
+---
+
+# Python / Flask
+
+- Reutilize `app`, blueprints e `config.py` existentes; não crie camadas novas sem necessidade.
+- Secrets em `.env`; nunca hardcode tokens.
+- Scripts one-off em `scripts/`; não poluir a raiz.
+- Respostas de API: JSON simples; erros com status HTTP correto.
